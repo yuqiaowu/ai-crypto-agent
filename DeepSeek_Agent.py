@@ -78,8 +78,20 @@ C. Alpha Hypotheses
 Current State:
 {{PORTFOLIO_STATE_JSON}}
 
+**IMPORTANT: Review Existing Positions First!**
+Before opening new positions:
+1. Check if you already have open positions (see "positions" array above)
+2. For each existing position, decide:
+   - **HOLD**: If still valid (price within range, thesis intact)
+   - **ADJUST_SL**: If need to move stop-loss (e.g., trail profits)
+   - **CLOSE_POSITION**: If invalidated (stop hit, thesis broken, or take profit)
+3. Only open NEW positions if:
+   - Current position count < 3
+   - You have strong conviction
+   - Risk budget allows (check available cash)
+
 Constraints:
-- Max Open Positions: 3
+- Max Open Positions: 3 (including existing ones!)
 - Max Risk Per Trade: 2% of NAV (Stop Loss distance * Position Size).
 - Max Leverage: 3x.
 
