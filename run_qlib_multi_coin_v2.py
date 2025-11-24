@@ -184,11 +184,9 @@ def run_workflow():
         
         # 记录 Metrics 与完整 Recorder 工件
         recorder = R.get_recorder()
-        sig_rec = init_instance_by_config(
-            config["task"]["record"][0], recorder=recorder, model=model, dataset=dataset
-        )
+        sig_rec = SignalRecord(recorder=recorder, model=model, dataset=dataset)
         sig_rec.generate()
-        sar = init_instance_by_config(config["task"]["record"][1], recorder=recorder)
+        sar = SigAnaRecord(recorder=recorder, ana_long_short=True, ann_scaler=252*6)
         sar.generate()
         
         print("\n📊 实验结果已记录到 Qlib Recorder")

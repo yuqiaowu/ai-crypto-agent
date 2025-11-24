@@ -78,23 +78,38 @@ def main():
     # So we MUST update BIN data.
     
     # 3.5 Update Qlib BIN Data
-    # We can run the command directly here
     log("🔄 Updating Qlib BIN Data...")
+    
+    # 3.5 Update Qlib BIN Data
+    log("🔄 Updating Qlib BIN Data...")
+    
+    dump_bin_script = BASE_DIR / "dump_bin.py"
+    
+    if not dump_bin_script.exists():
+        log(f"❌ dump_bin.py not found at {dump_bin_script}")
+        # Try to find it in qlib package as fallback? No, let's just fail if missing.
+        return
+
     bin_cmd = [
-        sys.executable, "-m", "qlib.run.dump_bin",
+        sys.executable, str(dump_bin_script),
         "dump_all",
-        "--csv_path", str(BASE_DIR / "qlib_data/multi_coin_qlib.csv"),
+        "--csv_path", str(BASE_DIR / "qlib_data/multi_coin_features.csv"),
         "--qlib_dir", str(BASE_DIR / "qlib_data/bin_multi_coin"),
         "--symbol_field_name", "instrument",
         "--date_field_name", "datetime",
         "--include_fields", "open,high,low,close,volume,funding_rate,oi_change,funding_rate_zscore,oi_rsi,rsi_14,macd_hist,atr_14,bb_width_20,momentum_12,ret,future_4h_ret,future_24h_ret"
     ]
+    
     try:
         subprocess.run(bin_cmd, check=True, capture_output=True)
         log("✅ Qlib BIN Data Updated")
     except subprocess.CalledProcessError as e:
         log(f"❌ Failed to update Qlib BIN: {e}")
+        # If we can't update data, inference will use old data. 
+        # We should probably stop, but for resilience we can continue with a warning.
+        # However, for a trading bot, stale data is dangerous.
         return
+
 
     if not run_script("inference_qlib_model.py", "Qlib Inference"):
         log("⛔ Stopping cycle due to inference failure.")
