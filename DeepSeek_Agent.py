@@ -252,6 +252,16 @@ def run_agent():
         print(f"❌ Error calling DeepSeek: {e}")
         if 'response' in locals():
             print(response.text)
+            
+        # Write error to log so frontend shows something
+        error_decision = {
+            "analysis_summary": f"模型调用失败: {str(e)}",
+            "actions": [],
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        log_path = BASE_DIR / "agent_decision_log.json"
+        with open(log_path, "w") as f:
+            json.dump(error_decision, f, indent=2, ensure_ascii=False)
 
 ALLOWED_ACTIONS = {"open_long", "open_short", "close_position", "adjust_sl", "hold"}
 
