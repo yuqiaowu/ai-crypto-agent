@@ -64,22 +64,37 @@ def init_portfolio():
     return portfolio
 
 
-def get_price_map_from_payload(payload):
+def get_market_data_map(payload):
     """
-    Extract current prices from deepseek_payload.json
-    Returns: { "BTC": 98000.0, ... }
+    Extract current market data from deepseek_payload.json
+    Returns: { "BTC": {"close": 98000.0, "high": 99000.0, "low": 97000.0}, ... }
     """
-    price_map = {}
+    data_map = {}
     for coin in payload.get("coins", []):
         symbol = coin.get("symbol")
-        close = coin.get("market_data", {}).get("close")
+        market_data = coin.get("market_data", {})
+        close = market_data.get("close")
+        
         if symbol is None or close is None:
             continue
-        price_map[symbol] = float(close)
-    return price_map
+            
+        # Parse high/low if available, otherwise fallback to close
+        high = market_data.get("high")
+        low = market_data.get("low")
+        
+        # Handle string formatting if necessary (though inference script saves as float/int usually, 
+        # but let's be safe if they are strings like "123.45%")
+        # Actually inference script saves raw values for these fields.
+        
+        data_map[symbol] = {
+            "close": float(close),
+            "high": float(high) if high is not None else float(close),
+            "low": float(low) if low is not None else float(close)
+        }
+    return data_map
 
 
-def compute_nav(portfolio, price_map):
+def compute_nav(portfolio, market_map):
     """
     Calculate NAV = Available Cash + Sum(Position Margin + Unrealized PnL)
     """
@@ -95,7 +110,8 @@ def compute_nav(portfolio, price_map):
         margin = float(pos.get("margin", 0.0))
         
         # Get current price or fallback to entry
-        current_price = price_map.get(symbol, entry_price)
+        market_data = market_map.get(symbol, {})
+        current_price = market_data.get("close", entry_price)
         pos["current_price"] = current_price
 
         # PnL Calculation
@@ -145,20 +161,104 @@ def apply_actions():
         print(f"❌ Agent decision not found: {DECISION_PATH}")
         return
 
-    price_map = get_price_map_from_payload(payload)
+    market_map = get_market_data_map(payload)
     as_of = payload.get("as_of", datetime.now().isoformat())
     
     # Update NAV before trading (mark-to-market)
-    portfolio = compute_nav(portfolio, price_map)
+    portfolio = compute_nav(portfolio, market_map)
     nav_before = portfolio.get("nav", 0.0)
     cash_before = portfolio.get("cash", 0.0)
+
+    # ---------------------------
+    # Check TP/SL Hits (Intra-period)
+    # ---------------------------
+    positions = portfolio.get("positions", [])
+    remaining_positions = []
+    
+    for pos in positions:
+        symbol = pos["symbol"]
+        market_data = market_map.get(symbol)
+        if not market_data:
+            remaining_positions.append(pos)
+            continue
+            
+        high = market_data["high"]
+        low = market_data["low"]
+        close = market_data["close"]
+        
+        exit_plan = pos.get("exit_plan", {})
+        tp = exit_plan.get("take_profit")
+        sl = exit_plan.get("stop_loss")
+        
+        triggered = False
+        exit_price = close
+        exit_reason = ""
+        
+        if pos["side"] == "long":
+            # Check SL first (conservative)
+            if sl and low <= sl:
+                triggered = True
+                exit_price = sl
+                exit_reason = "stop_loss"
+            elif tp and high >= tp:
+                triggered = True
+                exit_price = tp
+                exit_reason = "take_profit"
+        else: # Short
+            # Check SL first (conservative)
+            if sl and high >= sl:
+                triggered = True
+                exit_price = sl
+                exit_reason = "stop_loss"
+            elif tp and low <= tp:
+                triggered = True
+                exit_price = tp
+                exit_reason = "take_profit"
+                
+        if triggered:
+            qty = float(pos["quantity"])
+            entry_price = float(pos["entry_price"])
+            margin = float(pos.get("margin", 0.0))
+            
+            # PnL
+            pnl = (exit_price - entry_price) * qty
+            
+            # Fee
+            notional_exit = abs(qty) * exit_price
+            fee = notional_exit * FEE_RATE
+            
+            # Return to Cash
+            net_return = margin + pnl - fee
+            portfolio["cash"] += net_return
+            
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            trade_rec = {
+                "time": timestamp,
+                "symbol": symbol,
+                "action": "close_position",
+                "side": pos["side"],
+                "qty": qty,
+                "price": exit_price,
+                "notional": notional_exit,
+                "margin": margin,
+                "fee": fee,
+                "realized_pnl": pnl - fee,
+                "nav_after": None,
+                "reason": exit_reason
+            }
+            append_trade_log(trade_rec)
+            print(f"⚡ {exit_reason.upper()} TRIGGERED for {symbol} | Price: {exit_price} | PnL: ${pnl:.2f}")
+        else:
+            remaining_positions.append(pos)
+            
+    # Update positions list after TP/SL checks
+    portfolio["positions"] = remaining_positions
+    positions = remaining_positions # Update local var for next steps
 
     actions = decision.get("actions", [])
     print(f"📌 Market Time: {as_of}")
     print(f"💰 NAV: ${nav_before:,.2f} | Cash: ${cash_before:,.2f}")
     print(f"🧾 Actions: {len(actions)}")
-
-    positions = portfolio.get("positions", [])
 
     for act in actions:
         symbol = act.get("symbol")
@@ -170,7 +270,7 @@ def apply_actions():
         if not symbol or not action_type:
             continue
 
-        current_price = price_map.get(symbol)
+        current_price = market_map.get(symbol, {}).get("close")
         if current_price is None:
             print(f"⚠️ No price for {symbol}, skipping.")
             continue
@@ -296,7 +396,7 @@ def apply_actions():
 
     # Update Positions & NAV
     portfolio["positions"] = positions
-    portfolio = compute_nav(portfolio, price_map)
+    portfolio = compute_nav(portfolio, market_map)
 
     print(f"\n✅ Execution Complete")
     print(f"💰 New NAV: ${portfolio['nav']:,.2f} | Cash: ${portfolio['cash']:,.2f}")

@@ -172,7 +172,7 @@ def predict_and_export():
     # 5. Construct JSON Payload
     # Select columns that are useful for the Agent
     context_cols = [
-        "close", "volume", # Basic
+        "close", "high", "low", "volume", # Basic
         "rsi_14", "macd_hist", "atr_14", "bb_width_20", # Technical
         "funding_rate", "funding_rate_zscore", # Sentiment
         "oi_change", "oi_rsi", # Sentiment
