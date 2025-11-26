@@ -243,10 +243,32 @@ def run_agent():
         print("\n💡 Dolores' Decision:")
         print(json.dumps(decision, indent=2, ensure_ascii=False))
         
-        # Save decision log
+        # Save decision log (Append mode)
         log_path = BASE_DIR / "agent_decision_log.json"
+        history = []
+        if log_path.exists():
+            try:
+                with open(log_path, "r") as f:
+                    content = json.load(f)
+                    if isinstance(content, list):
+                        history = content
+                    else:
+                        history = [content]
+            except:
+                history = []
+        
+        # Add timestamp if missing
+        if "timestamp" not in decision:
+            decision["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            
+        # Prepend new decision (newest first)
+        history.insert(0, decision)
+        
+        # Keep last 50 records to avoid huge file
+        history = history[:50]
+        
         with open(log_path, "w") as f:
-            json.dump(decision, f, indent=2, ensure_ascii=False)
+            json.dump(history, f, indent=2, ensure_ascii=False)
             
     except Exception as e:
         print(f"❌ Error calling DeepSeek: {e}")
@@ -259,9 +281,25 @@ def run_agent():
             "actions": [],
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
+        
         log_path = BASE_DIR / "agent_decision_log.json"
+        history = []
+        if log_path.exists():
+            try:
+                with open(log_path, "r") as f:
+                    content = json.load(f)
+                    if isinstance(content, list):
+                        history = content
+                    else:
+                        history = [content]
+            except:
+                history = []
+                
+        history.insert(0, error_decision)
+        history = history[:50]
+        
         with open(log_path, "w") as f:
-            json.dump(error_decision, f, indent=2, ensure_ascii=False)
+            json.dump(history, f, indent=2, ensure_ascii=False)
 
 ALLOWED_ACTIONS = {"open_long", "open_short", "close_position", "adjust_sl", "hold"}
 

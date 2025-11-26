@@ -156,10 +156,19 @@ def apply_actions():
         print(f"❌ Market payload not found: {PAYLOAD_PATH}")
         return
 
-    decision = load_json(DECISION_PATH, default=None)
-    if decision is None:
+    decision_data = load_json(DECISION_PATH, default=None)
+    if decision_data is None:
         print(f"❌ Agent decision not found: {DECISION_PATH}")
         return
+
+    # Handle history list format (take latest)
+    if isinstance(decision_data, list):
+        if not decision_data:
+            print(f"⚠️ Agent decision log is empty list")
+            return
+        decision = decision_data[0]
+    else:
+        decision = decision_data
 
     market_map = get_market_data_map(payload)
     as_of = payload.get("as_of", datetime.now().isoformat())
