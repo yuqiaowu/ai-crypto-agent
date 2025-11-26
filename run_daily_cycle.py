@@ -92,7 +92,6 @@ def main():
 
     bin_cmd = [
         sys.executable, str(dump_bin_script),
-        "dump_all",
         "--csv_path", str(BASE_DIR / "qlib_data/multi_coin_features.csv"),
         "--qlib_dir", str(BASE_DIR / "qlib_data/bin_multi_coin"),
         "--symbol_field_name", "instrument",
