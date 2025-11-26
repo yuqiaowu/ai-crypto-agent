@@ -11,6 +11,7 @@ app = Flask(__name__)
 BASE_DIR = Path(__file__).parent
 PORTFOLIO_PATH = BASE_DIR / "portfolio_state.json"
 TRADE_LOG_PATH = BASE_DIR / "trade_log.csv"
+AGENT_LOG_PATH = BASE_DIR / "agent_decision_log.json"
 
 # Map symbols to names (optional)
 COIN_NAMES = {
@@ -20,6 +21,18 @@ COIN_NAMES = {
     "BNB": "BNB",
     "DOGE": "Dogecoin"
 }
+
+@app.route('/api/agent-decision', methods=['GET'])
+def get_agent_decision():
+    if not AGENT_LOG_PATH.exists():
+        return jsonify({"analysis_summary": "暂无决策记录", "actions": []})
+        
+    try:
+        with open(AGENT_LOG_PATH, 'r') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { ProfitChart } from './components/ProfitChart';
 import { PositionsTab } from './components/PositionsTab';
 import { HistoryTab } from './components/HistoryTab';
-import { TrendingUp, Wallet, History } from 'lucide-react';
+import { AgentLogTab } from './components/AgentLogTab';
+import { TrendingUp, Wallet, History, Brain } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'positions' | 'history'>('positions');
+  const [activeTab, setActiveTab] = useState<'positions' | 'history' | 'agent'>('positions');
 
   return (
     <div className="min-h-screen bg-[#1a1d24] text-white p-4">
@@ -61,11 +62,23 @@ export default function App() {
                 <History className="w-4 h-4" />
                 历史记录
               </button>
+              <button
+                onClick={() => setActiveTab('agent')}
+                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 transition-all ${activeTab === 'agent'
+                  ? 'bg-lime-500/10 text-lime-400 border-b-2 border-lime-400'
+                  : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700/30'
+                  }`}
+              >
+                <Brain className="w-4 h-4" />
+                模型决策
+              </button>
             </div>
 
             {/* Tab Content */}
             <div className="p-6">
-              {activeTab === 'positions' ? <PositionsTab /> : <HistoryTab />}
+              {activeTab === 'positions' && <PositionsTab />}
+              {activeTab === 'history' && <HistoryTab />}
+              {activeTab === 'agent' && <AgentLogTab />}
             </div>
           </div>
         </div>
