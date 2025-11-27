@@ -5,20 +5,20 @@ import { Brain, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 interface AgentAction {
     symbol: string;
     action: string;
-    leverage: number;
-    position_size_usd: number;
-    entry_reason: string;
+    leverage: number | null;
+    position_size_usd: number | null;
+    entry_reason: string | null;
     exit_plan: {
-        take_profit?: number;
-        stop_loss?: number;
-        invalidation?: string;
+        take_profit?: number | null;
+        stop_loss?: number | null;
+        invalidation?: string | null;
     };
 }
 
 interface AgentDecision {
     analysis_summary: string;
     actions: AgentAction[];
-    timestamp?: string; // We might want to add this to the log generation if not present
+    timestamp?: string;
 }
 
 export function AgentLogTab() {
@@ -112,14 +112,16 @@ export function AgentLogTab() {
                                                 }`}>
                                                 {action.action.replace('_', ' ')}
                                             </span>
-                                            {action.leverage > 1 && (
+                                            {action.leverage && action.leverage > 1 && (
                                                 <span className="text-xs text-orange-400 border border-orange-400/30 px-1.5 py-0.5 rounded font-['DIN_Alternate',sans-serif]">
                                                     {action.leverage}x
                                                 </span>
                                             )}
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-white font-['DIN_Alternate',sans-serif] text-lg">${action.position_size_usd.toLocaleString()}</div>
+                                            <div className="text-white font-['DIN_Alternate',sans-serif] text-lg">
+                                                {action.position_size_usd ? `$${action.position_size_usd.toLocaleString()}` : '-'}
+                                            </div>
                                             <div className="text-[10px] text-gray-500 uppercase tracking-wider">Position Size</div>
                                         </div>
                                     </div>
