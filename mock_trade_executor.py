@@ -258,6 +258,7 @@ def apply_actions():
                 "price": exit_price,
                 "notional": notional_exit,
                 "margin": margin,
+                "leverage": pos.get("leverage", 1.0),  # Get leverage from position
                 "fee": fee,
                 "realized_pnl": pnl - fee,
                 "nav_after": None,
@@ -343,9 +344,11 @@ def apply_actions():
                 "price": current_price,
                 "notional": notional,
                 "margin": size_usd,
+                "leverage": leverage,
                 "fee": fee,
                 "realized_pnl": -fee,
-                "nav_after": None
+                "nav_after": None,
+                "reason": ""
             }
             append_trade_log(trade_rec)
             print(f"✅ OPEN {side.upper()} {symbol} | Size: ${size_usd} | Price: {current_price} | Fee: ${fee:.2f}")
