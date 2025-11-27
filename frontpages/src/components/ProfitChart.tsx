@@ -133,7 +133,7 @@ export function ProfitChart() {
                   <stop offset="95%" stopColor={color} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis
                 dataKey="date"
                 hide
