@@ -222,11 +222,11 @@ export function HistoryTab() {
               <div className="grid grid-cols-2 gap-2 text-sm mb-2">
                 <div>
                   <span className="text-gray-500">开仓: </span>
-                  <span className="text-white font-['DIN_Alternate',sans-serif]">${record.entryPrice.toLocaleString()}</span>
+                  <span className="text-white font-['DIN_Alternate',sans-serif]">${record.entryPrice.toFixed(2)}</span>
                 </div>
                 <div>
                   <span className="text-gray-500">平仓: </span>
-                  <span className="text-white font-['DIN_Alternate',sans-serif]">${record.exitPrice.toLocaleString()}</span>
+                  <span className="text-white font-['DIN_Alternate',sans-serif]">${record.exitPrice.toFixed(2)}</span>
                 </div>
                 <div>
                   <span className="text-gray-500">数量: </span>
