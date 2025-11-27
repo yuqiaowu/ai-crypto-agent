@@ -100,7 +100,7 @@ export function AgentLogTab() {
                     </div>
 
                     {/* Analysis Summary */}
-                    <div className="bg-[#1f2229] rounded-lg p-5 border border-gray-700/50 mb-4 shadow-lg">
+                    <div className="bg-[#1f2229] rounded-lg p-4 border border-gray-700/50 mb-4">
                         <h3 className="text-lime-400 mb-3 flex items-center gap-2 font-bold text-sm uppercase tracking-wider">
                             <Brain className="w-4 h-4" />
                             市场分析
