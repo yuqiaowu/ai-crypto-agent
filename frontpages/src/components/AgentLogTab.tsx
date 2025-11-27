@@ -148,8 +148,8 @@ export function AgentLogTab() {
 
                                     {/* Reason */}
                                     <div className="mb-3">
-                                        <div className="text-[10px] text-gray-500 mb-2 uppercase tracking-wider pl-3">Strategy Logic</div>
                                         <div className="text-sm text-gray-300 bg-black/20 p-3 rounded border border-gray-700/30 leading-relaxed">
+                                            <div className="text-[10px] text-gray-500 mb-2 uppercase tracking-wider">决策逻辑</div>
                                             {action.entry_reason}
                                         </div>
                                     </div>
