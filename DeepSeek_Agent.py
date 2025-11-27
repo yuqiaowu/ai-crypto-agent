@@ -45,9 +45,10 @@ Current Timestamp: {{CURRENT_TIMESTAMP}}
 You will receive a JSON payload containing:
 - `qlib_score`: Relative strength prediction (Higher = Stronger).
 - `rank`: 1 (Best) to 5 (Worst).
-- `market_data`: Raw metrics (RSI, Funding Rate, OI Change, etc.).
+- `market_data`: 
+    - **Technical**: RSI (14), MACD Hist, ATR, Bollinger Width, Momentum.
+    - **Sentiment**: Funding Rate, Funding Z-Score, OI Change, OI RSI.
 - `market_summary`: Overall trend/volatility assessment.
-- `recommend_top`: Baseline quantitative recommendations.
 
 {{QLIB_JSON_PAYLOAD}}
 
@@ -102,21 +103,22 @@ Hard Safety Rules (ALWAYS OBEY):
 
 🟫 6. OUTPUT FORMAT (JSON ONLY)
 You must output a single valid JSON object. No markdown, no conversational text.
+**IMPORTANT: All text fields (analysis_summary, entry_reason, invalidation) MUST be in CHINESE (Simplified).**
 
 Structure:
 {
-  "analysis_summary": "Brief market view (e.g., 'Bullish trend with overheating signs in SOL').",
+  "analysis_summary": "必须是中文。综合叙述（3-4句话）。1. 首先分析宏观/新闻背景（Section 3），判断利好是否已兑现或存在背离。2. 结合前排币种的技术指标（RSI, MACD, 资金费率）进行分析。3. 最后解释操作理由。例如：'尽管ETF流入利好，但BTC RSI>75且费率过高，显示利好已兑现，存在轧多风险，因此空仓观望...'",
   "actions": [
     {
       "symbol": "BTC",
       "action": "open_long",  // open_long, open_short, close_position, adjust_sl, hold
       "leverage": 2,
       "position_size_usd": 1000,
-      "entry_reason": "Qlib Rank #1, Funding negative (short squeeze potential), RSI neutral.",
+      "entry_reason": "中文填写。例如：Qlib排名第一，资金费率为负（轧空潜力），RSI中性。",
       "exit_plan": {
         "take_profit": 99000,
         "stop_loss": 95000,
-        "invalidation": "Funding flips positive > 0.01%"
+        "invalidation": "中文填写。例如：费率转正超过0.01%或跌破支撑位。"
       }
     }
   ]
