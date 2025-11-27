@@ -133,7 +133,7 @@ export function ProfitChart() {
                   <stop offset="95%" stopColor={color} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" opacity={0.5} />
               <XAxis
                 dataKey="date"
                 hide
@@ -144,6 +144,7 @@ export function ProfitChart() {
               />
               <ReferenceLine y={10000} stroke="#6b7280" strokeDasharray="3 3" />
               <Tooltip
+                cursor={{ stroke: '#6b7280', strokeDasharray: '3 3' }}
                 contentStyle={{
                   backgroundColor: '#1f2229',
                   border: `1px solid ${color}`,
