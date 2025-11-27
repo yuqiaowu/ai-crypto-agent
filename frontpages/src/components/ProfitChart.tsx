@@ -124,15 +124,31 @@ export function ProfitChart() {
 
       {/* Chart */}
       <div className="w-full overflow-x-auto pb-4">
-        <div className="relative h-[500px]" style={{ minWidth: '100%', width: Math.max(800, data.length * 50) }}>
+        <div
+          style={{
+            position: 'relative',
+            height: '500px',
+            minWidth: '100%',
+            width: Math.max(800, data.length * 50)
+          }}
+        >
           {/* Axis Labels */}
-          <div className="absolute top-2 left-2 text-xs text-gray-500 font-['DIN_Alternate',sans-serif] z-10 bg-[#1f2229]/80 px-1 rounded">
+          <div
+            style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}
+            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
+          >
             ${(maxValue / 1000).toFixed(2)}k
           </div>
-          <div className="absolute bottom-2 left-2 text-xs text-gray-500 font-['DIN_Alternate',sans-serif] z-10 bg-[#1f2229]/80 px-1 rounded">
+          <div
+            style={{ position: 'absolute', bottom: '10px', left: '10px', zIndex: 10 }}
+            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
+          >
             $10.00k
           </div>
-          <div className="absolute bottom-2 right-2 text-xs text-gray-500 font-['DIN_Alternate',sans-serif] z-10 bg-[#1f2229]/80 px-1 rounded">
+          <div
+            style={{ position: 'absolute', bottom: '10px', right: '10px', zIndex: 10 }}
+            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
+          >
             {data.length > 0 ? data[data.length - 1].date : ''}
           </div>
 
