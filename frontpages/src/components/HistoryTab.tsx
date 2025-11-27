@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Clock, RefreshCw } from 'lucide-react';
+import { TrendingUp, TrendingDown, Clock } from 'lucide-react';
 
 interface HistoryRecord {
   id: string;
@@ -78,7 +78,7 @@ export function HistoryTab() {
                 const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100;
 
                 parsedHistory.push({
-                  id: `${time}-${symbol}`,
+                  id: `${time}-${symbol}-${Math.random()}`,
                   symbol: symbol,
                   type: side as 'long' | 'short',
                   entryPrice: entryPrice,

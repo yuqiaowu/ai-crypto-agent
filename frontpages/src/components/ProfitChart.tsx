@@ -141,7 +141,7 @@ export function ProfitChart() {
           <YAxis
             stroke="#6b7280"
             tick={{ fill: '#9ca3af', fontFamily: 'DIN Alternate, sans-serif' }}
-            tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
+            tickFormatter={(value) => `$${(value / 1000).toFixed(2)}k`}
             domain={[minValue - padding, maxValue + padding]}
           />
           <ReferenceLine y={10000} stroke="#6b7280" strokeDasharray="3 3" />
