@@ -411,6 +411,20 @@ def apply_actions():
     print(f"💰 New NAV: ${portfolio['nav']:,.2f} | Cash: ${portfolio['cash']:,.2f}")
     save_json(PORTFOLIO_PATH, portfolio)
 
+    # Append to NAV History CSV
+    nav_history_path = BASE_DIR / "nav_history.csv"
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Check if file exists to write header
+    file_exists = nav_history_path.exists()
+    
+    with open(nav_history_path, "a", encoding="utf-8") as f:
+        if not file_exists:
+            f.write("timestamp,nav\n")
+        f.write(f"{timestamp},{portfolio['nav']:.2f}\n")
+    
+    print(f"📈 Updated NAV history: {portfolio['nav']:.2f}")
+
 
 if __name__ == "__main__":
     apply_actions()

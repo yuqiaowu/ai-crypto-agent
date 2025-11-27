@@ -3,39 +3,10 @@ import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
 import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
 
-// 生成模拟收益数据 - 更曲折的曲线
-const generateProfitData = (finalValue: number = 10000) => {
-  const data = [];
-  const days = 30;
-
-  // Simplified approach: Generate random steps, then correct the drift
-  let current = 10000;
-  const steps = [];
-  for (let i = 0; i < days; i++) {
-    steps.push((Math.random() - 0.5) * 800);
-  }
-
-  // Calculate uncorrected end
-  const uncorrectedEnd = 10000 + steps.reduce((a, b) => a + b, 0);
-  const error = finalValue - uncorrectedEnd;
-  const correctionPerStep = error / days;
-
-  let value = 10000;
-  for (let i = 0; i < days; i++) {
-    value += steps[i] + correctionPerStep;
-    data.push({
-      date: `${i + 1}日`,
-      value: Math.round(value),
-      profit: Math.round(value - 10000),
-    });
-  }
-
-  // Force exact end value
-  data[days - 1].value = finalValue;
-  data[days - 1].profit = finalValue - 10000;
-
-  return data;
-};
+// ... imports
+import { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 export function ProfitChart() {
   const [data, setData] = useState<any[]>([]);
@@ -45,31 +16,78 @@ export function ProfitChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let nav = 10000;
+        let historyData = [];
+        let latestNav = 10000;
+
         if (import.meta.env.MODE === 'production') {
-          const response = await fetch('/data/portfolio_state.json');
+          // Fetch CSV directly
+          const response = await fetch('/data/nav_history.csv');
           if (response.ok) {
-            const state = await response.json();
-            nav = state.nav || 10000;
+            const text = await response.text();
+            // Parse CSV: timestamp,nav
+            const lines = text.trim().split('\n');
+            // Skip header if present
+            const startIndex = lines[0].startsWith('timestamp') ? 1 : 0;
+
+            for (let i = startIndex; i < lines.length; i++) {
+              const [ts, navStr] = lines[i].split(',');
+              if (ts && navStr) {
+                const date = new Date(ts);
+                // Format date as MM-DD HH:mm
+                const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:00`;
+                const val = parseFloat(navStr);
+                historyData.push({
+                  date: dateStr,
+                  value: val,
+                  profit: val - 10000,
+                  fullDate: ts
+                });
+                latestNav = val;
+              }
+            }
           }
         } else {
-          // Dev mode: fetch from API
+          // Dev mode: try fetch from API or fallback to CSV in public
+          // For now, let's assume we can fetch the CSV from public/data in dev too if served
+          // Or use the API if we built one. Let's try fetching the file directly assuming vite serves it.
           try {
-            const response = await fetch('http://localhost:5001/api/summary');
+            const response = await fetch('/data/nav_history.csv');
             if (response.ok) {
-              const summary = await response.json();
-              nav = summary.nav || 10000;
+              const text = await response.text();
+              const lines = text.trim().split('\n');
+              const startIndex = lines[0].startsWith('timestamp') ? 1 : 0;
+              for (let i = startIndex; i < lines.length; i++) {
+                const [ts, navStr] = lines[i].split(',');
+                if (ts && navStr) {
+                  const date = new Date(ts);
+                  const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:00`;
+                  const val = parseFloat(navStr);
+                  historyData.push({
+                    date: dateStr,
+                    value: val,
+                    profit: val - 10000,
+                    fullDate: ts
+                  });
+                  latestNav = val;
+                }
+              }
             }
           } catch (e) {
-            console.warn("API fetch failed, using default");
+            console.warn("Failed to fetch nav history in dev");
           }
         }
 
-        setCurrentValue(nav);
-        setData(generateProfitData(nav));
+        if (historyData.length > 0) {
+          setData(historyData);
+          setCurrentValue(latestNav);
+        } else {
+          // Fallback if no data yet
+          setData([{ date: 'Start', value: 10000, profit: 0 }]);
+          setCurrentValue(10000);
+        }
+
       } catch (e) {
         console.error(e);
-        setData(generateProfitData(10000));
       } finally {
         setLoading(false);
       }
@@ -81,14 +99,13 @@ export function ProfitChart() {
   const totalProfit = currentValue - 10000;
   const profitPercentage = ((totalProfit / 10000) * 100).toFixed(2);
 
-
-  // 计算Y轴的范围
-  const minValue = Math.min(...data.map(d => d.value));
-  const maxValue = Math.max(...data.map(d => d.value));
-  const padding = (maxValue - minValue) * 0.1; // 10%的上下边距
+  // Calculate Y axis range
+  const minValue = Math.min(...data.map(d => d.value), 10000);
+  const maxValue = Math.max(...data.map(d => d.value), 10000);
+  const padding = (maxValue - minValue) * 0.1 || 100; // Default padding if flat
 
   const isPositive = totalProfit >= 0;
-  const color = isPositive ? '#a3e635' : '#ef4444'; // Green or Red
+  const color = isPositive ? '#a3e635' : '#ef4444';
 
   return (
     <div>
@@ -100,7 +117,7 @@ export function ProfitChart() {
         </div>
         <div className="bg-[#1f2229] rounded-lg p-4 border border-gray-700/50">
           <div className="text-gray-400 text-sm mb-1">当前净值</div>
-          <div className="text-white font-['DIN_Alternate',sans-serif]">${currentValue.toLocaleString()}</div>
+          <div className="text-white font-['DIN_Alternate',sans-serif]">${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         </div>
         <div className={`bg-[#1f2229] rounded-lg p-4 border ${isPositive ? 'border-lime-500/30' : 'border-red-500/30'}`}>
           <div className="text-gray-400 text-sm mb-1">总收益</div>
@@ -124,7 +141,8 @@ export function ProfitChart() {
           <XAxis
             dataKey="date"
             stroke="#6b7280"
-            tick={{ fill: '#9ca3af', fontFamily: 'DIN Alternate, sans-serif' }}
+            tick={{ fill: '#9ca3af', fontFamily: 'DIN Alternate, sans-serif', fontSize: 12 }}
+            minTickGap={30}
           />
           <YAxis
             stroke="#6b7280"
@@ -141,7 +159,8 @@ export function ProfitChart() {
               color: '#fff',
               fontFamily: 'DIN Alternate, sans-serif'
             }}
-            formatter={(value: number) => [`$${value.toLocaleString()}`, '净值']}
+            labelStyle={{ color: '#9ca3af', marginBottom: '0.5rem' }}
+            formatter={(value: number) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '净值']}
           />
           <Area
             type="monotone"
@@ -149,6 +168,7 @@ export function ProfitChart() {
             stroke={color}
             strokeWidth={2}
             fill="url(#colorValue)"
+            animationDuration={1000}
           />
         </AreaChart>
       </ResponsiveContainer>

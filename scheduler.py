@@ -35,7 +35,8 @@ def run_trading_cycle():
         files_to_sync = [
             "portfolio_state.json",
             "trade_log.csv",
-            "agent_decision_log.json"
+            "agent_decision_log.json",
+            "nav_history.csv"
         ]
         
         for filename in files_to_sync:
@@ -90,7 +91,8 @@ def push_to_github():
         files_to_sync = [
             "portfolio_state.json",
             "trade_log.csv",
-            "agent_decision_log.json"
+            "agent_decision_log.json",
+            "nav_history.csv"
         ]
         
         # Copy root files
