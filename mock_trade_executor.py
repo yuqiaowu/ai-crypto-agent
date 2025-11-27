@@ -208,7 +208,11 @@ def apply_actions():
             if sl and low <= sl:
                 triggered = True
                 exit_price = sl
-                exit_reason = "stop_loss"
+                # If SL is above entry price, it's a trailing stop (profit protection)
+                if sl > entry_price:
+                    exit_reason = "trailing_stop"
+                else:
+                    exit_reason = "stop_loss"
             elif tp and high >= tp:
                 triggered = True
                 exit_price = tp
@@ -218,7 +222,11 @@ def apply_actions():
             if sl and high >= sl:
                 triggered = True
                 exit_price = sl
-                exit_reason = "stop_loss"
+                # If SL is below entry price, it's a trailing stop (profit protection)
+                if sl < entry_price:
+                    exit_reason = "trailing_stop"
+                else:
+                    exit_reason = "stop_loss"
             elif tp and low <= tp:
                 triggered = True
                 exit_price = tp
