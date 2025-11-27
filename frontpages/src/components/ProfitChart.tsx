@@ -1,14 +1,13 @@
 /// <reference types="vite/client" />
 import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
-import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 
 
 export function ProfitChart() {
   const [data, setData] = useState<any[]>([]);
   const [currentValue, setCurrentValue] = useState(10000);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,8 +84,6 @@ export function ProfitChart() {
 
       } catch (e) {
         console.error(e);
-      } finally {
-        setLoading(false);
       }
     };
 
