@@ -75,7 +75,27 @@ export function AgentLogTab() {
 
                     {/* Header: Timestamp */}
                     <div className="text-gray-400 text-xs font-['DIN_Alternate',sans-serif] mb-4 flex items-center gap-2">
-                        {decision.timestamp || 'Unknown Time'}
+                        {(() => {
+                            if (!decision.timestamp) return 'Unknown Time';
+                            try {
+                                // Backend sends UTC time like "2025-11-27 20:13:52"
+                                // Replace space with T and append Z to ensure UTC parsing
+                                const utcTime = decision.timestamp.replace(' ', 'T') + 'Z';
+                                const date = new Date(utcTime);
+                                return date.toLocaleString('zh-CN', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    timeZoneName: 'short',
+                                    hour12: false
+                                });
+                            } catch (e) {
+                                return decision.timestamp + ' (UTC)';
+                            }
+                        })()}
                         {dIdx === 0 && <span className="bg-lime-500/20 text-lime-400 px-1.5 py-0.5 rounded text-[10px]">LATEST</span>}
                     </div>
 
