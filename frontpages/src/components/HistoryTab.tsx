@@ -179,13 +179,12 @@ export function HistoryTab() {
           <div className="text-lime-400 font-['DIN_Alternate',sans-serif]">{winRate}%</div>
         </div>
         <div className="bg-[#1f2229] rounded-lg p-3 border border-gray-700/50">
-          <div className="text-gray-400 text-sm mb-1">交易次数</div>
           <div className="text-white font-['DIN_Alternate',sans-serif]">{history.length}</div>
         </div>
       </div>
 
       {/* History List */}
-      <div className="space-y-2 max-h-[calc(100vh-250px)] overflow-y-auto pr-2">
+      <div className="space-y-2 overflow-y-auto pr-2" style={{ maxHeight: 'calc(100vh - 250px)' }}>
         {history.length === 0 ? (
           <div className="text-gray-500 text-center py-8">暂无历史记录</div>
         ) : (

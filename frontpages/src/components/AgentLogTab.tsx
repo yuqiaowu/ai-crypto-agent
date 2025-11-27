@@ -67,7 +67,7 @@ export function AgentLogTab() {
     if (decisions.length === 0) return <div className="text-gray-500 p-4">暂无决策记录</div>;
 
     return (
-        <div className="space-y-8 max-h-[calc(100vh-250px)] overflow-y-auto pr-2">
+        <div className="space-y-8 overflow-y-auto pr-2" style={{ maxHeight: 'calc(100vh - 250px)' }}>
             {decisions.map((decision, dIdx) => (
                 <div key={dIdx} className="relative pl-6 border-l border-gray-700/50 pb-8 last:pb-0 last:border-0">
                     {/* Timeline Dot */}
