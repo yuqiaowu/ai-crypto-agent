@@ -25,9 +25,74 @@ export function HistoryTab() {
       setLoading(true);
 
       if (import.meta.env.MODE === 'production') {
-        // For now, return empty history in production as we don't have a JSON source yet
-        // TODO: Parse trade_log.csv or update backend to generate trade_log.json
-        setHistory([]);
+        try {
+          const response = await fetch('/data/trade_log.csv');
+          if (response.ok) {
+            const text = await response.text();
+            const lines = text.trim().split('\n');
+            const parsedHistory: HistoryRecord[] = [];
+
+            // Skip header (time,symbol,action,side,qty,price,notional,margin,fee,realized_pnl,nav_after)
+            for (let i = 1; i < lines.length; i++) {
+              const line = lines[i].trim();
+              if (!line) continue;
+
+              const [time, symbol, action, side, qty, price, notional, margin, fee, realized_pnl] = line.split(',');
+
+              // Only show closed positions (action == 'close_position')
+              if (action === 'close_position') {
+                // We need entry info. In a real app we'd match with open, but here the log has the close info.
+                // The CSV structure for close_position row:
+                // time, symbol, close_position, side, qty, exit_price, notional, margin, fee, realized_pnl
+                // It doesn't explicitly have entry price/time in the same row easily without calculation or looking back.
+                // But wait, the mock executor writes:
+                // "realized_pnl": pnl - fee
+                // pnl = (exit_price - entry_price) * qty
+                // So entry_price = exit_price - (pnl / qty)
+
+                const exitPrice = parseFloat(price);
+                const quantity = parseFloat(qty);
+                const pnlVal = parseFloat(realized_pnl); // This is net pnl (pnl - fee)
+                const feeVal = parseFloat(fee);
+                const rawPnl = pnlVal + feeVal; // Gross PnL
+
+                // Calculate entry price
+                // For Long: PnL = (Exit - Entry) * Qty => Entry = Exit - (PnL / Qty)
+                // For Short: PnL = (Entry - Exit) * Qty => Entry = Exit + (PnL / Qty)
+
+                let entryPrice = 0;
+                if (side === 'long') {
+                  entryPrice = exitPrice - (rawPnl / quantity);
+                } else {
+                  entryPrice = exitPrice + (rawPnl / quantity);
+                }
+
+                const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100; // Estimate margin if missing
+
+                parsedHistory.push({
+                  id: `${time}-${symbol}`,
+                  symbol: symbol,
+                  type: side as 'long' | 'short',
+                  entryPrice: entryPrice,
+                  exitPrice: exitPrice,
+                  amount: quantity,
+                  pnl: pnlVal,
+                  pnlPercent: pnlPercent,
+                  entryTime: 'Unknown', // We don't have entry time in this row
+                  exitTime: time
+                });
+              }
+            }
+            // Sort by time desc
+            parsedHistory.sort((a, b) => new Date(b.exitTime).getTime() - new Date(a.exitTime).getTime());
+            setHistory(parsedHistory);
+          } else {
+            setHistory([]);
+          }
+        } catch (e) {
+          console.error("Failed to load history CSV", e);
+          setHistory([]);
+        }
         setLoading(false);
         return;
       }
