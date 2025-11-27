@@ -55,8 +55,12 @@ export function ProfitChart() {
               for (let i = startIndex; i < lines.length; i++) {
                 const [ts, navStr] = lines[i].split(',');
                 if (ts && navStr) {
-                  const date = new Date(ts);
-                  const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:00`;
+                  // Backend sends UTC time like "2025-11-27 20:13:52"
+                  // Replace space with T and append Z to ensure UTC parsing
+                  const utcTime = ts.replace(' ', 'T') + 'Z';
+                  const date = new Date(utcTime);
+                  // Display in local time with minutes for better granularity
+                  const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
                   const val = parseFloat(navStr);
                   historyData.push({
                     date: dateStr,
