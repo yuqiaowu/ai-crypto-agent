@@ -280,8 +280,13 @@ def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.
             return pd.DataFrame()
             
         df = df.reset_index()
-        # Rename columns: Date/Datetime -> datetime, Open -> open, etc.
-        df.columns = [c.lower() for c in df.columns]
+        
+        # Flatten MultiIndex columns if present
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = [col[0].lower() if isinstance(col, tuple) else col.lower() for col in df.columns]
+        else:
+            df.columns = [c.lower() for c in df.columns]
+
         if 'date' in df.columns:
             df.rename(columns={'date': 'datetime'}, inplace=True)
             
