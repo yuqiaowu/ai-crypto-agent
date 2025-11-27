@@ -32,42 +32,50 @@ export function HistoryTab() {
             const lines = text.trim().split('\n');
             const parsedHistory: HistoryRecord[] = [];
 
-            // Skip header (time,symbol,action,side,qty,price,notional,margin,fee,realized_pnl,nav_after)
+            // Track open positions to match with close records
+            // Key: symbol, Value: { entryTime, entryPrice, qty }
+            const openPositions: Record<string, { entryTime: string, entryPrice: number, qty: number }> = {};
+
             for (let i = 1; i < lines.length; i++) {
               const line = lines[i].trim();
               if (!line) continue;
 
               const [time, symbol, action, side, qty, price, notional, margin, fee, realized_pnl] = line.split(',');
 
-              // Only show closed positions (action == 'close_position')
-              if (action === 'close_position') {
-                // We need entry info. In a real app we'd match with open, but here the log has the close info.
-                // The CSV structure for close_position row:
-                // time, symbol, close_position, side, qty, exit_price, notional, margin, fee, realized_pnl
-                // It doesn't explicitly have entry price/time in the same row easily without calculation or looking back.
-                // But wait, the mock executor writes:
-                // "realized_pnl": pnl - fee
-                // pnl = (exit_price - entry_price) * qty
-                // So entry_price = exit_price - (pnl / qty)
-
+              if (action === 'open_long' || action === 'open_short') {
+                openPositions[symbol] = {
+                  entryTime: time,
+                  entryPrice: parseFloat(price),
+                  qty: parseFloat(qty)
+                };
+              } else if (action === 'close_position') {
                 const exitPrice = parseFloat(price);
                 const quantity = parseFloat(qty);
-                const pnlVal = parseFloat(realized_pnl); // This is net pnl (pnl - fee)
+                const pnlVal = parseFloat(realized_pnl);
                 const feeVal = parseFloat(fee);
-                const rawPnl = pnlVal + feeVal; // Gross PnL
+                const rawPnl = pnlVal + feeVal;
 
-                // Calculate entry price
-                // For Long: PnL = (Exit - Entry) * Qty => Entry = Exit - (PnL / Qty)
-                // For Short: PnL = (Entry - Exit) * Qty => Entry = Exit + (PnL / Qty)
+                // Try to find matching open record
+                const openInfo = openPositions[symbol];
 
                 let entryPrice = 0;
-                if (side === 'long') {
-                  entryPrice = exitPrice - (rawPnl / quantity);
+                let entryTime = 'Unknown';
+
+                if (openInfo) {
+                  entryPrice = openInfo.entryPrice;
+                  entryTime = openInfo.entryTime;
+                  // Optional: Verify quantity matches or handle partial closes (assuming full close for now)
+                  delete openPositions[symbol]; // Remove after closing
                 } else {
-                  entryPrice = exitPrice + (rawPnl / quantity);
+                  // Fallback calculation if open record missing in this log file (e.g. rotated log)
+                  if (side === 'long') {
+                    entryPrice = exitPrice - (rawPnl / quantity);
+                  } else {
+                    entryPrice = exitPrice + (rawPnl / quantity);
+                  }
                 }
 
-                const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100; // Estimate margin if missing
+                const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100;
 
                 parsedHistory.push({
                   id: `${time}-${symbol}`,
@@ -78,7 +86,7 @@ export function HistoryTab() {
                   amount: quantity,
                   pnl: pnlVal,
                   pnlPercent: pnlPercent,
-                  entryTime: 'Unknown', // We don't have entry time in this row
+                  entryTime: entryTime,
                   exitTime: time
                 });
               }
