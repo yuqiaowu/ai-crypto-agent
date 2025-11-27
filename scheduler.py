@@ -62,50 +62,76 @@ def push_to_github():
         return
 
     # Construct auth URL
-    # Format: https://<TOKEN>@github.com/<USERNAME>/<REPO>.git
-    # Assuming REPO_URL is standard https
     if "https://" in repo_url:
         auth_repo_url = repo_url.replace("https://", f"https://{github_token}@")
     else:
         logger.error("REPO_URL must start with https://")
         return
 
+    # Use a temporary directory for git operations to avoid issues with the container's file system
+    # and missing .git directory.
+    temp_dir = "temp_git_repo"
+    
     try:
-        # Configure git
-        subprocess.run(["git", "config", "--global", "user.name", "Railway Bot"], check=True)
-        subprocess.run(["git", "config", "--global", "user.email", "bot@railway.app"], check=True)
+        # Remove temp dir if it exists (cleanup from previous run if failed)
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+            
+        # 1. Clone the repo
+        logger.info("Cloning repository...")
+        subprocess.run(["git", "clone", "--depth", "1", auth_repo_url, temp_dir], check=True)
         
-        # Add files
-        files_to_add = [
-            "frontpages/public/data/portfolio_state.json",
-            "frontpages/public/data/trade_log.csv",
-            "frontpages/public/data/agent_decision_log.json",
+        # 2. Configure git in the temp repo
+        subprocess.run(["git", "config", "user.name", "Railway Bot"], cwd=temp_dir, check=True)
+        subprocess.run(["git", "config", "user.email", "bot@railway.app"], cwd=temp_dir, check=True)
+        
+        # 3. Copy updated files TO the temp repo
+        # We need to preserve the directory structure: frontpages/public/data/ and root files
+        files_to_sync = [
             "portfolio_state.json",
             "trade_log.csv",
             "agent_decision_log.json"
         ]
         
-        for f in files_to_add:
+        # Copy root files
+        for f in files_to_sync:
             if os.path.exists(f):
-                subprocess.run(["git", "add", f], check=True)
+                shutil.copy(f, os.path.join(temp_dir, f))
+                
+        # Copy frontend files
+        frontend_data_dir = os.path.join(temp_dir, "frontpages/public/data")
+        os.makedirs(frontend_data_dir, exist_ok=True)
         
-        # Check if there are changes
-        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+        for f in files_to_sync:
+            # Source is the root file we just generated
+            if os.path.exists(f):
+                shutil.copy(f, os.path.join(frontend_data_dir, f))
+
+        # 4. Add, Commit, Push
+        logger.info("Committing changes...")
+        subprocess.run(["git", "add", "."], cwd=temp_dir, check=True)
+        
+        # Check for changes
+        status = subprocess.run(["git", "status", "--porcelain"], cwd=temp_dir, capture_output=True, text=True)
         if not status.stdout.strip():
             logger.info("No changes to commit.")
             return
 
-        # Commit
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        subprocess.run(["git", "commit", "-m", f"🤖 Auto-update trading data {timestamp} [skip ci]"], check=True)
+        subprocess.run(["git", "commit", "-m", f"🤖 Auto-update trading data {timestamp} [skip ci]"], cwd=temp_dir, check=True)
         
-        # Push
         logger.info("Pushing to remote...")
-        subprocess.run(["git", "push", auth_repo_url, "HEAD:main"], check=True) # Assuming main branch
+        subprocess.run(["git", "push"], cwd=temp_dir, check=True)
         logger.info("Successfully pushed changes to GitHub.")
         
     except subprocess.CalledProcessError as e:
         logger.error(f"Git operation failed: {e}")
+    except Exception as e:
+        logger.exception(f"Unexpected error during git push: {e}")
+    finally:
+        # Cleanup
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
 
 def main():
     logger.info("Scheduler started. Waiting for next cycle...")
