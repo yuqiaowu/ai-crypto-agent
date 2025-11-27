@@ -13,6 +13,8 @@ interface HistoryRecord {
   pnlPercent: number;
   entryTime: string;
   exitTime: string;
+  leverage: number;
+  notional: number;
 }
 
 export function HistoryTab() {
@@ -40,7 +42,7 @@ export function HistoryTab() {
               const line = lines[i].trim();
               if (!line) continue;
 
-              const [time, symbol, action, side, qty, price, _notional, margin, fee, realized_pnl] = line.split(',');
+              const [time, symbol, action, side, qty, price, notional, margin, fee, realized_pnl] = line.split(',');
 
               if (action === 'open_long' || action === 'open_short') {
                 openPositions[symbol] = {
@@ -77,6 +79,10 @@ export function HistoryTab() {
 
                 const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100;
 
+                const notionalVal = parseFloat(notional);
+                const marginVal = parseFloat(margin);
+                const leverage = marginVal > 0 ? notionalVal / marginVal : 1;
+
                 parsedHistory.push({
                   id: `${time}-${symbol}-${Math.random()}`,
                   symbol: symbol,
@@ -87,7 +93,9 @@ export function HistoryTab() {
                   pnl: pnlVal,
                   pnlPercent: pnlPercent,
                   entryTime: entryTime,
-                  exitTime: time
+                  exitTime: time,
+                  leverage: leverage,
+                  notional: notionalVal
                 });
               }
             }
@@ -201,6 +209,14 @@ export function HistoryTab() {
                 <div>
                   <span className="text-gray-500">平仓: </span>
                   <span className="text-white font-['DIN_Alternate',sans-serif]">${record.exitPrice.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span className="text-gray-500">数量: </span>
+                  <span className="text-white font-['DIN_Alternate',sans-serif]">{record.amount.toFixed(4)}</span>
+                </div>
+                <div>
+                  <span className="text-gray-500">杠杆: </span>
+                  <span className="text-orange-400 font-['DIN_Alternate',sans-serif]">{record.leverage.toFixed(1)}x</span>
                 </div>
               </div>
 
