@@ -148,7 +148,7 @@ export function PositionsTab() {
       </div>
 
       {/* Positions List */}
-      <div className="space-y-3 max-h-[500px] overflow-y-auto">
+      <div className="space-y-3 max-h-[calc(100vh-250px)] overflow-y-auto">
         {positions.length === 0 ? (
           <div className="text-gray-500 text-center py-8">暂无持仓</div>
         ) : (

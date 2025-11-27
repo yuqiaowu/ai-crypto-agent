@@ -185,7 +185,7 @@ export function HistoryTab() {
       </div>
 
       {/* History List */}
-      <div className="space-y-2 max-h-[480px] overflow-y-auto pr-2">
+      <div className="space-y-2 max-h-[calc(100vh-250px)] overflow-y-auto pr-2">
         {history.length === 0 ? (
           <div className="text-gray-500 text-center py-8">暂无历史记录</div>
         ) : (
