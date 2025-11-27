@@ -157,11 +157,19 @@ def get_news_context():
         with open(snapshot_path, "r") as f:
             data = json.load(f)
             
-        # 1. News
-        news_items = data.get("news", {}).get("items", [])[:5]
+        # 1. News - Collect from all available sources
+        news_dict = data.get("news", {})
+        all_news = []
+        for source_key in ["bitcoin", "ethereum", "general"]:
+            source_news = news_dict.get(source_key, {}).get("items", [])
+            all_news.extend(source_news[:3])  # Take top 3 from each source
+        
         news_str = "Latest News:\n"
-        for item in news_items:
-            news_str += f"- {item.get('title')} ({item.get('source')})\n"
+        if all_news:
+            for item in all_news[:5]:  # Show max 5 total
+                news_str += f"- {item.get('title')} ({item.get('published', 'N/A')})\n"
+        else:
+            news_str += "No recent news available.\n"
             
         # 2. Liquidations (Derivatives)
         derivs = data.get("derivatives", {}).get("okx", {})
