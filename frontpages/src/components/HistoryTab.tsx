@@ -35,8 +35,8 @@ export function HistoryTab() {
             const parsedHistory: HistoryRecord[] = [];
 
             // Track open positions to match with close records
-            // Key: symbol, Value: { entryTime, entryPrice, qty }
-            const openPositions: Record<string, { entryTime: string, entryPrice: number, qty: number }> = {};
+            // Key: symbol, Value: { entryTime, entryPrice, qty, notional, margin, leverage }
+            const openPositions: Record<string, { entryTime: string, entryPrice: number, qty: number, notional: number, margin: number, leverage: number }> = {};
 
             for (let i = 1; i < lines.length; i++) {
               const line = lines[i].trim();
@@ -63,7 +63,10 @@ export function HistoryTab() {
                 openPositions[symbol] = {
                   entryTime: time,
                   entryPrice: parseFloat(price),
-                  qty: parseFloat(qty)
+                  qty: parseFloat(qty),
+                  notional: parseFloat(notional),
+                  margin: parseFloat(margin),
+                  leverage: leverage ? parseFloat(leverage) : (parseFloat(notional) / parseFloat(margin))
                 };
               } else if (action === 'close_position') {
                 const exitPrice = parseFloat(price);
@@ -94,8 +97,9 @@ export function HistoryTab() {
 
                 const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100;
 
-                const leverageVal = leverage ? parseFloat(leverage) : (parseFloat(notional) / parseFloat(margin));
-                const notionalVal = parseFloat(notional);
+                // Use leverage from open position if available, otherwise calculate from close position
+                const leverageVal = openInfo?.leverage || (leverage ? parseFloat(leverage) : (parseFloat(notional) / parseFloat(margin)));
+                const notionalVal = openInfo?.notional || parseFloat(notional);
 
                 parsedHistory.push({
                   id: `${time}-${symbol}-${Math.random()}`,
