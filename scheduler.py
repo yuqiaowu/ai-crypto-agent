@@ -136,14 +136,16 @@ def push_to_github():
 def main():
     logger.info("Scheduler started. Waiting for next cycle...")
     
-    # Run immediately on startup? 
-    # Maybe better to wait for the schedule to avoid double runs on restart, 
-    # but for a bot usually we want it to run once to verify.
-    # Let's run once on startup to ensure data is fresh.
-    run_trading_cycle()
+    # Run once on startup to ensure data is fresh (optional)
+    # run_trading_cycle()
     
-    # Schedule every 4 hours
-    schedule.every(4).hours.do(run_trading_cycle)
+    # Schedule at specific times (UTC) to align with 4H candle closes
+    # 00:00, 04:00, 08:00, 12:00, 16:00, 20:00
+    times = ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"]
+    
+    for t in times:
+        schedule.every().day.at(t).do(run_trading_cycle)
+        logger.info(f"Scheduled run at {t} UTC")
     
     while True:
         schedule.run_pending()
