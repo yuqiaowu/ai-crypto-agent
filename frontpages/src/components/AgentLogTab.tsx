@@ -111,8 +111,8 @@ export function AgentLogTab() {
                     </div>
 
                     {/* Actions */}
-                    <div className="space-y-3">
-                        <h3 className="text-white font-bold flex items-center gap-2 text-sm mb-3">
+                    <div className="space-y-4">
+                        <h3 className="text-white font-bold flex items-center gap-2 text-sm mb-4">
                             <CheckCircle className="w-4 h-4 text-lime-400" />
                             执行动作 ({decision.actions.length})
                         </h3>
@@ -121,12 +121,12 @@ export function AgentLogTab() {
                             <div className="text-gray-500 text-sm italic pl-1">本次无交易操作 (观望)</div>
                         ) : (
                             decision.actions.map((action, idx) => (
-                                <div key={idx} className="bg-[#1f2229] rounded-lg p-5 border border-gray-700/50 hover:border-lime-500/30 transition-all shadow-md">
+                                <div key={idx} className="bg-[#1f2229] rounded-lg p-4 border border-gray-700/50 hover:border-lime-500/30 transition-all">
                                     {/* Action Header */}
-                                    <div className="flex justify-between items-start mb-4 border-b border-gray-700/30 pb-3">
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-xl font-bold text-white tracking-wide">{action.symbol}</span>
-                                            <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wide ${action.action.includes('long') ? 'bg-lime-500/20 text-lime-400' :
+                                    <div className="flex justify-between items-start mb-3 pb-3 border-b border-gray-700/30">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-lg font-bold text-white">{action.symbol}</span>
+                                            <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${action.action.includes('long') ? 'bg-lime-500/20 text-lime-400' :
                                                 action.action.includes('short') ? 'bg-red-500/20 text-red-400' :
                                                     'bg-gray-500/20 text-gray-400'
                                                 }`}>
@@ -139,7 +139,7 @@ export function AgentLogTab() {
                                             )}
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-white font-['DIN_Alternate',sans-serif] text-lg">
+                                            <div className="text-white font-['DIN_Alternate',sans-serif] text-base">
                                                 {action.position_size_usd ? `$${action.position_size_usd.toLocaleString()}` : '-'}
                                             </div>
                                             <div className="text-[10px] text-gray-500 uppercase tracking-wider">Position Size</div>
@@ -147,7 +147,7 @@ export function AgentLogTab() {
                                     </div>
 
                                     {/* Reason */}
-                                    <div className="mb-4">
+                                    <div className="mb-3">
                                         <div className="text-[10px] text-gray-500 mb-1.5 uppercase tracking-wider">Strategy Logic</div>
                                         <div className="text-sm text-gray-300 bg-black/20 p-3 rounded border border-gray-700/30 leading-relaxed">
                                             {action.entry_reason}
@@ -155,7 +155,7 @@ export function AgentLogTab() {
                                     </div>
 
                                     {/* Exit Plan */}
-                                    <div className="grid grid-cols-2 gap-4 text-xs bg-black/10 p-3 rounded border border-gray-700/20">
+                                    <div className="grid grid-cols-2 gap-3 text-xs bg-black/10 p-3 rounded border border-gray-700/20">
                                         {action.exit_plan.take_profit && (
                                             <div className="flex items-center gap-2 text-lime-400/90">
                                                 <ArrowRight className="w-3.5 h-3.5" />
