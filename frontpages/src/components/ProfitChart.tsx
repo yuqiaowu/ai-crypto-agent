@@ -123,49 +123,49 @@ export function ProfitChart() {
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={500}>
-        <AreaChart data={data}>
-          <defs>
-            <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={color} stopOpacity={0.4} />
-              <stop offset="95%" stopColor={color} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-          <XAxis
-            dataKey="date"
-            stroke="#6b7280"
-            tick={{ fill: '#9ca3af', fontFamily: 'DIN Alternate, sans-serif', fontSize: 12 }}
-            minTickGap={30}
-          />
-          <YAxis
-            stroke="#6b7280"
-            tick={{ fill: '#9ca3af', fontFamily: 'DIN Alternate, sans-serif' }}
-            tickFormatter={(value) => `$${(value / 1000).toFixed(2)}k`}
-            domain={[minValue - padding, maxValue + padding]}
-          />
-          <ReferenceLine y={10000} stroke="#6b7280" strokeDasharray="3 3" />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: '#1f2229',
-              border: `1px solid ${color}`,
-              borderRadius: '8px',
-              color: '#fff',
-              fontFamily: 'DIN Alternate, sans-serif'
-            }}
-            labelStyle={{ color: '#9ca3af', marginBottom: '0.5rem' }}
-            formatter={(value: number) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '净值']}
-          />
-          <Area
-            type="monotone"
-            dataKey="value"
-            stroke={color}
-            strokeWidth={2}
-            fill="url(#colorValue)"
-            animationDuration={1000}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+      <div className="w-full overflow-x-auto pb-4">
+        <div style={{ minWidth: '100%', width: Math.max(800, data.length * 50) }}>
+          <ResponsiveContainer width="100%" height={500}>
+            <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={color} stopOpacity={0.4} />
+                  <stop offset="95%" stopColor={color} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
+              <XAxis
+                dataKey="date"
+                hide
+              />
+              <YAxis
+                hide
+                domain={[minValue - padding, maxValue + padding]}
+              />
+              <ReferenceLine y={10000} stroke="#6b7280" strokeDasharray="3 3" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1f2229',
+                  border: `1px solid ${color}`,
+                  borderRadius: '8px',
+                  color: '#fff',
+                  fontFamily: 'DIN Alternate, sans-serif'
+                }}
+                labelStyle={{ color: '#9ca3af', marginBottom: '0.5rem' }}
+                formatter={(value: number) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, '净值']}
+              />
+              <Area
+                type="monotone"
+                dataKey="value"
+                stroke={color}
+                strokeWidth={2}
+                fill="url(#colorValue)"
+                animationDuration={1000}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 }
