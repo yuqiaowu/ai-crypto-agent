@@ -252,69 +252,93 @@ def fetch_open_interest(symbol: str, bar: str = "4H", days: int = 730) -> pd.Dat
     print(f"  ✅ Fetched {len(df)} open interest records")
     return df
 import sys
-import yfinance as yf
+
 
 # ... (imports)
 
-def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
+def fetch_binance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
     """
-    Fetch candles from Yahoo Finance as fallback
-    Symbol mapping: BTC-USDT -> BTC-USD
+    Fetch candles from Binance as fallback
+    API: GET /api/v3/klines
+    Symbol mapping: BTC-USDT -> BTCUSDT
     """
-    yf_symbol = symbol.replace("-USDT", "-USD")
-    print(f"⚠️ Fallback: Fetching {yf_symbol} from Yahoo Finance...")
+    binance_symbol = symbol.replace("-", "")
+    print(f"⚠️ Fallback: Fetching {binance_symbol} from Binance...")
     
-    try:
-        # YFinance interval mapping
-        interval = "1h" # YF doesn't support 4h, we'll resample or just use 1h and take every 4th? 
-        # Actually YF supports: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
-        # We can fetch 1h and resample to 4h.
+    # Binance interval mapping
+    interval_map = {
+        "1H": "1h", "4H": "4h", "1D": "1d"
+    }
+    interval = interval_map.get(bar, "4h")
+    
+    end_dt = datetime.now(timezone.utc)
+    start_dt = end_dt - timedelta(days=days)
+    start_ts = int(start_dt.timestamp() * 1000)
+    
+    all_records = []
+    
+    # Binance limit is 1000 per request
+    current_start = start_ts
+    
+    for _ in range(50): # Safety break
+        params = {
+            "symbol": binance_symbol,
+            "interval": interval,
+            "startTime": current_start,
+            "limit": 1000
+        }
         
-        end_dt = datetime.now()
-        start_dt = end_dt - timedelta(days=days)
-        
-        df = yf.download(yf_symbol, start=start_dt, end=end_dt, interval="1h", progress=False)
-        
-        if df.empty:
-            print(f"❌ YFinance returned no data for {yf_symbol}")
-            return pd.DataFrame()
+        try:
+            # Note: Binance might block some IP addresses or require proxy
+            # We use the same PROXIES as OKX if defined
+            r = requests.get("https://api.binance.com/api/v3/klines", params=params, timeout=HTTP_TIMEOUT, proxies=PROXIES)
+            r.raise_for_status()
+            data = r.json()
             
-        df = df.reset_index()
-        
-        # Flatten MultiIndex columns if present
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = [col[0].lower() if isinstance(col, tuple) else col.lower() for col in df.columns]
-        else:
-            df.columns = [c.lower() for c in df.columns]
-
-        if 'date' in df.columns:
-            df.rename(columns={'date': 'datetime'}, inplace=True)
+            if not data:
+                break
+                
+            for row in data:
+                # [Open time, Open, High, Low, Close, Volume, Close time, ...]
+                ts = int(row[0])
+                dt = datetime.fromtimestamp(ts / 1000, tz=timezone.utc)
+                
+                all_records.append({
+                    "datetime": dt,
+                    "open": float(row[1]),
+                    "high": float(row[2]),
+                    "low": float(row[3]),
+                    "close": float(row[4]),
+                    "volume": float(row[5]),
+                })
             
-        # Ensure datetime is timezone aware (UTC)
-        if df['datetime'].dt.tz is None:
-            df['datetime'] = df['datetime'].dt.tz_localize('UTC')
-        else:
-            df['datetime'] = df['datetime'].dt.tz_convert('UTC')
+            # Update start time for next batch (last close time + 1ms)
+            last_close_ts = int(data[-1][6])
+            current_start = last_close_ts + 1
             
-        # Resample to 4H
-        df.set_index('datetime', inplace=True)
-        df_4h = df.resample('4H').agg({
-            'open': 'first',
-            'high': 'max',
-            'low': 'min',
-            'close': 'last',
-            'volume': 'sum'
-        }).dropna()
-        
-        df_4h = df_4h.reset_index()
-        df_4h['date'] = df_4h['datetime']
-        
-        print(f"  ✅ YFinance: {len(df_4h)} candles")
-        return df_4h
-        
-    except Exception as e:
-        print(f"❌ YFinance failed: {e}")
+            # Check if we reached current time
+            if current_start > int(end_dt.timestamp() * 1000):
+                break
+                
+            time.sleep(0.2)
+            
+        except Exception as e:
+            print(f"❌ Binance request failed: {e}")
+            break
+            
+    if not all_records:
+        print(f"❌ Binance returned no data for {binance_symbol}")
         return pd.DataFrame()
+        
+    df = pd.DataFrame(all_records)
+    df = df.sort_values("datetime").reset_index(drop=True)
+    
+    # Format columns
+    df['date'] = df['datetime']
+    df = df[['date', 'datetime', 'open', 'high', 'low', 'close', 'volume']]
+    
+    print(f"  ✅ Binance: {len(df)} candles from {df['date'].min()} to {df['date'].max()}")
+    return df
 
 def main():
     """Fetch 4H data for multiple coins"""
@@ -338,10 +362,10 @@ def main():
         # 1. Try OKX
         df = fetch_okx_candles(symbol, bar="4H", days=730)
         
-        # 2. Fallback to YFinance
+        # 2. Fallback to Binance
         if df.empty:
-            print(f"⚠️ OKX failed for {symbol}, trying YFinance fallback...")
-            df = fetch_yfinance_candles(symbol, bar="4H", days=730)
+            print(f"⚠️ OKX failed for {symbol}, trying Binance fallback...")
+            df = fetch_binance_candles(symbol, bar="4H", days=730)
         
         if df.empty:
             print(f"❌ Failed to fetch {symbol} from ALL sources")
