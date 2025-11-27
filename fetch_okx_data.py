@@ -251,6 +251,66 @@ def fetch_open_interest(symbol: str, bar: str = "4H", days: int = 730) -> pd.Dat
     df = df.sort_values("datetime").reset_index(drop=True)
     print(f"  ✅ Fetched {len(df)} open interest records")
     return df
+import sys
+import yfinance as yf
+
+# ... (imports)
+
+def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
+    """
+    Fetch candles from Yahoo Finance as fallback
+    Symbol mapping: BTC-USDT -> BTC-USD
+    """
+    yf_symbol = symbol.replace("-USDT", "-USD")
+    print(f"⚠️ Fallback: Fetching {yf_symbol} from Yahoo Finance...")
+    
+    try:
+        # YFinance interval mapping
+        interval = "1h" # YF doesn't support 4h, we'll resample or just use 1h and take every 4th? 
+        # Actually YF supports: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
+        # We can fetch 1h and resample to 4h.
+        
+        end_dt = datetime.now()
+        start_dt = end_dt - timedelta(days=days)
+        
+        df = yf.download(yf_symbol, start=start_dt, end=end_dt, interval="1h", progress=False)
+        
+        if df.empty:
+            print(f"❌ YFinance returned no data for {yf_symbol}")
+            return pd.DataFrame()
+            
+        df = df.reset_index()
+        # Rename columns: Date/Datetime -> datetime, Open -> open, etc.
+        df.columns = [c.lower() for c in df.columns]
+        if 'date' in df.columns:
+            df.rename(columns={'date': 'datetime'}, inplace=True)
+            
+        # Ensure datetime is timezone aware (UTC)
+        if df['datetime'].dt.tz is None:
+            df['datetime'] = df['datetime'].dt.tz_localize('UTC')
+        else:
+            df['datetime'] = df['datetime'].dt.tz_convert('UTC')
+            
+        # Resample to 4H
+        df.set_index('datetime', inplace=True)
+        df_4h = df.resample('4H').agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'volume': 'sum'
+        }).dropna()
+        
+        df_4h = df_4h.reset_index()
+        df_4h['date'] = df_4h['datetime']
+        
+        print(f"  ✅ YFinance: {len(df_4h)} candles")
+        return df_4h
+        
+    except Exception as e:
+        print(f"❌ YFinance failed: {e}")
+        return pd.DataFrame()
+
 def main():
     """Fetch 4H data for multiple coins"""
     symbols = {
@@ -261,39 +321,57 @@ def main():
         'SOL-USDT': 'SOL',
     }
     
-    print("🚀 Fetching Multi-Coin 4H Data from OKX\n")
+    print("🚀 Fetching Multi-Coin 4H Data\n")
+    
+    failure_count = 0
     
     for symbol, coin_name in symbols.items():
         print(f"\n{'='*60}")
         print(f"Processing {symbol} ({coin_name})")
         print(f"{'='*60}")
         
+        # 1. Try OKX
         df = fetch_okx_candles(symbol, bar="4H", days=730)
         
+        # 2. Fallback to YFinance
         if df.empty:
-            print(f"❌ Failed to fetch {symbol}")
+            print(f"⚠️ OKX failed for {symbol}, trying YFinance fallback...")
+            df = fetch_yfinance_candles(symbol, bar="4H", days=730)
+        
+        if df.empty:
+            print(f"❌ Failed to fetch {symbol} from ALL sources")
+            failure_count += 1
             continue
             
-        # Fetch Sentiment Data
+        # Fetch Sentiment Data (Only available via OKX, so might be empty if OKX blocked)
+        # We can skip sentiment if OKX fails, or try anyway (maybe public endpoints work differently)
         fr_df = fetch_funding_rate(symbol, days=730)
         oi_df = fetch_open_interest(symbol, bar="4H", days=730)
         
-        # Merge Funding Rate (ffill as it's 8H)
+        # Merge Funding Rate
         if not fr_df.empty:
             df = pd.merge_asof(df, fr_df, on='datetime', direction='backward')
             df['funding_rate'] = df['funding_rate'].fillna(method='ffill')
+        else:
+            df['funding_rate'] = 0.0 # Default neutral
             
         # Merge Open Interest
         if not oi_df.empty:
             df = pd.merge_asof(df, oi_df, on='datetime', direction='nearest', tolerance=pd.Timedelta(hours=1))
+        else:
+            df['open_interest'] = 0.0
             
         # Save
         output_path = CSV_DIR / f"{coin_name}_4h.csv"
         df.to_csv(output_path, index=False)
-        print(f"💾 Saved to {output_path} (with sentiment data)")
+        print(f"💾 Saved to {output_path}")
         
-        time.sleep(1)  # Pause between coins
+        time.sleep(1)
     
+    if failure_count > 0:
+        print(f"\n❌ Failed to fetch data for {failure_count} coins. Exiting with error.")
+        sys.exit(1)
+        
     print(f"\n✅ All done! Data saved to {CSV_DIR}/")
 
 if __name__ == "__main__":
