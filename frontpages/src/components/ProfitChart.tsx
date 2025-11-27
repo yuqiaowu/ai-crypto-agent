@@ -3,10 +3,7 @@ import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
 import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
 
-// ... imports
-import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceLine } from 'recharts';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+
 
 export function ProfitChart() {
   const [data, setData] = useState<any[]>([]);
