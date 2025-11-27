@@ -136,7 +136,7 @@ export function ProfitChart() {
             {data.length > 0 ? data[data.length - 1].date : ''}
           </div>
 
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={500}>
             <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
