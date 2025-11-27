@@ -42,7 +42,22 @@ export function HistoryTab() {
               const line = lines[i].trim();
               if (!line) continue;
 
-              const [time, symbol, action, side, qty, price, notional, margin, leverage, fee, realized_pnl] = line.split(',');
+              const fields = line.split(',');
+              // Old format: time,symbol,action,side,qty,price,notional,margin,fee,realized_pnl,nav_after,reason
+              // New format: time,symbol,action,side,qty,price,notional,margin,leverage,fee,realized_pnl,nav_after,reason
+              const hasLeverage = fields.length >= 13; // New format has 13+ fields
+
+              const time = fields[0];
+              const symbol = fields[1];
+              const action = fields[2];
+              const side = fields[3];
+              const qty = fields[4];
+              const price = fields[5];
+              const notional = fields[6];
+              const margin = fields[7];
+              const leverage = hasLeverage ? fields[8] : null;
+              const fee = hasLeverage ? fields[9] : fields[8];
+              const realized_pnl = hasLeverage ? fields[10] : fields[9];
 
               if (action === 'open_long' || action === 'open_short') {
                 openPositions[symbol] = {
@@ -79,7 +94,7 @@ export function HistoryTab() {
 
                 const pnlPercent = (rawPnl / (parseFloat(margin) || (entryPrice * quantity / 2))) * 100;
 
-                const leverageVal = parseFloat(leverage) || 1.0;
+                const leverageVal = leverage ? parseFloat(leverage) : (parseFloat(notional) / parseFloat(margin));
                 const notionalVal = parseFloat(notional);
 
                 parsedHistory.push({
