@@ -40,7 +40,7 @@ export function HistoryTab() {
               const line = lines[i].trim();
               if (!line) continue;
 
-              const [time, symbol, action, side, qty, price, notional, margin, fee, realized_pnl] = line.split(',');
+              const [time, symbol, action, side, qty, price, _notional, margin, fee, realized_pnl] = line.split(',');
 
               if (action === 'open_long' || action === 'open_short') {
                 openPositions[symbol] = {
@@ -132,6 +132,10 @@ export function HistoryTab() {
 
   if (loading && history.length === 0) {
     return <div className="text-gray-400 p-4">加载中...</div>;
+  }
+
+  if (error && history.length === 0) {
+    return <div className="text-red-400 p-4 text-center">{error}</div>;
   }
 
   return (
