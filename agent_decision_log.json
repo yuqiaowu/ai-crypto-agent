@@ -1,5 +1,59 @@
 [
   {
+    "analysis_summary": "当前市场整体呈现看涨趋势，但杠杆情绪偏空，平均资金费率为负，显示空头头寸较多，存在轧空潜力。ETH和DOGE在Qlib模型中排名前二，得分较高，技术指标如RSI和MACD显示中性偏强，资金费率负值支持多头策略。BTC虽排名第三，但RSI较高且资金费率极负，需警惕回调风险。基于此，优先考虑ETH和DOGE的多头机会，同时管理现有头寸风险。",
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": "Qlib排名第一，得分0.5712，资金费率为负（-0.0019%），RSI中性（63.51），MACD为正，显示轧空潜力和趋势延续。",
+        "exit_plan": {
+          "take_profit": 3200,
+          "stop_loss": 2950,
+          "invalidation": "资金费率转正超过0.01%或价格跌破2950，表明轧空失效或趋势反转。"
+        }
+      },
+      {
+        "symbol": "BNB",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": "Qlib排名第四，得分较低（0.0146），但资金费率极负（-0.0116%），RSI中性（63.63），当前头寸有盈利，需观察后续动能。",
+        "exit_plan": {
+          "take_profit": 900,
+          "stop_loss": 820,
+          "invalidation": "资金费率持续上升超过0.01%或价格跌破820，表示动能丧失。"
+        }
+      },
+      {
+        "symbol": "BTC",
+        "action": "close_position",
+        "leverage": 2,
+        "position_size_usd": 4000,
+        "entry_reason": "Qlib排名第三，得分0.3266，但RSI较高（68.16），资金费率极负（-0.0048%），显示超买风险，且现有头寸已接近止盈，建议获利了结。",
+        "exit_plan": {
+          "take_profit": 92000,
+          "stop_loss": 85000,
+          "invalidation": "资金费率转正超过0.01%或价格跌破85000，表明趋势反转。"
+        }
+      },
+      {
+        "symbol": "DOGE",
+        "action": "open_long",
+        "leverage": 2,
+        "position_size_usd": 1000,
+        "entry_reason": "Qlib排名第二，得分0.55，资金费率略正（0.0078%），RSI中性（55.26），动量正，结合市场看涨趋势，适合多头入场。",
+        "exit_plan": {
+          "take_profit": 0.165,
+          "stop_loss": 0.145,
+          "invalidation": "资金费率转负超过0.01%或价格跌破0.145，表明趋势反转或轧多风险。"
+        }
+      }
+    ],
+    "timestamp": "2025-11-28 20:03:25"
+  },
+  {
     "analysis_summary": "当前市场整体趋势为看涨，波动性中等，但杠杆情绪看跌，平均资金费率为负，显示空头持仓占优。ETH和DOGE在Qlib模型中排名前二，技术指标显示ETH RSI 63.51和MACD为正，资金费率负值较高，存在轧空潜力；DOGE RSI 55.26和资金费率略正，但动量较弱。BTC RSI 68.16较高，资金费率负值显著，可能面临回调风险。现有持仓中，BTC和BNB均未触及止损或止盈，但BTC RSI偏高需警惕。综合来看，市场存在分化，优先关注ETH的轧空机会，并管理现有风险。",
     "actions": [
       {
