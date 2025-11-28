@@ -6,7 +6,7 @@ import os
 import time
 import requests
 import pandas as pd
-import yfinance as yf
+
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from dotenv import load_dotenv
@@ -341,83 +341,7 @@ def fetch_binance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.D
     print(f"  ✅ Binance: {len(df)} candles from {df['date'].min()} to {df['date'].max()}")
     return df
 
-def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
-    """
-    Fetch candles from Yahoo Finance as 2nd fallback
-    Symbol mapping: BTC-USDT -> BTC-USD
-    """
-    yf_symbol = symbol.replace("-USDT", "-USD")
-    print(f"⚠️ Fallback 2: Fetching {yf_symbol} from Yahoo Finance...")
-    
-    # YFinance interval mapping
-    # 4h is not supported by yfinance standard API usually, it supports 1h, 1d.
-    # But we can try '1h' and resample, or just use '1h' if we accept higher granularity.
-    # However, Qlib model expects 4H.
-    # Let's fetch 1h and resample to 4H.
-    
-    interval_map = {
-        "1H": "1h", "4H": "1h", "1D": "1d" 
-    }
-    interval = interval_map.get(bar, "1h")
-    
-    try:
-        # Fetch data
-        # yfinance download
-        df = yf.download(yf_symbol, period=f"{days}d", interval=interval, progress=False)
-        
-        if df.empty:
-            print(f"❌ YFinance returned no data for {yf_symbol}")
-            return pd.DataFrame()
-            
-        # Reset index to get Date/Datetime column
-        df = df.reset_index()
-        
-        # Handle MultiIndex columns (common in new yfinance)
-        if isinstance(df.columns, pd.MultiIndex):
-            # Flatten: take the first level (Price type)
-            df.columns = [str(c[0]).lower() for c in df.columns]
-        else:
-            # Rename columns to lowercase
-            df.columns = [str(c).lower() for c in df.columns]
-        
-        # Ensure datetime column exists (yfinance usually calls it 'date' or 'datetime')
-        if 'date' in df.columns:
-            df['datetime'] = pd.to_datetime(df['date'], utc=True)
-        elif 'datetime' in df.columns:
-            df['datetime'] = pd.to_datetime(df['datetime'], utc=True)
-            
-        # Keep only necessary columns
-        # Open, High, Low, Close, Volume
-        df = df[['datetime', 'open', 'high', 'low', 'close', 'volume']]
-        
-        # Resample if needed (e.g. 1h -> 4h)
-        if bar == "4H" and interval == "1h":
-            df.set_index('datetime', inplace=True)
-            ohlc_dict = {
-                'open': 'first',
-                'high': 'max',
-                'low': 'min',
-                'close': 'last',
-                'volume': 'sum'
-            }
-            df = df.resample('4H').agg(ohlc_dict)
-            # Drop NaN rows (incomplete intervals)
-            df.dropna(inplace=True)
-            df.reset_index(inplace=True)
-            
-        # Sort
-        df = df.sort_values("datetime").reset_index(drop=True)
-        
-        # Format columns for Qlib
-        df['date'] = df['datetime']
-        df = df[['date', 'datetime', 'open', 'high', 'low', 'close', 'volume']]
-        
-        print(f"  ✅ YFinance: {len(df)} candles from {df['date'].min()} to {df['date'].max()}")
-        return df
-        
-    except Exception as e:
-        print(f"❌ YFinance request failed: {e}")
-        return pd.DataFrame()
+
 
 def main():
     """Fetch 4H data for multiple coins"""
@@ -446,10 +370,7 @@ def main():
             print(f"⚠️ OKX failed for {symbol}, trying Binance fallback...")
             df = fetch_binance_candles(symbol, bar="4H", days=730)
             
-        # 3. Fallback to YFinance
-        if df.empty:
-            print(f"⚠️ Binance failed for {symbol}, trying YFinance fallback...")
-            df = fetch_yfinance_candles(symbol, bar="4H", days=730)
+
         
         if df.empty:
             print(f"❌ Failed to fetch {symbol} from ALL sources")
