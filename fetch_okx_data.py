@@ -6,6 +6,7 @@ import os
 import time
 import requests
 import pandas as pd
+import ccxt
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -343,6 +344,93 @@ def fetch_binance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.D
 
 
 
+
+def fetch_ccxt_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
+    """
+    Fetch candles using CCXT (Exchange Agnostic)
+    Prioritizes OKX, then Binance
+    """
+    print(f"⚠️ Fallback 3: Fetching {symbol} using CCXT...")
+    
+    # Map bar to CCXT timeframe
+    timeframe_map = {
+        "1H": "1h", "4H": "4h", "1D": "1d"
+    }
+    timeframe = timeframe_map.get(bar, "4h")
+    ccxt_symbol = symbol.replace("-", "/") # BTC-USDT -> BTC/USDT
+    
+    # 1. Try OKX via CCXT
+    try:
+        print(f"  Trying CCXT OKX for {ccxt_symbol}...")
+        exchange = ccxt.okx({
+            'timeout': 30000,
+            'enableRateLimit': True,
+        })
+        # Apply proxies if defined
+        if PROXIES:
+            exchange.proxies = PROXIES
+            
+        since = exchange.parse8601((datetime.now(timezone.utc) - timedelta(days=days)).isoformat())
+        
+        all_ohlcv = []
+        while True:
+            ohlcv = exchange.fetch_ohlcv(ccxt_symbol, timeframe, since, limit=100)
+            if not ohlcv:
+                break
+            all_ohlcv.extend(ohlcv)
+            since = ohlcv[-1][0] + 1
+            
+            # Stop if we reached near current time
+            if since > datetime.now(timezone.utc).timestamp() * 1000:
+                break
+                
+        if all_ohlcv:
+            df = pd.DataFrame(all_ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            df['datetime'] = pd.to_datetime(df['timestamp'], unit='ms', utc=True)
+            df['date'] = df['datetime']
+            df = df[['date', 'datetime', 'open', 'high', 'low', 'close', 'volume']]
+            print(f"  ✅ CCXT OKX: {len(df)} candles")
+            return df
+            
+    except Exception as e:
+        print(f"  ❌ CCXT OKX failed: {e}")
+
+    # 2. Try Binance via CCXT
+    try:
+        print(f"  Trying CCXT Binance for {ccxt_symbol}...")
+        exchange = ccxt.binance({
+            'timeout': 30000,
+            'enableRateLimit': True,
+        })
+        if PROXIES:
+            exchange.proxies = PROXIES
+            
+        since = exchange.parse8601((datetime.now(timezone.utc) - timedelta(days=days)).isoformat())
+        
+        all_ohlcv = []
+        while True:
+            ohlcv = exchange.fetch_ohlcv(ccxt_symbol, timeframe, since, limit=1000)
+            if not ohlcv:
+                break
+            all_ohlcv.extend(ohlcv)
+            since = ohlcv[-1][0] + 1
+            
+            if since > datetime.now(timezone.utc).timestamp() * 1000:
+                break
+                
+        if all_ohlcv:
+            df = pd.DataFrame(all_ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            df['datetime'] = pd.to_datetime(df['timestamp'], unit='ms', utc=True)
+            df['date'] = df['datetime']
+            df = df[['date', 'datetime', 'open', 'high', 'low', 'close', 'volume']]
+            print(f"  ✅ CCXT Binance: {len(df)} candles")
+            return df
+            
+    except Exception as e:
+        print(f"  ❌ CCXT Binance failed: {e}")
+
+    return pd.DataFrame()
+
 def main():
     """Fetch 4H data for multiple coins"""
     symbols = {
@@ -370,7 +458,11 @@ def main():
             print(f"⚠️ OKX failed for {symbol}, trying Binance fallback...")
             df = fetch_binance_candles(symbol, bar="4H", days=730)
             
-
+            
+        # 3. Fallback to CCXT
+        if df.empty:
+            print(f"⚠️ Binance failed for {symbol}, trying CCXT fallback...")
+            df = fetch_ccxt_candles(symbol, bar="4H", days=730)
         
         if df.empty:
             print(f"❌ Failed to fetch {symbol} from ALL sources")
