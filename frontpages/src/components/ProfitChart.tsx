@@ -128,26 +128,28 @@ export function ProfitChart() {
 
       {/* Chart */}
       <div className="w-full overflow-x-auto pb-4">
-        <div
-          style={{
-            position: 'relative',
-            height: '500px',
-            minWidth: '100%',
-            width: Math.max(800, data.length * 50)
-          }}
-        >
-          {/* Axis Labels */}
-          <div
-            style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}
-            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
-          >
-            ${(maxValue / 1000).toFixed(2)}k
+        <div className="relative h-[500px] w-full overflow-hidden rounded-lg">
+          {/* Current Value Overlay */}
+          <div className="absolute top-0 left-0 z-10">
+            <div className="text-3xl font-bold text-white font-['DIN_Alternate',sans-serif]">
+              ${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
           </div>
+
+          {/* Max Value Label (Top Right) */}
           <div
-            style={{ position: 'absolute', bottom: '10px', left: '10px', zIndex: 10 }}
-            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
+            style={{ position: 'absolute', top: '0', right: '10px', zIndex: 10 }}
+            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif]"
           >
-            $10.00k
+            ${maxValue.toLocaleString()}
+          </div>
+
+          {/* Min Value Label (Bottom Left) */}
+          <div
+            style={{ position: 'absolute', bottom: '10px', left: '0', zIndex: 10 }}
+            className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif]"
+          >
+            ${minValue.toLocaleString()}
           </div>
           <div
             style={{ position: 'absolute', bottom: '10px', right: '10px', zIndex: 10 }}
@@ -157,7 +159,7 @@ export function ProfitChart() {
           </div>
 
           <ResponsiveContainer width="100%" height={500}>
-            <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={color} stopOpacity={0.4} />
