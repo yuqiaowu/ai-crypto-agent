@@ -149,20 +149,20 @@ export function ProfitChart() {
 
           {/* Min Value Label (Bottom Left) */}
           <div
-            style={{ position: 'absolute', bottom: '10px', left: '0', zIndex: 10 }}
+            style={{ position: 'absolute', bottom: '5px', left: '10px', zIndex: 10 }}
             className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif]"
           >
             ${minValue.toLocaleString()}
           </div>
           <div
-            style={{ position: 'absolute', bottom: '10px', right: '10px', zIndex: 10 }}
+            style={{ position: 'absolute', bottom: '5px', right: '10px', zIndex: 10 }}
             className="text-xs text-gray-500 font-['DIN_Alternate',sans-serif] bg-[#1f2229]/80 px-1 rounded"
           >
             {data.length > 0 ? data[data.length - 1].date : ''}
           </div>
 
           <ResponsiveContainer width="100%" height={500}>
-            <AreaChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 30 }}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={color} stopOpacity={0.4} />
