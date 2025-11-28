@@ -55,9 +55,14 @@ export function HistoryTab() {
               const price = fields[5];
               const notional = fields[6];
               const margin = fields[7];
-              const leverage = hasLeverage ? fields[8] : null;
-              const fee = hasLeverage ? fields[9] : fields[8];
-              const realized_pnl = hasLeverage ? fields[10] : fields[9];
+
+              // Correct mapping based on CSV header:
+              // time,symbol,action,side,qty,price,notional,margin,fee,realized_pnl,nav_after,reason,leverage
+              const fee = fields[8];
+              const realized_pnl = fields[9];
+              // fields[10] is nav_after
+              // fields[11] is reason
+              const leverage = fields.length > 12 ? fields[12] : null;
 
               if (action === 'open_long' || action === 'open_short') {
                 openPositions[symbol] = {
