@@ -28,9 +28,12 @@ export function ProfitChart() {
             for (let i = startIndex; i < lines.length; i++) {
               const [ts, navStr] = lines[i].split(',');
               if (ts && navStr) {
-                const date = new Date(ts);
-                // Format date as MM-DD HH:mm
-                const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:00`;
+                // Parse as UTC
+                const utcTime = ts.replace(' ', 'T') + 'Z';
+                const date = new Date(utcTime);
+
+                // Format date as MM-DD HH:mm (Local Time)
+                const dateStr = `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
                 const val = parseFloat(navStr);
                 historyData.push({
                   date: dateStr,
