@@ -19,7 +19,7 @@ Mock Trade Executor for Dolores Agent
 
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -248,7 +248,7 @@ def apply_actions():
             net_return = margin + pnl - fee
             portfolio["cash"] += net_return
             
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
             trade_rec = {
                 "time": timestamp,
                 "symbol": symbol,
@@ -293,7 +293,7 @@ def apply_actions():
             print(f"⚠️ No price for {symbol}, skipping.")
             continue
 
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
         # -------------------
         # OPEN LONG / SHORT
@@ -424,7 +424,7 @@ def apply_actions():
 
     # Append to NAV History CSV
     nav_history_path = BASE_DIR / "nav_history.csv"
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     
     # Check if file exists to write header
     file_exists = nav_history_path.exists()

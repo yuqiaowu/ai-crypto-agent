@@ -8,7 +8,7 @@ import requests
 from pathlib import Path
 from dotenv import load_dotenv
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Load environment variables
 load_dotenv()
@@ -269,7 +269,7 @@ def run_agent():
         
         # Add timestamp if missing
         if "timestamp" not in decision:
-            decision["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            decision["timestamp"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
             
         # Prepend new decision (newest first)
         history.insert(0, decision)
