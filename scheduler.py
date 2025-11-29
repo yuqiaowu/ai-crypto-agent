@@ -139,7 +139,8 @@ def main():
     logger.info("Scheduler started. Waiting for next cycle...")
     
     # Run once on startup to ensure data is fresh (optional)
-    # run_trading_cycle()  # Disabled to prevent duplicate data on redeployment
+    logger.info("Running initial cycle on startup...")
+    run_trading_cycle() 
     
     # Schedule at specific times (UTC) to align with 4H candle closes
     # 00:00, 04:00, 08:00, 12:00, 16:00, 20:00
