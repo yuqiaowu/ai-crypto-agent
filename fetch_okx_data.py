@@ -7,6 +7,7 @@ import time
 import requests
 import pandas as pd
 import ccxt
+import yfinance as yf
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -431,6 +432,77 @@ def fetch_ccxt_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.Data
 
     return pd.DataFrame()
 
+def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.DataFrame:
+    """
+    Fetch candles using yfinance (Yahoo Finance)
+    Symbol mapping: BTC-USDT -> BTC-USD
+    """
+    yf_symbol = symbol.replace("-USDT", "-USD")
+    print(f"⚠️ Fallback 4: Fetching {yf_symbol} using yfinance...")
+    
+    # Map bar to yfinance interval
+    # yfinance supports: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
+    # 4H is not directly supported, so we fetch 1h and resample
+    interval = "1h"
+    
+    try:
+        # Fetch data
+        # yfinance allows fetching by period or start/end
+        # max period for 1h is 730d
+        df = yf.download(yf_symbol, period=f"{days}d", interval=interval, progress=False)
+        
+        if df.empty:
+            print(f"❌ yfinance returned no data for {yf_symbol}")
+            return pd.DataFrame()
+            
+        # Reset index to get Date/Datetime column
+        df = df.reset_index()
+        
+        # Rename columns (yfinance returns Title Case: Open, High, Low, Close, Volume)
+        df.columns = [c.lower() for c in df.columns]
+        
+        # Ensure datetime column exists (it might be 'date' or 'datetime')
+        if 'date' in df.columns and 'datetime' not in df.columns:
+            df['datetime'] = df['date']
+        elif 'datetime' not in df.columns:
+             # Try to find the datetime column
+            for col in df.columns:
+                if pd.api.types.is_datetime64_any_dtype(df[col]):
+                    df['datetime'] = df[col]
+                    break
+        
+        if 'datetime' not in df.columns:
+             print("❌ Could not find datetime column in yfinance data")
+             return pd.DataFrame()
+
+        # Ensure UTC
+        if df['datetime'].dt.tz is None:
+            df['datetime'] = df['datetime'].dt.tz_localize('UTC')
+        else:
+            df['datetime'] = df['datetime'].dt.tz_convert('UTC')
+            
+        # Resample to 4H if needed
+        if bar == "4H":
+            df = df.set_index('datetime')
+            df_4h = df.resample('4H').agg({
+                'open': 'first',
+                'high': 'max',
+                'low': 'min',
+                'close': 'last',
+                'volume': 'sum'
+            }).dropna()
+            df = df_4h.reset_index()
+            
+        df['date'] = df['datetime']
+        df = df[['date', 'datetime', 'open', 'high', 'low', 'close', 'volume']]
+        
+        print(f"  ✅ yfinance: {len(df)} candles from {df['date'].min()} to {df['date'].max()}")
+        return df
+        
+    except Exception as e:
+        print(f"  ❌ yfinance failed: {e}")
+        return pd.DataFrame()
+
 def main():
     """Fetch 4H data for multiple coins"""
     symbols = {
@@ -463,6 +535,20 @@ def main():
         if df.empty:
             print(f"⚠️ Binance failed for {symbol}, trying CCXT fallback...")
             df = fetch_ccxt_candles(symbol, bar="4H", days=730)
+
+        # 4. Fallback to yfinance
+        if df.empty:
+            print(f"⚠️ CCXT failed for {symbol}, trying yfinance fallback...")
+            df = fetch_yfinance_candles(symbol, bar="4H", days=730)
+        
+        # Check Data Freshness
+        if not df.empty:
+            last_date = df['datetime'].max()
+            now = datetime.now(timezone.utc)
+            age = now - last_date
+            if age > timedelta(hours=12):
+                print(f"❌ Data for {symbol} is stale! Last date: {last_date}, Age: {age}")
+                df = pd.DataFrame() # Treat as failed
         
         if df.empty:
             print(f"❌ Failed to fetch {symbol} from ALL sources")
