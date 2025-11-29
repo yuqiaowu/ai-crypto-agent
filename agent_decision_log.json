@@ -1,5 +1,10 @@
 [
   {
+    "analysis_summary": "当前市场整体呈看涨趋势，但杠杆情绪看跌，平均资金费率为负，暗示潜在轧空机会。Qlib模型推荐DOGE、ETH、BNB为前三强币种，其中DOGE资金费率为正但RSI中性，ETH和BNB资金费率为负且RSI略高，存在轧空潜力。现有持仓已满3个，且均未触发止损或止盈，需优先管理现有头寸，避免开新仓以控制风险。",
+    "actions": [],
+    "timestamp": "2025-11-29 14:08:18"
+  },
+  {
     "analysis_summary": "当前市场整体呈看涨趋势，但杠杆情绪看跌，平均资金费率为负，暗示潜在轧空机会。DOGE、ETH、BNB在Qlib模型中排名前三，技术指标显示RSI中性偏强，资金费率多为负值，支持多头策略。现有持仓与推荐一致，无需调整，但已满仓3个，因此不开放新仓位。",
     "actions": [],
     "timestamp": "2025-11-29 14:05:30"
@@ -944,34 +949,5 @@
     "analysis_summary": "Market is bullish with medium volatility and bearish leverage sentiment. BTC and BNB rank highest with strong qlib scores, negative funding rates suggesting short squeeze potential, and neutral RSI. Existing BNB and SOL positions are still valid (prices near entry, no invalidation triggers hit). No new positions opened due to max position limit of 3 already reached.",
     "actions": [],
     "timestamp": "2025-11-26 18:01:54"
-  },
-  {
-    "analysis_summary": "Bearish market with high volatility and extreme fear sentiment. BNB and SOL positions are held due to strong Qlib scores and favorable funding rates, but no new positions are opened to limit risk in current conditions.",
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2.0,
-        "position_size_usd": 3800.0,
-        "entry_reason": "Qlib Rank #1, low RSI, positive funding rate supports long bias.",
-        "exit_plan": {
-          "take_profit": 900,
-          "stop_loss": 780,
-          "invalidation": "Funding rate exceeds 0.03% or RSI drops below 25"
-        }
-      },
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 2.0,
-        "position_size_usd": 3400.0,
-        "entry_reason": "Qlib Rank #2, negative funding rate indicates short squeeze potential, RSI oversold.",
-        "exit_plan": {
-          "take_profit": 140,
-          "stop_loss": 120,
-          "invalidation": "Funding rate flips positive > 0.01% or OI increases significantly"
-        }
-      }
-    ]
   }
 ]
