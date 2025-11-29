@@ -1,5 +1,35 @@
 [
   {
+    "analysis_summary": "当前市场整体呈看涨趋势，但杠杆情绪偏空，平均资金费率为负，暗示潜在轧空机会。DOGE排名第一，资金费率略正但RSI中性，ETH和BNB资金费率负且RSI偏高，存在轧空潜力；BTC和SOL排名靠后，技术指标显示超买或弱势。现有持仓ETH和DOGE均为多头，需检查是否仍符合开仓逻辑。基于风险控制，优先管理现有头寸，避免过度开仓。",
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": "Qlib排名第二，资金费率为负（轧空潜力），RSI略高但未超买，动量正面。",
+        "exit_plan": {
+          "take_profit": 3200,
+          "stop_loss": 2950,
+          "invalidation": "资金费率转正超过0.01%或价格跌破2950，表明轧空失效或趋势反转。"
+        }
+      },
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": "Qlib排名第一，资金费率略正但RSI中性，动量正面，趋势跟随。",
+        "exit_plan": {
+          "take_profit": 0.165,
+          "stop_loss": 0.145,
+          "invalidation": "资金费率转负超过0.01%或价格跌破0.145，表明趋势反转或轧多风险。"
+        }
+      }
+    ],
+    "timestamp": "2025-11-29 13:08:46"
+  },
+  {
     "analysis_summary": "当前市场整体呈现牛市格局，但杠杆情绪偏空，平均资金费率为负值，显示市场存在轧空潜力。Qlib模型推荐前三币种为DOGE、ETH、BNB，其中DOGE评分最高，资金费率略正但RSI中性，ETH和BNB资金费率均为负且RSI略高，存在短期回调风险。现有持仓DOGE和ETH均符合模型推荐，技术指标未触发止损，建议继续持有。",
     "actions": [],
     "timestamp": "2025-11-29 13:05:36"
