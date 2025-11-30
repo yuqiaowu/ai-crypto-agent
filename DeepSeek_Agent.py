@@ -185,7 +185,7 @@ def get_news_context():
             liq_str += "-> Shorts have been squeezed. Potential correction?\n"
             
         # 3. Fear & Greed
-        fng = data.get("fear_greed", {}).get("latest", {})
+        fng = data.get("fear_greed", {}).get("latest") or {}
         fng_str = f"\nFear & Greed Index: {fng.get('value')} ({fng.get('classification')})\n"
         
         return news_str + liq_str + fng_str
