@@ -559,6 +559,8 @@ def main():
             if age > timedelta(hours=12):
                 print(f"❌ Data for {symbol} is stale! Last date: {last_date}, Age: {age}")
                 df = pd.DataFrame() # Treat as failed
+                failure_count += 1
+                continue
         
         if df.empty:
             print(f"❌ Failed to fetch {symbol} from ALL sources")
@@ -590,11 +592,9 @@ def main():
         
         time.sleep(1)
     
-    if failure_count == len(symbols):
-        print(f"\n❌ Failed to fetch data for ALL coins. Exiting with error.")
+    if failure_count > 0:
+        print(f"\n❌ Failed to fetch data for {failure_count} coins. Exiting with error to stop pipeline.")
         sys.exit(1)
-    elif failure_count > 0:
-        print(f"\n⚠️ Failed to fetch data for {failure_count} coins. Continuing with available data.")
         
     print(f"\n✅ All done! Data saved to {CSV_DIR}/")
 

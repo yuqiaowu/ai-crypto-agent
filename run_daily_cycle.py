@@ -57,29 +57,19 @@ def main():
     # 1. Fetch Market Data (OKX OHLCV + Sentiment)
     if not run_script("fetch_okx_data.py", "Fetch Market Data"):
         log("⛔ Stopping cycle due to data fetch failure.")
-        return
+        sys.exit(1)
 
     # 2. Generate Technical Signals
     if not run_script("generate_multi_coin_signals.py", "Generate Signals"):
         log("⛔ Stopping cycle due to signal generation failure.")
-        return
+        sys.exit(1)
 
     # 3. Prepare Data for Qlib (Format & Clean)
     if not run_script("prepare_multi_coin_qlib.py", "Prepare Qlib Data"):
         log("⛔ Stopping cycle due to Qlib preparation failure.")
-        return
+        sys.exit(1)
 
     # 4. Run Qlib Inference (Predict Scores)
-    # Note: We don't need to rebuild BIN every time if we use CSV mode or update incrementally,
-    # but for simplicity and correctness, we might need to ensure Qlib sees new data.
-    # If prepare_multi_coin_qlib.py updates the CSV that Qlib reads, we are good.
-    # However, Qlib usually needs `dump_bin` if using BIN format.
-    # Let's check if inference uses CSV or BIN. It uses BIN.
-    # So we MUST update BIN data.
-    
-    # 3.5 Update Qlib BIN Data
-    log("🔄 Updating Qlib BIN Data...")
-    
     # 3.5 Update Qlib BIN Data
     log("🔄 Updating Qlib BIN Data...")
     
@@ -87,8 +77,7 @@ def main():
     
     if not dump_bin_script.exists():
         log(f"❌ dump_bin.py not found at {dump_bin_script}")
-        # Try to find it in qlib package as fallback? No, let's just fail if missing.
-        return
+        sys.exit(1)
 
     bin_cmd = [
         sys.executable, str(dump_bin_script),
@@ -104,30 +93,26 @@ def main():
         log("✅ Qlib BIN Data Updated")
     except subprocess.CalledProcessError as e:
         log(f"❌ Failed to update Qlib BIN: {e}")
-        # If we can't update data, inference will use old data. 
-        # We should probably stop, but for resilience we can continue with a warning.
-        # However, for a trading bot, stale data is dangerous.
-        return
-
+        sys.exit(1)
 
     if not run_script("inference_qlib_model.py", "Qlib Inference"):
         log("⛔ Stopping cycle due to inference failure.")
-        return
+        sys.exit(1)
 
     # 5. Fetch News & On-Chain Data
     if not run_script("fetch_onchain_and_news.py", "Fetch News & On-Chain"):
-        log("⚠️ News fetch failed, continuing with limited context...")
-        # Don't stop, just continue
+        log("⛔ Stopping cycle due to news fetch failure (Strict Mode).")
+        sys.exit(1)
 
     # 6. Run Agent Decision
     if not run_script("DeepSeek_Agent.py", "Agent Decision"):
         log("❌ Agent failed to generate decision.")
-        return
+        sys.exit(1)
 
     # 7. Execute Trades (Mock)
     if not run_script("mock_trade_executor.py", "Execute Trades (Mock)"):
         log("❌ Trade execution failed.")
-        return
+        sys.exit(1)
 
     log("="*50)
     log("🎉 Trading Cycle Completed Successfully")
