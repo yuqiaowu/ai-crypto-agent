@@ -32,14 +32,9 @@ def _load_previous_snapshot() -> Optional[Dict[str, Any]]:
 
 BRIDGES_DATASET_URLS = [
     "https://bridges.llama.fi/bridges",
-    "https://api.llama.fi/bridges",
-    "https://datasets.llama.fi/bridges_v2/data.json",
 ]
 
-STABLECOIN_CHAIN_DATASET_URLS = [
-    "https://datasets.llama.fi/stablecoin_chains/latest.json",
-    "https://defillama-datasets.llama.fi/stablecoin_chains/latest.json",
-]
+STABLECOIN_CHAIN_DATASET_URLS = []
 
 
 def _resolve_proxy() -> Optional[str]:
@@ -783,13 +778,15 @@ def _fill_stablecoin_change_from_previous(chain_key: str, summary: Optional[Dict
 
 def _fetch_stablecoin_history(session: requests.Session, chain: str, prev_snapshot: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     chain_slug = chain.lower()
+    if chain_slug == "bitcoin":
+        return {"source": "skipped", "summary": None, "note": "Bitcoin has no stablecoin chain data on DefiLlama"}
     chain_cap = chain.capitalize()
     endpoints = [
         (f"https://stablecoins.llama.fi/stablecoincharts/{chain_cap}", None),
         (f"https://stablecoins.llama.fi/stablecoincharts/{chain_slug}", None),
-        (f"https://stablecoins.llama.fi/api/historicalChain/{chain_slug}", None),
-        (f"https://stablecoins.llama.fi/api/chain/{chain_slug}", None),
-        ("https://stablecoins.llama.fi/api/stablecoins", {"includeChains": "true"}),
+        (f"https://stablecoins.llama.fi/historicalChain/{chain_slug}", None),
+        (f"https://stablecoins.llama.fi/chain/{chain_slug}", None),
+        ("https://stablecoins.llama.fi/stablecoins", {"includeChains": "true"}),
     ]
     attempts: List[Dict[str, Any]] = []
     for url, params in endpoints:
@@ -845,17 +842,18 @@ def _fetch_stablecoin_history(session: requests.Session, chain: str, prev_snapsh
                 attempts.append({"url": url, "params": params, "detail": "no_summary"})
                 continue
         attempts.append({"url": url, "params": params, "detail": "no_series"})
-    chains_snapshot = _fetch_json(session, "https://stablecoins.llama.fi/api/stablecoinchains")
-    if isinstance(chains_snapshot.get("data"), list):
+    chains_snapshot = _fetch_json(session, "https://stablecoins.llama.fi/stablecoinchains")
+    data_list = chains_snapshot if isinstance(chains_snapshot, list) else chains_snapshot.get("data")
+    if isinstance(data_list, list):
         match = next(
             (
-                item
-                for item in chains_snapshot["data"]
-                if isinstance(item, dict)
+                c
+                for c in data_list
+                if isinstance(c, dict)
                 and (
-                    item.get("name") == chain_cap
-                    or item.get("chain") == chain_cap
-                    or item.get("name") == chain_slug.capitalize()
+                    c.get("name") == chain_cap
+                    or c.get("chain") == chain_cap
+                    or c.get("name") == chain_slug.capitalize()
                 )
             ),
             None,
@@ -874,7 +872,7 @@ def _fetch_stablecoin_history(session: requests.Session, chain: str, prev_snapsh
             }
             summary = _fill_stablecoin_change_from_previous(chain_slug, summary, prev_snapshot)
             return {
-                "source": "https://stablecoins.llama.fi/api/stablecoinchains",
+                "source": "https://stablecoins.llama.fi/stablecoinchains",
                 "raw": chains_snapshot,
                 "summary": summary,
                 "attempts": attempts,
