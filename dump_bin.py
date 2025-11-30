@@ -51,7 +51,7 @@ class DumpData:
         df = df.sort_values([self.symbol_field_name, self.date_field_name])
         
         # Get all dates and instruments
-        all_dates = sorted(df[self.date_field_name].unique())
+        all_dates = [pd.Timestamp(d) for d in sorted(df[self.date_field_name].unique())]
         calendar_index = pd.DatetimeIndex(all_dates)
         instruments = sorted(df[self.symbol_field_name].unique())
         
@@ -93,7 +93,14 @@ class DumpData:
             end_time = inst_df.index.max()
             inst_calendar = calendar_index[(calendar_index >= start_time) & (calendar_index <= end_time)]
             inst_df = inst_df.reindex(inst_calendar)
-            start_idx = date_map[start_time]
+            try:
+                start_idx = date_map[start_time]
+            except KeyError:
+                print(f"❌ KeyError for {inst}: start_time={start_time} (type={type(start_time)})")
+                print(f"   First 5 dates in date_map: {list(date_map.keys())[:5]}")
+                print(f"   Is start_time in date_map? {start_time in date_map}")
+                print(f"   Is start_time in all_dates? {start_time in all_dates}")
+                raise
             
             inst_dir = self.features_dir / inst.lower() # Qlib uses lowercase for instrument folders
             inst_dir.mkdir(parents=True, exist_ok=True)

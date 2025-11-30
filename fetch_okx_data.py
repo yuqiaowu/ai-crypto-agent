@@ -23,7 +23,8 @@ HTTP_TIMEOUT = 30
 def resolve_proxy():
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY")
     if not proxy and os.environ.get("USE_LOCAL_PROXY", "0").lower() in {"1", "true", "yes"}:
-        proxy = "http://127.0.0.1:7890"
+        # proxy = "http://127.0.0.1:7890" # Disable default proxy, let TUN handle it
+        pass
     if proxy:
         return {"http": proxy, "https": proxy}
     return None
@@ -449,6 +450,9 @@ def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.
         # Fetch data
         # yfinance allows fetching by period or start/end
         # max period for 1h is 730d
+        # Fetch data
+        # yfinance allows fetching by period or start/end
+        # max period for 1h is 730d
         df = yf.download(yf_symbol, period=f"{days}d", interval=interval, progress=False)
         
         if df.empty:
@@ -457,6 +461,12 @@ def fetch_yfinance_candles(symbol: str, bar: str = "4H", days: int = 730) -> pd.
             
         # Reset index to get Date/Datetime column
         df = df.reset_index()
+        
+        # Handle MultiIndex columns (yfinance update)
+        if isinstance(df.columns, pd.MultiIndex):
+            # If MultiIndex, the first level is usually Price (Open, Close, etc) and second is Ticker
+            # We just want the Price level
+            df.columns = df.columns.get_level_values(0)
         
         # Rename columns (yfinance returns Title Case: Open, High, Low, Close, Volume)
         df.columns = [c.lower() for c in df.columns]
@@ -580,9 +590,11 @@ def main():
         
         time.sleep(1)
     
-    if failure_count > 0:
-        print(f"\n❌ Failed to fetch data for {failure_count} coins. Exiting with error.")
+    if failure_count == len(symbols):
+        print(f"\n❌ Failed to fetch data for ALL coins. Exiting with error.")
         sys.exit(1)
+    elif failure_count > 0:
+        print(f"\n⚠️ Failed to fetch data for {failure_count} coins. Continuing with available data.")
         
     print(f"\n✅ All done! Data saved to {CSV_DIR}/")
 

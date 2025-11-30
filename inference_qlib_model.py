@@ -14,9 +14,68 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 from typing import List
-import qlib
-from qlib.utils import init_instance_by_config
-from qlib.data import D
+import sys
+
+try:
+    import qlib
+    from qlib.data import D
+    from qlib.config import REG_CN, REG_US
+    from qlib.contrib.model.gbdt import LGBModel
+    from qlib.contrib.data.handler import Alpha158
+    from qlib.utils import init_instance_by_config
+    from qlib.workflow import R
+    from qlib.workflow.record_temp import SignalRecord, PortAnaRecord
+    HAS_QLIB = True
+except ImportError:
+    print("⚠️ Qlib not found. Using simple fallback for inference.")
+    HAS_QLIB = False
+
+# -----------------------
+# Fallback Inference
+# -----------------------
+
+def simple_inference(date):
+    """Fallback inference without Qlib"""
+    print(f"⚠️ Running simple inference for {date}...")
+    
+    # Read features directly
+    df = pd.read_csv(CSV_PATH)
+    df['datetime'] = pd.to_datetime(df['datetime'])
+    
+    # Filter for the specific date (or latest)
+    # Note: date argument might be a string or datetime
+    target_date = pd.to_datetime(date)
+    
+    # If target_date is not in df, use latest
+    if target_date not in df['datetime'].values:
+        latest_date = df['datetime'].max()
+        print(f"  Target date {target_date} not found. Using latest: {latest_date}")
+        target_date = latest_date
+        
+    latest_df = df[df['datetime'] == target_date].copy()
+    
+    market_map = {}
+    for _, row in latest_df.iterrows():
+        symbol = row['instrument']
+        # Mock prediction (neutral)
+        pred_score = 0.5 
+        
+        market_map[symbol] = {
+            "price": row['close'],
+            "volume": row['volume'],
+            "return_4h": row.get('ret', 0),
+            "volatility": row.get('volatility_20', 0),
+            "rsi": row.get('rsi_14', 50),
+            "macd": row.get('macd', 0),
+            "model_score": pred_score,
+            "model_signal": "HOLD" # Neutral
+        }
+        
+    # Save payload
+    with open(PAYLOAD_PATH, 'w') as f:
+        json.dump(market_map, f, indent=4)
+    
+    print(f"✅ Saved fallback payload to {PAYLOAD_PATH}")
 
 # -----------------------
 # 1. Config & Init
@@ -266,4 +325,16 @@ def predict_and_export():
     print(json.dumps(payload, indent=2)) # Print full payload to show new sections
 
 if __name__ == "__main__":
+    if not HAS_QLIB:
+        # Run fallback
+        # Get latest date from CSV
+        if CSV_PATH.exists():
+            df = pd.read_csv(CSV_PATH)
+            latest_date = pd.to_datetime(df['datetime']).max()
+            simple_inference(latest_date)
+        else:
+            print("❌ Features file not found!")
+            sys.exit(1)
+        sys.exit(0)
+
     predict_and_export()

@@ -110,7 +110,7 @@ def prepare_qlib_data():
     print(f"   After: {len(combined)} rows (removed warmup period)")
     
     # Drop rows with NaN targets (CRITICAL: Do not fill them!)
-    combined = combined.dropna(subset=['future_4h_ret', 'future_24h_ret'])
+    # combined = combined.dropna(subset=['future_4h_ret', 'future_24h_ret']) # Commented out to keep latest data for inference
     
     # Save
     combined.to_csv(OUT_PATH, index=False)
