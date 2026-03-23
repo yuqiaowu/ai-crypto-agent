@@ -264,7 +264,7 @@ def get_news_context():
         # 2. On-Chain Liquidity & Whale Activity (ETH & SOL)
         # These act as proxies for broad market sentiment/liquidity
         onchain_str = "\n=== On-Chain Liquidity & Whale Activity (24h) ===\n"
-        onchain_str += "*Note: High stablecoin inflow often indicates potential buying power for the broader market (Positive correlation with BTC).*\n"
+        onchain_str += "*Note: Positive flow always indicates bullish interest: Stablecoin Flow (+) means Buying Power; Token Flow (+) means Net Accumulation (moving to wallets).* \n"
         
         for chain in ["eth", "sol"]:
             chain_data = data.get(chain, {}).get("stats_24h", {})
