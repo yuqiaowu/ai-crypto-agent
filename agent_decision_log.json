@@ -1,6 +1,100 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体看涨，但DOGE日线RSI高达86.7，显示超买风险。ETH和SOL的融资费率Z-score极高（97%和104%），表明多头拥挤，存在轧多风险。BTC融资费率中性，但新闻显示短期清算推动上涨，可能已部分定价。我选择持有现有仓位，利用趋势跟随，但警惕回调。",
+      "en": "The market is generally bullish, but DOGE's daily RSI at 86.7 indicates overbought risk. ETH and SOL have extremely high funding rate Z-scores (97% and 104%), suggesting crowded longs and potential long squeeze risk. BTC funding rate is neutral, but news suggests short liquidations driving the rally, which may be partially priced in. I choose to hold existing positions, riding the trend but cautious of pullbacks."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分：DOGE最强（0.67），ETH次之（0.60），SOL第三（0.44）。日线趋势全部看涨，但DOGE RSI超买。",
+        "en": "Qlib scores: DOGE strongest (0.67), ETH second (0.60), SOL third (0.44). Daily trends all bullish, but DOGE RSI overbought."
+      },
+      "macro_onchain": {
+        "zh": "新闻显示BTC短期清算推动上涨，但市场对可持续性存疑。恐慌指数46（恐惧），资金费率中性。",
+        "en": "News indicates BTC short liquidations driving rally, but sustainability questioned. Fear & Greed Index 46 (Fear), funding rates neutral."
+      },
+      "portfolio_status": {
+        "zh": "当前持有ETH、SOL、DOGE多头，总敞口约5520美元，占NAV 49%。ETH浮盈85美元，SOL浮盈74美元，DOGE浮盈1美元。",
+        "en": "Currently holding ETH, SOL, DOGE longs, total exposure ~$5520, 49% of NAV. ETH unrealized PnL +$85, SOL +$74, DOGE +$1."
+      },
+      "reflection": {
+        "zh": "历史反思显示趋势跟随策略有效，但需注意超买风险。本次继续持有，但调整止损以保护利润。",
+        "en": "Historical reflection shows trend-following strategy works, but overbought risks noted. Continue holding, adjust stops to protect profits."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 3,
+        "position_size_usd": 3997.62,
+        "entry_reason": {
+          "zh": "日线看涨，Qlib评分高，但融资费率Z-score极高，需警惕回调。持有现有仓位，止损上移至2300。",
+          "en": "Daily bullish, high Qlib score, but funding Z-score extremely high, caution on pullback. Hold existing position, move stop to 2300."
+        },
+        "exit_plan": {
+          "take_profit": 2500,
+          "stop_loss": 2300,
+          "invalidation": {
+            "zh": "价格跌破2300，或融资费率Z-score升至>-20%，或日线趋势转熊。",
+            "en": "Price breaks below 2300, or funding Z-score rises above -20%, or daily trend turns bearish."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "SOL",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1500.72,
+        "entry_reason": {
+          "zh": "日线看涨，Qlib评分中等，融资费率Z-score极高，但价格仍在上升。持有，止损上移至84。",
+          "en": "Daily bullish, moderate Qlib score, funding Z-score extremely high, but price still rising. Hold, move stop to 84."
+        },
+        "exit_plan": {
+          "take_profit": 88,
+          "stop_loss": 84,
+          "invalidation": {
+            "zh": "价格跌破84，或融资费率Z-score升至-50%以上，或日线趋势确认下跌。",
+            "en": "Price breaks below 84, or funding Z-score rises above -50%, or daily trend confirms bearish."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 21.52,
+        "entry_reason": {
+          "zh": "Qlib评分最高，但日线RSI超买，仓位很小，持有观察。止损上移至0.11。",
+          "en": "Highest Qlib score, but daily RSI overbought, position small, hold and observe. Move stop to 0.11."
+        },
+        "exit_plan": {
+          "take_profit": 0.12,
+          "stop_loss": 0.11,
+          "invalidation": {
+            "zh": "价格跌破0.11，或融资费率进一步上升，或日线趋势转熊。",
+            "en": "Price breaks below 0.11, or funding rate rises further, or daily trend turns bearish."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-05-06 12:01:32",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": 0.0148,
+        "avg_bb_width": 0.0536,
+        "avg_funding_rate": "0.0061%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体看涨，但DOGE日线RSI高达86，存在超买风险。ETH和SOL的融资费率Z-score极高，显示多头拥挤，有轧多风险。BTC融资费率中性，且短期清算量大于多头，可能继续上行。我选择持有现有ETH、SOL、DOGE多头，但需警惕回调。",
       "en": "The market is generally bullish, but DOGE's daily RSI is high at 86, indicating overbought risk. ETH and SOL have extremely high funding rate Z-scores, suggesting crowded longs and potential long squeeze risk. BTC's funding rate is neutral, and short liquidations exceed longs, which could drive further upside. I choose to hold existing ETH, SOL, and DOGE longs, but remain cautious of pullbacks."
     },
@@ -4519,102 +4613,6 @@
         "avg_momentum_12": -0.0041,
         "avg_bb_width": 0.0352,
         "avg_funding_rate": "-0.0037%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈中性低波动，融资费率普遍为负，显示空头拥挤，存在轧空机会。BTC和ETH日线看涨，但短期动量偏弱，Qlib评分中性偏强。新闻方面，Saylor增持BTC和BitMine买入ETH显示机构兴趣，但分析师预测BTC可能跌至57K，形成多空分歧。我选择【微观结构挤压】剧本，利用负融资费率做多BTC和ETH，同时持有DOGE。现有ETH和DOGE持仓继续持有，止损不变。",
-      "en": "The market is neutral with low volatility and generally negative funding rates, indicating crowded shorts and potential short squeeze opportunities. BTC and ETH are bullish on the daily chart but weak in short-term momentum, with neutral-to-strong Qlib scores. News shows institutional interest (Saylor buying BTC, BitMine buying ETH) but analysts predict BTC could drop to 57K, creating divergence. I choose the [Microstructure Squeeze] scenario, going long BTC and ETH on negative funding, while holding DOGE. Existing ETH and DOGE positions are held with unchanged stops."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：ETH 0.4956（第1），SOL 0.4907（第2），BTC 0.4546（第3）。日线趋势：BTC和ETH看涨，SOL和BNB看跌。RSI中性，MACD负值，动量偏弱。",
-        "en": "Qlib scores: ETH 0.4956 (1st), SOL 0.4907 (2nd), BTC 0.4546 (3rd). Daily trend: BTC and ETH bullish, SOL and BNB bearish. RSI neutral, MACD negative, momentum weak."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数47（中性）。新闻：Saylor增持BTC，BitMine买入ETH，但分析师预测BTC可能跌至57K。链上资金流向未提供。",
-        "en": "Fear & Greed Index 47 (Neutral). News: Saylor adds BTC, BitMine buys ETH, but analyst predicts BTC drop to 57K. On-chain fund flow not provided."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：ETH多头（浮亏-66.61美元），DOGE多头（浮亏-8.6美元）。总敞口约5424美元，占NAV 49.5%，现金8980美元。未超过3个持仓限制。",
-        "en": "Current positions: ETH long (unrealized PnL -$66.61), DOGE long (unrealized PnL -$8.6). Total exposure ~$5424, 49.5% of NAV, cash $8980. Under 3-position limit."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易未产生盈亏，模式有效但需验证信号。当前持仓基于负融资费率和日线看涨，继续持有。",
-        "en": "Historical reflection shows recent trades with zero PnL, patterns working but need signal verification. Current positions based on negative funding and daily bullish trend, continue to hold."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 3,
-        "position_size_usd": 3997.62,
-        "entry_reason": {
-          "zh": "维持持仓：价格在止损2200之上，日线看涨，融资费率Z-score -95.1%极度负值，轧空机会。",
-          "en": "Hold: Price above stop loss 2200, daily bullish, funding Z-score -95.1% extremely negative, short squeeze opportunity."
-        },
-        "exit_plan": {
-          "take_profit": 2500,
-          "stop_loss": 2200,
-          "invalidation": {
-            "zh": "失效条件：价格跌破2200（基于ATR 18.15和-4.8%风险），或融资费率Z-score升至>-20%（空头压力缓解），或日线趋势转熊（价格 < SMA50 $2187.78）。",
-            "en": "Invalidation condition: Price breaks below 2200 (based on ATR 18.15 and -4.8% risk), or funding Z-score rises to >-20% (short pressure eases), or daily trend turns bearish (price < SMA50 $2187.78)."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1426.86,
-        "entry_reason": {
-          "zh": "维持持仓：价格在止损0.093之上，日线看涨，融资费率Z-score 27.98%未极端，继续持有。",
-          "en": "Hold: Price above stop loss 0.093, daily bullish, funding Z-score 27.98% not extreme, continue to hold."
-        },
-        "exit_plan": {
-          "take_profit": 0.105,
-          "stop_loss": 0.093,
-          "invalidation": {
-            "zh": "价格跌破0.093，或融资费率Z-score升至>80%，或日线趋势转熊。",
-            "en": "Price breaks below 0.093, or funding Z-score rises to >80%, or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "open_long",
-        "leverage": 2,
-        "position_size_usd": 25.52,
-        "entry_reason": {
-          "zh": "符合【微观结构挤压】剧本：融资费率-0.0053%且Z-score -86.2%极度负值，空头拥挤；日线看涨（价格>SMA50），Qlib评分0.4546排名第3；新闻显示机构增持。风险：2倍杠杆，止损设于76000（-1.2%），风险约24美元（0.22% NAV）。",
-          "en": "Matches [Microstructure Squeeze] scenario: Funding rate -0.0053% and Z-score -86.2% extremely negative, crowded shorts; daily bullish (price > SMA50), Qlib score 0.4546 rank 3; news shows institutional accumulation. Risk: 2x leverage, stop loss at 76000 (-1.2%), risk ~$24 (0.22% NAV)."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 76000,
-          "invalidation": {
-            "zh": "失效条件：价格跌破76000（基于ATR 451.5和-1.2%风险），或融资费率Z-score升至>-20%（空头压力缓解），或日线趋势转熊（价格 < SMA50 $71880.98）。",
-            "en": "Invalidation condition: Price breaks below 76000 (based on ATR 451.5 and -1.2% risk), or funding Z-score rises to >-20% (short pressure eases), or daily trend turns bearish (price < SMA50 $71880.98)."
-          }
-        },
-        "status": "executed",
-        "original_size_usd": 2000.0,
-        "rejection_reason": "Size Reduced due to Exposure Limit"
-      }
-    ],
-    "timestamp": "2026-04-28 04:01:13",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "low",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0078,
-        "avg_bb_width": 0.0348,
-        "avg_funding_rate": "-0.0060%"
       }
     }
   }
