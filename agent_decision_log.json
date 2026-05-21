@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-05-21 16:02:17"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-05-21 12:02:07"
   },
   {
@@ -4443,100 +4448,6 @@
       "metrics": {
         "avg_momentum_12": 0.0047,
         "avg_bb_width": 0.047,
-        "avg_funding_rate": "-0.0022%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体看涨，但日线RSI显示BTC、SOL、BNB超买，存在回调风险。新闻方面，CPI数据高企引发美联储加息担忧，但比特币价格仍高于SMA50，显示市场韧性。融资费率普遍为负，尤其是DOGE和BNB的Z-score极低，表明空头拥挤，存在轧空机会。我选择【微观结构挤压】剧本，继续持有多头仓位，并考虑增加DOGE和ETH的敞口。",
-      "en": "The market is generally bullish, but daily RSI shows BTC, SOL, and BNB are overbought, posing a pullback risk. News-wise, high CPI data raises Fed rate hike concerns, but Bitcoin price remains above SMA50, showing resilience. Funding rates are mostly negative, especially for DOGE and BNB with extremely low Z-scores, indicating crowded shorts and potential short squeezes. I choose the [Microstructure Squeeze] scenario, continuing to hold long positions and considering adding to DOGE and ETH exposure."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分ETH最高（0.459），但RSI中性（46.87），MACD负值；DOGE排名第三（0.3564），RSI 59.57，动量正。日线趋势全部看涨，但BTC、SOL、BNB的RSI超买。",
-        "en": "Qlib score highest for ETH (0.459), but RSI neutral (46.87), MACD negative; DOGE ranks third (0.3564), RSI 59.57, positive momentum. Daily trends all bullish, but BTC, SOL, BNB RSI overbought."
-      },
-      "macro_onchain": {
-        "zh": "新闻显示CPI高企，美联储加息担忧，但比特币价格坚挺。恐惧与贪婪指数42（恐惧），表明市场情绪谨慎。稳定币流入未提供，但整体流动性环境中性。",
-        "en": "News shows high CPI, Fed rate hike concerns, but Bitcoin price resilient. Fear & Greed Index 42 (Fear), indicating cautious sentiment. Stablecoin flow not provided, overall liquidity neutral."
-      },
-      "portfolio_status": {
-        "zh": "当前持有DOGE和ETH多头，未实现盈利。总敞口约2113美元，占NAV的18.8%，低于最大限制。现金充足，可开新仓。",
-        "en": "Currently holding DOGE and ETH longs, unrealized profit. Total exposure ~$2113, 18.8% of NAV, below max limit. Ample cash for new positions."
-      },
-      "reflection": {
-        "zh": "历史反思显示现有持仓盈利，模式有效。继续验证信号，但注意风险水平。",
-        "en": "Historical reflection shows existing positions profitable, patterns working. Continue to verify signals but don't ignore risk levels."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 113.72,
-        "entry_reason": {
-          "zh": "现有持仓，盈利中，融资费率Z-score极低（-202%），支持继续持有。",
-          "en": "Existing position, in profit, funding Z-score extremely low (-202%), supports holding."
-        },
-        "exit_plan": {
-          "take_profit": 0.12,
-          "stop_loss": 0.105,
-          "invalidation": {
-            "zh": "价格跌破0.105，或融资费率Z-score升至>0%，或日线趋势转熊。",
-            "en": "Price breaks below 0.105, or funding Z-score rises above 0%, or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "现有持仓，盈利中，符合微观结构挤压剧本，继续持有。",
-          "en": "Existing position, in profit, matches microstructure squeeze scenario, continue holding."
-        },
-        "exit_plan": {
-          "take_profit": 2400,
-          "stop_loss": 2200,
-          "invalidation": {
-            "zh": "价格跌破2200，或融资费率Z-score升至>0%，或日线趋势转熊。",
-            "en": "Price breaks below 2200, or funding Z-score rises above 0%, or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BNB",
-        "action": "open_long",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "BNB排名第四，Qlib评分0.3427，日线趋势看涨，RSI 64未超买。融资费率-0.0042%，Z-score -205%，空头拥挤，存在轧空机会。",
-          "en": "BNB ranks 4th, Qlib score 0.3427, daily trend bullish, RSI 64 not overbought. Funding rate -0.0042%, Z-score -205%, crowded shorts, short squeeze opportunity."
-        },
-        "exit_plan": {
-          "take_profit": 720,
-          "stop_loss": 660,
-          "invalidation": {
-            "zh": "价格跌破660，或融资费率Z-score升至>0%，或日线趋势转熊。",
-            "en": "Price breaks below 660, or funding Z-score rises above 0%, or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-13 16:01:23",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "low",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": 0.0125,
-        "avg_bb_width": 0.0464,
         "avg_funding_rate": "-0.0022%"
       }
     }
