@@ -1,6 +1,100 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体处于日线看空趋势，BTC、ETH、SOL均低于SMA50，但短期动量中性偏多。新闻显示BTC ETF连续10天流出，但分析师认为是反向指标，且恐惧指数23（极度恐惧），可能酝酿反弹。资金费率方面，DOGE和ETH的Z-score极低（空头拥挤），存在轧空潜力。BNB日线看涨但RSI接近超买，资金费率Z-score极高（多头拥挤），有轧多风险。我选择【微观结构挤压】剧本，继续持有现有BTC、ETH、SOL多头，并考虑加仓DOGE。",
+      "en": "The market is in a bearish daily trend, with BTC, ETH, and SOL below SMA50, but short-term momentum is neutral to bullish. News shows BTC ETF outflows for 10 consecutive days, but analysts see it as a contrarian indicator, and Fear & Greed at 23 (Extreme Fear) may signal a bounce. Funding rates: DOGE and ETH have very low Z-scores (crowded shorts), suggesting short squeeze potential. BNB is bullish daily but RSI near overbought and funding Z-score very high (crowded longs), posing long squeeze risk. I choose the [Microstructure Squeeze] scenario, holding existing BTC, ETH, SOL longs and considering adding DOGE."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib排名：DOGE最强（0.84），ETH次之（0.61），SOL第三（0.33）。日线趋势：BTC、ETH、SOL看空，BNB看多，DOGE中性。RSI：BNB超买（79.8），其他中性偏弱。",
+        "en": "Qlib rank: DOGE strongest (0.84), ETH second (0.61), SOL third (0.33). Daily trend: BTC, ETH, SOL bearish, BNB bullish, DOGE neutral. RSI: BNB overbought (79.8), others neutral to weak."
+      },
+      "macro_onchain": {
+        "zh": "新闻：BTC ETF连续10天流出，但被视为反向指标；Bit Digital买入ETH。恐惧指数23（极度恐惧）。链上：稳定币流入为正，显示买盘力量。",
+        "en": "News: BTC ETF outflows for 10 days, seen as contrarian; Bit Digital buys ETH. Fear index 23 (Extreme Fear). On-chain: Positive stablecoin inflow indicates buying power."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓：SOL多头（盈利+25.84），BTC多头（盈利+2.55），ETH多头（盈亏平衡）。总敞口约5479美元，占NAV 50%，符合熊市限制。现金8190美元。",
+        "en": "Current positions: SOL long (profit +25.84), BTC long (profit +2.55), ETH long (breakeven). Total exposure ~$5479, 50% of NAV, within bear market limit. Cash $8190."
+      },
+      "reflection": {
+        "zh": "历史反思显示近期交易亏损，但模式有效。继续验证信号，注意风险。当前持仓基于微观结构挤压和趋势跟随，需严格止损。",
+        "en": "Historical reflection shows recent losses but patterns are working. Continue to verify signals, watch risk. Current positions based on microstructure squeeze and trend following, need strict stops."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "SOL",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": {
+          "zh": "现有持仓，盈利中，日线看空但短期动量中性，资金费率Z-score正常，继续持有。",
+          "en": "Existing position, in profit, daily bearish but short-term momentum neutral, funding Z-score normal, hold."
+        },
+        "exit_plan": {
+          "take_profit": 88,
+          "stop_loss": 81.28,
+          "invalidation": {
+            "zh": "价格跌破81.28或资金费率Z-score恶化至200%以上。",
+            "en": "Price breaks below 81.28 or funding Z-score worsens above 200%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "BTC",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1483.08,
+        "entry_reason": {
+          "zh": "现有持仓，微利，日线看空但资金费率Z-score极低（-127%），空头拥挤，有轧空潜力，继续持有。",
+          "en": "Existing position, small profit, daily bearish but funding Z-score very low (-127%), crowded shorts, potential squeeze, hold."
+        },
+        "exit_plan": {
+          "take_profit": 77228,
+          "stop_loss": 72000,
+          "invalidation": {
+            "zh": "价格跌破$72,000或资金费率Z-score回升至-50%以上。",
+            "en": "Price breaks below $72,000 or funding Z-score recovers above -50%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1997.04,
+        "entry_reason": {
+          "zh": "现有持仓，盈亏平衡，日线看空但资金费率Z-score极低（-128%），空头拥挤，有轧空潜力，继续持有。",
+          "en": "Existing position, breakeven, daily bearish but funding Z-score very low (-128%), crowded shorts, potential squeeze, hold."
+        },
+        "exit_plan": {
+          "take_profit": 2200,
+          "stop_loss": 1950,
+          "invalidation": {
+            "zh": "价格跌破1950或资金费率Z-score回升至-50%以上。",
+            "en": "Price breaks below 1950 or funding Z-score recovers above -50%."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-05-31 00:00:40",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": 0.0351,
+        "avg_bb_width": 0.057,
+        "avg_funding_rate": "0.0057%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "尽管有Bit Digital买入ETH的利好，但BTC和ETH日线均处于SMA50下方，RSI接近超卖，显示宏观趋势偏空。资金费率Z-score极端分化：ETH极低（-125.6%）暗示空头拥挤，BNB极高（141.8%）暗示多头拥挤。市场整体处于极端恐惧（23），但BTC ETF连续流出10天被视为反向指标。我选择【微观结构挤压】剧本，利用ETH极低资金费率做多，博弈空头回补；同时做空BNB，博弈多头拥挤后的回调。现有SOL和BTC多头持仓继续持有，但需关注止损。",
       "en": "Despite the bullish news of Bit Digital buying ETH, BTC and ETH are both below their SMA50 on the daily chart with RSI near oversold, indicating a bearish macro trend. Funding rate Z-scores are extremely divergent: ETH very low (-125.6%) suggests crowded shorts, BNB very high (141.8%) suggests crowded longs. The market is in extreme fear (23), but the 10-day outflow streak of BTC ETFs is seen as a contrarian indicator. I choose the [Microstructure Squeeze] scenario, going long on ETH to bet on short covering due to extremely low funding, and shorting BNB to bet on a pullback after crowded longs. Existing SOL and BTC long positions are held, but stop losses must be monitored."
     },
@@ -4044,10 +4138,5 @@
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
     "timestamp": "2026-05-22 00:02:35"
-  },
-  {
-    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
-    "actions": [],
-    "timestamp": "2026-05-21 20:02:26"
   }
 ]
