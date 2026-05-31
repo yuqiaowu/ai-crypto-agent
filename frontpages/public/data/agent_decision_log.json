@@ -1,6 +1,100 @@
 [
   {
     "analysis_summary": {
+      "zh": "尽管市场整体看涨情绪（趋势为bullish），但日线趋势显示BTC、ETH、SOL、DOGE均处于看跌状态（价格低于SMA50），BNB是唯一看涨的。新闻显示比特币情绪极度乐观（Santiment），但分析师警告可能跌至65K，且成交量疲弱，属于【叙事与现实背离】——利好已定价（Priced In），价格未能有效上涨。资金费率方面，BTC和DOGE的Z-score极低（-133%和-82%），显示空头极度拥挤，存在轧空潜力。我选择【微观结构挤压】剧本，做多DOGE和BTC，利用空头挤压机会。当前持仓仅有一个ETH空头，风险敞口较小，可以开新仓。",
+      "en": "Despite the overall bullish sentiment (trend is bullish), daily trends show BTC, ETH, SOL, and DOGE are bearish (price below SMA50), with BNB being the only bullish one. News indicates extreme positive Bitcoin sentiment (Santiment), but analysts warn of potential drop to 65K and weak volumes, indicating a [Narrative vs Reality] divergence – good news is priced in, price fails to rally. Funding rates for BTC and DOGE are extremely negative (Z-scores -133% and -82%), indicating crowded shorts and potential short squeeze. I choose the [Microstructure Squeeze] scenario, going long DOGE and BTC to capitalize on short squeezes. Current portfolio has only one ETH short, risk exposure is low, allowing new positions."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib排名：DOGE第一（0.43），SOL第二（0.19），ETH第三（0.18）。但日线趋势除BNB外均看跌。DOGE的RSI为49.9，中性；BTC的RSI为45.1，中性偏低。",
+        "en": "Qlib ranking: DOGE first (0.43), SOL second (0.19), ETH third (0.18). Daily trend bearish except BNB. DOGE RSI 49.9 neutral; BTC RSI 45.1 neutral-low."
+      },
+      "macro_onchain": {
+        "zh": "恐慌指数28（恐惧），资金费率极低（BTC -0.0001%，DOGE 0.0035%），空头拥挤。新闻显示比特币情绪极度乐观但价格疲弱，链上稳定币流入未提及。",
+        "en": "Fear & Greed 28 (Fear), funding rates very low (BTC -0.0001%, DOGE 0.0035%), crowded shorts. News shows extreme positive sentiment but weak price; on-chain stablecoin flow not mentioned."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓：ETH空头（-0.0118 ETH），未实现盈亏0，风险敞口约24美元，远低于50% NAV限制。现金充足（10962美元）。",
+        "en": "Current position: ETH short (-0.0118 ETH), unrealized PnL 0, exposure ~$24, well below 50% NAV limit. Cash abundant ($10,962)."
+      },
+      "reflection": {
+        "zh": "历史反思显示现有持仓盈利中，但日线看空。本次决策遵循【微观结构挤压】剧本，与之前ETH空头逻辑一致（空头拥挤），但方向相反（做多）。",
+        "en": "Historical reflection shows existing positions in profit but daily bearish. This decision follows [Microstructure Squeeze] scenario, consistent with previous ETH short logic (crowded shorts) but opposite direction (long)."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 23.96,
+        "entry_reason": {
+          "zh": "现有空头持仓，资金费率Z-score为45%，空头不拥挤，但日线看跌，继续持有。",
+          "en": "Existing short position, funding Z-score 45%, shorts not crowded, but daily trend bearish, hold."
+        },
+        "exit_plan": {
+          "take_profit": 1900,
+          "stop_loss": 2100,
+          "invalidation": {
+            "zh": "价格突破2100或资金费率Z-score降至-50%以下。",
+            "en": "Price breaks above 2100 or funding Z-score drops below -50%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "DOGE",
+        "action": "open_long",
+        "leverage": 2,
+        "position_size_usd": 500,
+        "entry_reason": {
+          "zh": "符合【微观结构挤压】剧本：Qlib排名第一，资金费率Z-score极低（-82%），空头极度拥挤，价格在0.10附近有支撑，日线RSI 30.9接近超卖，有轧空潜力。",
+          "en": "Matches [Microstructure Squeeze] scenario: Qlib rank 1, funding Z-score extremely low (-82%), shorts crowded, price near 0.10 support, daily RSI 30.9 near oversold, short squeeze potential."
+        },
+        "exit_plan": {
+          "take_profit": 0.11,
+          "stop_loss": 0.095,
+          "invalidation": {
+            "zh": "价格跌破0.095或资金费率Z-score升至0%以上。",
+            "en": "Price breaks below 0.095 or funding Z-score rises above 0%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "BTC",
+        "action": "open_long",
+        "leverage": 2,
+        "position_size_usd": 500,
+        "entry_reason": {
+          "zh": "符合【微观结构挤压】剧本：Qlib排名第四但资金费率Z-score极低（-133%），空头极度拥挤，价格在73900附近，日线RSI 33.5接近超卖，有轧空潜力。",
+          "en": "Matches [Microstructure Squeeze] scenario: Qlib rank 4 but funding Z-score extremely low (-133%), shorts crowded, price near 73900, daily RSI 33.5 near oversold, short squeeze potential."
+        },
+        "exit_plan": {
+          "take_profit": 77000,
+          "stop_loss": 72000,
+          "invalidation": {
+            "zh": "价格跌破72000或资金费率Z-score升至-50%以上。",
+            "en": "Price breaks below 72000 or funding Z-score rises above -50%."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-05-31 20:01:00",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": 0.0355,
+        "avg_bb_width": 0.0662,
+        "avg_funding_rate": "0.0050%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "新闻显示比特币情绪极度乐观（Santiment），但价格疲软且日线看空，属于典型的利好兑现（Priced In）。日线趋势上，BTC、ETH、SOL、DOGE均处于SMA50下方，整体偏空。BNB是唯一日线看涨的币种，但RSI 68.1接近超买，且资金费率Z-score高达97.7%，存在多头拥挤风险。市场整体波动率中等，杠杆情绪中性，但恐惧指数28显示市场恐慌。我选择【趋势跟随】剧本，但方向为空：利用日线看空趋势，做空弱势币种。现有持仓均为多头，与宏观趋势矛盾，需平仓所有多头，转为空头。",
       "en": "News shows extreme bullish sentiment for Bitcoin (Santiment), but price is weak and daily trend is bearish, a classic case of 'Priced In'. On the daily trend, BTC, ETH, SOL, DOGE are all below SMA50, overall bearish. BNB is the only bullish coin on daily, but RSI 68.1 is near overbought and funding Z-score is 97.7%, indicating crowded longs. Market volatility is medium, leverage sentiment neutral, but Fear & Greed Index at 28 shows fear. I choose the [Trend Following] scenario, but direction is short: use daily bearish trend to short weak coins. Existing positions are all long, conflicting with macro trend, so close all longs and switch to shorts."
     },
@@ -4521,10 +4615,5 @@
         "avg_funding_rate": "0.0045%"
       }
     }
-  },
-  {
-    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
-    "actions": [],
-    "timestamp": "2026-05-22 16:02:02"
   }
 ]
