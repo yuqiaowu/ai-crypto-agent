@@ -1,6 +1,100 @@
 [
   {
     "analysis_summary": {
+      "zh": "尽管Qlib模型推荐DOGE、BTC、BNB，但日线趋势显示BTC、ETH、SOL、DOGE均处于看空状态（价格低于SMA50），仅BNB看涨。新闻显示BTC ETF连续10天流出，分析师警告可能跌至$65K，市场情绪恐惧（Fear & Greed 28）。资金费率方面，BTC和ETH的Z-score极度负值（-170%和-104%），显示空头拥挤，存在轧空风险。我选择【微观结构挤压】剧本，利用空头拥挤和价格韧性做多BTC和ETH，但需严格控制风险。现有持仓中，SOL、BTC、ETH多头均处于盈利状态，但需调整止损以保护利润。",
+      "en": "Despite Qlib model recommending DOGE, BTC, BNB, daily trends show BTC, ETH, SOL, DOGE are bearish (price below SMA50), only BNB bullish. News shows BTC ETF outflows for 10 consecutive days, analyst warns of drop to $65K, market sentiment is Fear (Fear & Greed 28). Funding rates for BTC and ETH have extremely negative Z-scores (-170% and -104%), indicating crowded shorts and potential short squeeze risk. I choose the [Microstructure Squeeze] scenario, using crowded shorts and price resilience to go long BTC and ETH, but with strict risk control. Existing positions in SOL, BTC, ETH longs are profitable, but stop-losses need adjustment to protect profits."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分：DOGE(1) > BTC(2) > BNB(3)。日线趋势：仅BNB看涨，其余看跌。BTC RSI 34.6接近超卖，BNB RSI 71.3接近超买。",
+        "en": "Qlib scores: DOGE(1) > BTC(2) > BNB(3). Daily trend: only BNB bullish, others bearish. BTC RSI 34.6 near oversold, BNB RSI 71.3 near overbought."
+      },
+      "macro_onchain": {
+        "zh": "新闻：BTC ETF连续10天流出，分析师看跌至$65K。恐慌指数28（恐惧）。资金费率：BTC和ETH Z-score极度负值，空头拥挤。",
+        "en": "News: BTC ETF outflows for 10 consecutive days, analyst bearish to $65K. Fear & Greed 28 (Fear). Funding: BTC and ETH Z-scores extremely negative, crowded shorts."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓：SOL多头（盈利$36.42）、BTC多头（盈利$8.43）、ETH多头（盈利$5.33）。总敞口约$5,480，占NAV的50%。现金$8,190。",
+        "en": "Current positions: SOL long (profit $36.42), BTC long (profit $8.43), ETH long (profit $5.33). Total exposure ~$5,480, 50% of NAV. Cash $8,190."
+      },
+      "reflection": {
+        "zh": "历史反思显示空头拥挤时做多有效，但需注意止损。之前ETH空头因轧空风险关闭，现转为多头。",
+        "en": "Historical reflection shows going long during crowded shorts works, but stop-losses are important. Previous ETH short was closed due to short squeeze risk, now turned long."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "SOL",
+        "action": "adjust_sl",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": {
+          "zh": "现有持仓，价格已上涨，将止损上移至保本价81.28以保护利润。",
+          "en": "Existing position, price has risen, move stop-loss to breakeven 81.28 to protect profit."
+        },
+        "exit_plan": {
+          "take_profit": 88,
+          "stop_loss": 81.28,
+          "invalidation": {
+            "zh": "价格跌破81.28或资金费率Z-score进一步恶化至200%以上。",
+            "en": "Price breaks below 81.28 or funding Z-score worsens above 200%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "BTC",
+        "action": "adjust_sl",
+        "leverage": 2,
+        "position_size_usd": 1483.08,
+        "entry_reason": {
+          "zh": "现有持仓，价格在支撑位附近，维持止损在72000，但可考虑收紧至73000以锁定部分利润。",
+          "en": "Existing position, price near support, keep stop at 72000 but consider tightening to 73000 to lock in some profit."
+        },
+        "exit_plan": {
+          "take_profit": 77228,
+          "stop_loss": 73000,
+          "invalidation": {
+            "zh": "价格跌破73000或资金费率Z-score回升至-50%以上。",
+            "en": "Price breaks below 73000 or funding Z-score recovers above -50%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "adjust_sl",
+        "leverage": 2,
+        "position_size_usd": 1997.04,
+        "entry_reason": {
+          "zh": "现有持仓，价格小幅上涨，将止损上移至2000以保护利润。",
+          "en": "Existing position, price slightly up, move stop-loss to 2000 to protect profit."
+        },
+        "exit_plan": {
+          "take_profit": 2200,
+          "stop_loss": 2000,
+          "invalidation": {
+            "zh": "价格跌破2000或资金费率Z-score回升至-50%以上。",
+            "en": "Price breaks below 2000 or funding Z-score recovers above -50%."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-05-31 12:00:50",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": 0.0466,
+        "avg_bb_width": 0.0641,
+        "avg_funding_rate": "0.0042%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体看空，BTC、ETH、SOL、DOGE日线均处于SMA50下方，趋势偏弱。尽管Qlib模型推荐做多DOGE、ETH、SOL，但日线结构不支持追多。资金费率方面，DOGE和ETH的Z-score极低（-51%和-152%），显示空头拥挤，存在轧空潜力，但日线趋势看空，需谨慎。BNB日线看涨但RSI接近超买（68），且资金费率Z-score为正（106%），多头拥挤，有轧多风险。新闻方面，比特币ETF连续10天流出，被视为反向指标，但价格未反弹，显示市场情绪悲观。当前持仓已有SOL、BTC、ETH多头，均处于盈利状态，但日线趋势看空，需警惕回调。我选择持有现有仓位，但收紧止损，不新开仓位。",
       "en": "The overall market is bearish, with BTC, ETH, SOL, and DOGE all below their SMA50 on the daily chart, indicating weak trends. Although the Qlib model recommends going long on DOGE, ETH, and SOL, the daily structure does not support chasing longs. Funding rates show extremely negative Z-scores for DOGE (-51%) and ETH (-152%), indicating crowded shorts and potential short squeeze, but the daily trend is bearish, requiring caution. BNB is bullish on the daily but RSI is near overbought (68) and funding Z-score is positive (106%), indicating crowded longs and risk of a long squeeze. News of Bitcoin ETF outflows for 10 consecutive days is seen as a contrarian indicator, but prices have not rebounded, reflecting pessimistic sentiment. Current positions in SOL, BTC, and ETH longs are in profit, but the daily trend is bearish, so I will hold but tighten stop losses. No new positions."
     },
@@ -4311,10 +4405,5 @@
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
     "timestamp": "2026-05-22 12:01:54"
-  },
-  {
-    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
-    "actions": [],
-    "timestamp": "2026-05-22 08:01:48"
   }
 ]
