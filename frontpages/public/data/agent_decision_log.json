@@ -1,6 +1,81 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体看跌，BTC日线低于SMA50，RSI 26.6极度超卖，但趋势向下。新闻显示Mt. Gox转移BTC，恐慌指数23（极度恐惧），但长期清算较多，可能反弹。现有持仓DOGE和ETH均亏损，但未触及止损。考虑到BTC和ETH的RSI极低，存在短期反弹可能，但趋势仍偏空。我选择持有现有仓位，不增加新风险。",
+      "en": "The market is bearish overall, with BTC daily below SMA50 and RSI at 26.6 (extremely oversold), but the trend is down. News shows Mt. Gox moving BTC, Fear & Greed at 23 (extreme fear), but long liquidations are high, suggesting a potential bounce. Existing positions in DOGE and ETH are in loss but not hitting stop-loss. Considering extremely low RSI for BTC and ETH, a short-term bounce is possible, but the trend remains bearish. I choose to hold existing positions and not add new risk."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分ETH最高（0.7016），但日线看跌，RSI 38.76。BTC评分最低（0.3387），RSI 17.98极度超卖。整体技术面偏空。",
+        "en": "Qlib score highest for ETH (0.7016), but daily bearish, RSI 38.76. BTC lowest score (0.3387), RSI 17.98 extremely oversold. Overall technicals bearish."
+      },
+      "macro_onchain": {
+        "zh": "恐慌指数23（极度恐惧），Mt. Gox转移BTC，长期清算1.45亿美元，短期清算0.62亿美元，可能反弹。",
+        "en": "Fear & Greed 23 (extreme fear), Mt. Gox moving BTC, long liquidations $145M, short liquidations $62M, potential bounce."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓DOGE和ETH，各占用500美元保证金，未实现亏损约30美元。总敞口2000美元，占NAV 18.3%，低于50%上限。",
+        "en": "Current positions: DOGE and ETH, each with $500 margin, unrealized loss ~$30. Total exposure $2000, 18.3% of NAV, below 50% limit."
+      },
+      "reflection": {
+        "zh": "历史反思显示近期交易亏损，但模式有效。当前持仓未触发失效条件，继续持有。",
+        "en": "Historical reflection shows recent losses, but patterns are working. Current positions not invalidated, continue to hold."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1000,
+        "entry_reason": {
+          "zh": "现有持仓，未触及止损0.095，资金费率Z-score 3.35%正常，继续持有。",
+          "en": "Existing position, stop-loss 0.095 not hit, funding Z-score 3.35% normal, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 0.11,
+          "stop_loss": 0.095,
+          "invalidation": {
+            "zh": "价格跌破0.095或资金费率Z-score升至0%以上。",
+            "en": "Price breaks below 0.095 or funding Z-score rises above 0%."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1000,
+        "entry_reason": {
+          "zh": "现有持仓，未触及止损1930，资金费率Z-score 88.7%偏高但未失效，继续持有。",
+          "en": "Existing position, stop-loss 1930 not hit, funding Z-score 88.7% high but not invalidated, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 2100,
+          "stop_loss": 1930,
+          "invalidation": {
+            "zh": "价格跌破1930或资金费率Z-score升至-50%以上。",
+            "en": "Price breaks below 1930 or funding Z-score rises above -50%."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-06-02 20:01:03",
+    "market_indicators_at_time": {
+      "trend": "bearish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": -0.0425,
+        "avg_bb_width": 0.0633,
+        "avg_funding_rate": "0.0081%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体呈看跌趋势，BTC跌破SMA50且RSI处于超卖区域，但资金费率Z-score极高，显示多头拥挤，存在轧多风险。新闻方面，BTC跌至两个月低点，但机构仍在买入ETH，形成分化。我选择【趋势跟随】剧本，但鉴于现有持仓已暴露风险，优先管理现有仓位，不新增敞口。",
       "en": "The market is bearish overall, with BTC below SMA50 and RSI oversold, but funding Z-score is extremely high, indicating crowded longs and long squeeze risk. News shows BTC at 2-month low, but institutions are buying ETH, creating divergence. I choose the [Trend Following] scenario, but given existing positions, I prioritize managing current exposure without adding new risk."
     },
@@ -4493,100 +4568,6 @@
       "metrics": {
         "avg_momentum_12": 0.0057,
         "avg_bb_width": 0.0615,
-        "avg_funding_rate": "0.0059%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体处于极度恐惧状态，BTC日线跌破SMA50，趋势偏空。尽管有Kevin Warsh成为美联储主席的利好，但BTC仍在下跌，显示利好已兑现（Priced In）。日线RSI接近超卖，但融资费率中性，未出现极端拥挤。我选择【趋势跟随】剧本，但鉴于宏观偏空，仅维持现有持仓，不新增风险敞口。",
-      "en": "The market is in extreme fear, with BTC daily price below SMA50, indicating a bearish trend. Despite the positive news of Kevin Warsh becoming Fed chair, BTC continues to fall, suggesting the news is priced in. Daily RSI is near oversold, but funding rates are neutral without extreme crowding. I choose the [Trend Following] scenario, but given the bearish macro, I will only hold existing positions without adding new risk."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分最高为DOGE（0.4357），但日线趋势偏空，RSI中性偏低。BTC和ETH的RSI接近超卖，但动量仍为负。",
-        "en": "Highest Qlib score is DOGE (0.4357), but daily trend is bearish, RSI neutral-low. BTC and ETH RSI near oversold, but momentum still negative."
-      },
-      "macro_onchain": {
-        "zh": "恐惧指数25（极度恐惧），新闻方面有SEC批准比特币指数期权等利好，但价格未反应。链上资金流向未提供。",
-        "en": "Fear & Greed Index 25 (Extreme Fear). News includes SEC approval of Bitcoin index options, but price not reacting. On-chain flow not provided."
-      },
-      "portfolio_status": {
-        "zh": "当前持有BNB、ETH、BTC多头，总敞口约5537美元，占NAV约50%，符合熊市限制。BNB盈利78美元，ETH和BTC小幅盈利。",
-        "en": "Currently holding long positions in BNB, ETH, BTC with total exposure ~$5537, ~50% of NAV, within bear market limit. BNB profit $78, ETH and BTC small profits."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易亏损，但当前持仓均处于盈利状态，策略有效。继续验证信号，但注意风险。",
-        "en": "Historical reflection shows recent losses, but current positions are profitable, indicating strategy works. Continue to verify signals but watch risk."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 4000,
-        "entry_reason": {
-          "zh": "BNB日线趋势看涨，价格高于SMA50，且Qlib评分虽低但RSI中性，持仓盈利中，继续持有。",
-          "en": "BNB daily trend bullish, price above SMA50, Qlib score low but RSI neutral, position in profit, continue to hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 51.82,
-        "entry_reason": {
-          "zh": "ETH日线趋势偏空，但RSI超卖，持仓较小且盈利，继续持有等待反弹。",
-          "en": "ETH daily trend bearish, but RSI oversold, position small and in profit, hold for bounce."
-        },
-        "exit_plan": {
-          "take_profit": 2200,
-          "stop_loss": 2000,
-          "invalidation": {
-            "zh": "价格跌破2000美元或融资费率Z-score升至-100%以上。",
-            "en": "Price breaks below $2000 or funding Z-score rises above -100%."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1486.04,
-        "entry_reason": {
-          "zh": "BTC日线趋势偏空，但RSI接近超卖，持仓小幅盈利，继续持有，止损设在75000。",
-          "en": "BTC daily trend bearish, but RSI near oversold, position in small profit, hold with stop at 75000."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000美元或融资费率Z-score升至正值。",
-            "en": "Price breaks below $75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-25 00:01:03",
-    "market_indicators_at_time": {
-      "trend": "bearish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": -0.0157,
-        "avg_bb_width": 0.0617,
         "avg_funding_rate": "0.0059%"
       }
     }
