@@ -1,6 +1,102 @@
 [
   {
     "analysis_summary": {
+      "zh": "当前市场处于极端恐慌（恐惧指数11）和宏观利空（美伊冲突、关税）中，但价格已大幅下跌，日线RSI显示BTC、ETH、SOL均处于超卖区域（<30），且资金费率深度为负（SOL -0.0095%，Z-score -188%），表明空头拥挤。这符合【微观结构挤压】剧本：坏消息已定价，空头过度拥挤可能引发轧空。日线趋势虽为熊市（价格低于SMA50），但短期反弹概率增加。我选择做多SOL，因其Qlib评分最高（0.7256），RSI最低（33.13），且资金费率极度负值，具备最强反弹潜力。",
+      "en": "The market is in extreme fear (Fear & Greed 11) with macro headwinds (US-Iran conflict, tariffs), but prices have dropped significantly. Daily RSI shows BTC, ETH, SOL are oversold (<30), and funding rates are deeply negative (SOL -0.0095%, Z-score -188%), indicating crowded shorts. This matches the [Microstructure Squeeze] scenario: bad news is priced in, and excessive short positioning could trigger a squeeze. Despite the bearish daily trend (price below SMA50), short-term bounce probability increases. I choose to long SOL as it has the highest Qlib score (0.7256), lowest RSI (33.13), and extremely negative funding rate, offering the strongest rebound potential."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分SOL最高（0.7256），但所有币种日线均处于熊市（价格低于SMA50），RSI超卖（BTC 18.9，ETH 22.7，SOL 23.1），短期有反弹需求。",
+        "en": "SOL has the highest Qlib score (0.7256), but all coins are in a daily bear trend (price below SMA50), with oversold RSI (BTC 18.9, ETH 22.7, SOL 23.1), suggesting short-term bounce potential."
+      },
+      "macro_onchain": {
+        "zh": "美伊冲突和关税提案是利空，但市场已大幅下跌，恐慌指数11显示极度恐慌，通常为反向指标。链上稳定币流入未提供，但机构买入ETH（Bitmine、Bit Digital）提供支撑。",
+        "en": "US-Iran conflict and tariff proposals are bearish, but the market has already sold off heavily. Fear & Greed at 11 is extreme fear, often a contrarian indicator. On-chain stablecoin inflow not provided, but institutional ETH buying (Bitmine, Bit Digital) offers support."
+      },
+      "portfolio_status": {
+        "zh": "当前持有BTC和ETH空头仓位，均处于盈利状态（BTC +$75，ETH +$58），止损分别设在68000和1920。总敞口约5428美元，占NAV的49.4%，接近50%上限。可再开一个仓位，但需控制规模。",
+        "en": "Currently holding BTC and ETH short positions, both in profit (BTC +$75, ETH +$58), with stop losses at 68000 and 1920 respectively. Total exposure ~$5428, 49.4% of NAV, near the 50% limit. One more position can be opened, but size must be controlled."
+      },
+      "reflection": {
+        "zh": "历史反思显示空头仓位有效，但需注意极端恐慌下反弹风险。本次决策基于微观结构挤压，与现有空头形成对冲，降低整体风险。",
+        "en": "Historical reflection shows short positions are working, but extreme fear raises bounce risk. This decision is based on microstructure squeeze, hedging existing shorts and reducing overall risk."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "BTC",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 4000,
+        "entry_reason": {
+          "zh": "现有空头仓位，价格低于止损，继续持有。",
+          "en": "Existing short position, price below stop loss, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 62000,
+          "stop_loss": 68000,
+          "invalidation": {
+            "zh": "价格突破68000或日线收盘高于SMA50（约77000）。",
+            "en": "Price breaks above 68000 or daily close above SMA50 (~77000)."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1428.9,
+        "entry_reason": {
+          "zh": "现有空头仓位，价格低于止损，继续持有。",
+          "en": "Existing short position, price below stop loss, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 1750,
+          "stop_loss": 1920,
+          "invalidation": {
+            "zh": "价格突破1920或日线收盘高于SMA50（约2223）。",
+            "en": "Price breaks above 1920 or daily close above SMA50 (~2223)."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "SOL",
+        "action": "open_long",
+        "leverage": 2,
+        "position_size_usd": 31.89,
+        "entry_reason": {
+          "zh": "符合【微观结构挤压】剧本：Qlib评分最高，RSI超卖，资金费率深度为负（-0.0095%，Z-score -188%），空头拥挤，反弹概率高。",
+          "en": "Matches [Microstructure Squeeze] scenario: highest Qlib score, oversold RSI, deeply negative funding rate (-0.0095%, Z-score -188%), crowded shorts, high bounce probability."
+        },
+        "exit_plan": {
+          "take_profit": 82,
+          "stop_loss": 72,
+          "invalidation": {
+            "zh": "价格跌破72美元或日线收盘低于前低70美元。",
+            "en": "Price breaks below $72 or daily close below previous low of $70."
+          }
+        },
+        "status": "executed",
+        "original_size_usd": 1000.0,
+        "rejection_reason": "Size Reduced due to Exposure Limit"
+      }
+    ],
+    "timestamp": "2026-06-03 16:01:23",
+    "market_indicators_at_time": {
+      "trend": "bearish",
+      "volatility": "medium",
+      "leverage_sentiment": "bearish",
+      "metrics": {
+        "avg_momentum_12": -0.0617,
+        "avg_bb_width": 0.1417,
+        "avg_funding_rate": "-0.0010%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场处于极度恐慌（恐惧指数11）和全面超卖状态，BTC、ETH、SOL的RSI均低于20，但日线趋势明确看空（价格远低于SMA50）。新闻方面，美国加征关税和美联储鹰派言论构成持续宏观压力，但大规模多头清算（5.5亿美元）后可能出现短期反弹。Qlib模型推荐SOL、BNB、ETH，但整体市场结构不支持趋势跟随。我选择【微观结构挤压】剧本：极端负资金费率（SOL -0.0117%，Z-score -258%）和超卖RSI暗示空头拥挤，存在轧空机会。现有BTC和ETH空头持仓盈利，但考虑到反弹风险，决定持有并收紧止损。",
       "en": "The market is in extreme fear (Fear Index 11) and widespread oversold conditions, with BTC, ETH, SOL RSI below 20, but daily trends are clearly bearish (price far below SMA50). News-wise, US tariff hikes and hawkish Fed comments create ongoing macro pressure, but massive long liquidations ($550M) could lead to a short-term bounce. Qlib model recommends SOL, BNB, ETH, but overall market structure does not support trend following. I choose the [Microstructure Squeeze] scenario: extreme negative funding rates (SOL -0.0117%, Z-score -258%) and oversold RSI suggest crowded shorts, presenting a short-squeeze opportunity. Existing BTC and ETH short positions are profitable, but considering bounce risk, I decide to hold and tighten stop losses."
     },
@@ -4421,100 +4517,6 @@
         "avg_momentum_12": 0.0262,
         "avg_bb_width": 0.0545,
         "avg_funding_rate": "0.0042%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈看涨趋势，但日线RSI显示BTC和ETH处于超卖区域，存在反弹需求。新闻方面，比特币因伊朗协议谈判反弹，但哈佛抛售ETH和宏观压力构成利空。资金费率普遍为负，尤其是BTC和ETH的Z-score极低，表明空头拥挤，存在轧空风险。我选择【微观结构挤压】剧本，做多BTC和ETH，利用空头回补推动反弹。",
-      "en": "The market is generally bullish, but daily RSI shows BTC and ETH in oversold territory, suggesting a potential bounce. News-wise, Bitcoin bounces on Iran deal talks, but Harvard dumping ETH and macro pressures are bearish. Funding rates are mostly negative, with BTC and ETH Z-scores extremely low, indicating crowded shorts and short-squeeze risk. I choose the [Microstructure Squeeze] scenario, going long BTC and ETH to capitalize on short covering."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：ETH第一（0.5459），DOGE第二（0.4743），BTC第三（0.3412）。日线趋势：BTC和DOGE看涨，ETH和SOL看跌。RSI：BTC 36.1，ETH 29.0，均超卖。",
-        "en": "Qlib scores: ETH 1st (0.5459), DOGE 2nd (0.4743), BTC 3rd (0.3412). Daily trend: BTC and DOGE bullish, ETH and SOL bearish. RSI: BTC 36.1, ETH 29.0, both oversold."
-      },
-      "macro_onchain": {
-        "zh": "新闻：比特币因伊朗协议反弹，但宏观压力持续。恐慌指数30（恐惧）。资金费率：BTC -0.0010%，ETH 0.0019%，但Z-score极低（BTC -147%，ETH -119%），空头拥挤。",
-        "en": "News: Bitcoin bounces on Iran deal, but macro pressures persist. Fear & Greed Index 30 (Fear). Funding rates: BTC -0.0010%, ETH 0.0019%, but Z-scores extremely low (BTC -147%, ETH -119%), indicating crowded shorts."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：BNB多头（盈利81美元），ETH多头（盈利0.91美元），BTC多头（盈利11.52美元）。总敞口约5537美元，占NAV的49.8%，未超限。",
-        "en": "Current positions: BNB long (profit $81), ETH long (profit $0.91), BTC long (profit $11.52). Total exposure ~$5537, 49.8% of NAV, within limits."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易亏损，但当前持仓均盈利，表明策略有效。继续验证信号，但需注意风险。",
-        "en": "Historical reflection shows recent losses, but current positions are profitable, indicating strategy works. Continue to verify signals but watch risk."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 4000,
-        "entry_reason": {
-          "zh": "持仓盈利，趋势看涨，日线RSI中性，继续持有。",
-          "en": "Position in profit, trend bullish, daily RSI neutral, hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 51.82,
-        "entry_reason": {
-          "zh": "持仓盈利，Qlib评分第一，资金费率Z-score极低，存在轧空机会，继续持有。",
-          "en": "Position in profit, Qlib score #1, funding Z-score extremely low, short-squeeze opportunity, hold."
-        },
-        "exit_plan": {
-          "take_profit": 2200,
-          "stop_loss": 2000,
-          "invalidation": {
-            "zh": "价格跌破2000美元或融资费率Z-score升至-100%以上。",
-            "en": "Price breaks below $2000 or funding Z-score rises above -100%."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1486.04,
-        "entry_reason": {
-          "zh": "持仓盈利，日线看涨，RSI超卖，资金费率Z-score极低，轧空潜力，继续持有。",
-          "en": "Position in profit, daily trend bullish, RSI oversold, funding Z-score extremely low, short-squeeze potential, hold."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000美元或融资费率Z-score升至正值。",
-            "en": "Price breaks below $75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-25 20:01:03",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0379,
-        "avg_bb_width": 0.055,
-        "avg_funding_rate": "0.0018%"
       }
     }
   }
