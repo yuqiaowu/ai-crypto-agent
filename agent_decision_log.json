@@ -1,6 +1,81 @@
 [
   {
     "analysis_summary": {
+      "zh": "尽管市场整体呈看涨趋势，但日线趋势显示所有币种均处于看跌状态（价格低于SMA50），且RSI处于中性偏低水平，表明反弹可能只是短期修正。新闻方面，伊朗协议导致美债收益率下滑，可能推动风险资产上涨，但比特币图表警告$67K附近存在拒绝风险，显示利好可能已被部分定价。资金费率普遍为负，尤其是ETH和BTC的Z-score极度负值，表明空头拥挤，存在轧空机会。我选择【微观结构挤压】剧本，做多ETH和BTC，利用空头挤压和极端恐惧情绪。",
+      "en": "Despite the overall bullish trend in the market summary, daily trends show all coins are bearish (price below SMA50) with neutral-low RSI, suggesting the rally may be a short-term correction. News of Iran deal driving treasury yields lower could boost risk assets, but Bitcoin charts warn of rejection near $67K, indicating good news may be partially priced in. Funding rates are mostly negative, especially for ETH and BTC with extremely negative Z-scores, indicating crowded shorts and potential short squeeze. I choose the [Microstructure Squeeze] scenario, going long ETH and BTC to capitalize on short covering and extreme fear."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分ETH最高（0.4755），但日线趋势看跌，RSI 44.3处于超卖区域。BTC评分第二（0.259），日线RSI 48.2。短期动量积极，但需注意日线阻力。",
+        "en": "ETH has highest Qlib score (0.4755) but daily trend bearish, RSI 44.3 in oversold territory. BTC second (0.259), daily RSI 48.2. Short-term momentum positive but daily resistance ahead."
+      },
+      "macro_onchain": {
+        "zh": "新闻显示美债收益率下滑，可能利好风险资产。恐慌指数20（极度恐惧），表明市场悲观，但往往反向指标。链上稳定币流入未提供，但Saylor买入BTC显示长期信心。",
+        "en": "News shows treasury yields falling, potentially bullish for risk assets. Fear & Greed at 20 (Extreme Fear), a contrarian indicator. On-chain stablecoin flow not provided, but Saylor buying BTC shows long-term confidence."
+      },
+      "portfolio_status": {
+        "zh": "当前持有ETH多头仓位，未实现盈亏为0，止损1800，止盈1900。总敞口约500美元，占NAV的4.4%，远低于50%上限。现金充足。",
+        "en": "Currently holding ETH long position with unrealized PnL 0, stop loss at 1800, take profit at 1900. Total exposure ~$500, 4.4% of NAV, well below 50% limit. Ample cash."
+      },
+      "reflection": {
+        "zh": "历史反思显示近期交易亏损，但模式有效。需继续验证信号，同时注意风险。本次决策基于极端负资金费率和超卖日线，符合挤压剧本。",
+        "en": "Historical reflection shows recent losses but patterns working. Continue to verify signals while respecting risk. This decision based on extreme negative funding and oversold daily, fitting squeeze scenario."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 1,
+        "position_size_usd": 500,
+        "entry_reason": {
+          "zh": "现有持仓，日线超卖且资金费率极度负值，等待轧空反弹。",
+          "en": "Existing position, daily oversold and extremely negative funding, waiting for short squeeze rally."
+        },
+        "exit_plan": {
+          "take_profit": 1900,
+          "stop_loss": 1800,
+          "invalidation": {
+            "zh": "若ETH跌破1800美元或日线收盘低于前低，则止损。",
+            "en": "Stop loss if ETH breaks below $1800 or daily close below previous low."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "BTC",
+        "action": "open_long",
+        "leverage": 1,
+        "position_size_usd": 1000,
+        "entry_reason": {
+          "zh": "符合【微观结构挤压】剧本：资金费率极度负值（-0.0074%，Z-score -107%），空头拥挤，价格在日线支撑附近，极端恐惧指数20，反弹概率大。",
+          "en": "Matches [Microstructure Squeeze] scenario: extremely negative funding (-0.0074%, Z-score -107%), crowded shorts, price near daily support, extreme fear index 20, high probability of bounce."
+        },
+        "exit_plan": {
+          "take_profit": 68000,
+          "stop_loss": 65500,
+          "invalidation": {
+            "zh": "若BTC跌破65500美元或日线收盘低于前低，则止损。",
+            "en": "Stop loss if BTC breaks below $65500 or daily close below previous low."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-06-16 04:00:56",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "bearish",
+      "metrics": {
+        "avg_momentum_12": 0.0511,
+        "avg_bb_width": 0.0869,
+        "avg_funding_rate": "-0.0021%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "尽管有Saylor增持BTC等利好，但日线趋势全部看跌（BTC价格低于SMA50），且RSI处于中性区域，显示利好可能已被部分定价（Priced In）。市场情绪极度恐惧（Fear & Greed 20），但短期反弹后RSI偏高（ETH RSI 80），存在回调风险。我选择【趋势跟随】剧本，但鉴于日线空头趋势，仅对高Qlib分的ETH和DOGE做短线多单，严格止损。",
       "en": "Despite bullish news like Saylor's BTC purchase, all daily trends are bearish (BTC price below SMA50) and RSI is neutral, suggesting the news may be partially priced in. Market sentiment is extreme fear (Fear & Greed 20), but short-term RSI is high (ETH RSI 80), posing pullback risk. I choose the [Trend Following] scenario, but given the daily bearish trend, only take short-term longs on high Qlib score ETH and DOGE with strict stop losses."
     },
@@ -4783,100 +4858,6 @@
         "avg_momentum_12": 0.0292,
         "avg_bb_width": 0.1275,
         "avg_funding_rate": "-0.0069%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场处于极度恐慌状态（恐惧指数12），日线趋势全面看跌，所有币种均低于SMA50。但新闻显示BTC和ETH的负费率创历史新低，暗示空头拥挤，存在轧空潜力。Qlib模型推荐SOL、DOGE、ETH，且这些币种RSI均处于超卖区域。我选择【微观结构挤压】剧本，认为空头回补可能推动反弹。当前已有SOL、ETH、DOGE三个多头仓位，达到最大持仓限制，因此不再开新仓，仅对现有仓位进行持有管理。",
-      "en": "The market is in extreme fear (Fear Index 12), with all coins bearish on daily timeframe below SMA50. However, news indicates BTC and ETH funding rates at historic lows, suggesting crowded shorts and potential short squeeze. Qlib model recommends SOL, DOGE, ETH, all with oversold RSI. I choose the [Microstructure Squeeze] scenario, expecting short covering to drive a bounce. Currently holding three long positions (SOL, ETH, DOGE), reaching max position limit, so no new trades; only manage existing positions."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib排名：SOL第一（0.7127），DOGE第二（0.587），ETH第三（0.5363）。日线趋势看跌，但RSI均处于超卖区域（SOL 17.7，ETH 18.9，DOGE 23.2），负费率显示空头拥挤。",
-        "en": "Qlib rank: SOL 1st (0.7127), DOGE 2nd (0.587), ETH 3rd (0.5363). Daily trend bearish, but RSI oversold (SOL 17.7, ETH 18.9, DOGE 23.2), negative funding rates indicate crowded shorts."
-      },
-      "macro_onchain": {
-        "zh": "新闻：BTC最超卖，负费率创纪录，可能轧空。链上：稳定币流入增加，购买力增强。恐惧指数12，极端恐惧。",
-        "en": "News: BTC most oversold, negative funding record, potential short squeeze. On-chain: stablecoin inflows increasing, buying power rising. Fear Index 12, extreme fear."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：SOL（浮盈19.15美元）、ETH（浮盈20.07美元）、DOGE（浮盈21.5美元）。总敞口2500美元，占NAV的22.3%，低于50%上限。现金8626.95美元。",
-        "en": "Current positions: SOL (unrealized PnL $19.15), ETH ($20.07), DOGE ($21.5). Total exposure $2500, 22.3% of NAV, below 50% limit. Cash $8626.95."
-      },
-      "reflection": {
-        "zh": "历史反思显示现有持仓未触发止损，继续持有等待反弹。Qlib模型和负费率支持持仓。",
-        "en": "Historical reflection shows existing positions have not hit stop losses; continue to hold for bounce. Qlib model and negative funding rates support holding."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 1,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "Qlib排名第一，RSI极度超卖，负费率显示空头拥挤，存在轧空潜力。日线趋势看跌，但小仓位博反弹。",
-          "en": "Qlib rank 1, RSI extremely oversold, negative funding indicates crowded shorts, potential short squeeze. Daily trend bearish but small position for bounce."
-        },
-        "exit_plan": {
-          "take_profit": 70.0,
-          "stop_loss": 60.0,
-          "invalidation": {
-            "zh": "若SOL跌破60美元或日线收盘低于前低，则止损。",
-            "en": "Stop loss if SOL breaks below $60 or daily close below previous low."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 1,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "Qlib排名第三，RSI超卖，负费率，机构买入（Bitmine买入5200万美元ETH）。",
-          "en": "Qlib rank 3, RSI oversold, negative funding, institutional buying (Bitmine bought $52M ETH)."
-        },
-        "exit_plan": {
-          "take_profit": 1750.0,
-          "stop_loss": 1500.0,
-          "invalidation": {
-            "zh": "若ETH跌破1500美元或日线收盘低于前低，则止损。",
-            "en": "Stop loss if ETH breaks below $1500 or daily close below previous low."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 1,
-        "position_size_usd": 500,
-        "entry_reason": {
-          "zh": "Qlib排名第二，RSI超卖，负费率，空头拥挤，可能轧空。",
-          "en": "Qlib rank 2, RSI oversold, negative funding, crowded shorts, potential short squeeze."
-        },
-        "exit_plan": {
-          "take_profit": 0.09,
-          "stop_loss": 0.075,
-          "invalidation": {
-            "zh": "若DOGE跌破0.075美元或日线收盘低于前低，则止损。",
-            "en": "Stop loss if DOGE breaks below $0.075 or daily close below previous low."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-06-07 20:01:35",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "medium",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0016,
-        "avg_bb_width": 0.1349,
-        "avg_funding_rate": "-0.0126%"
       }
     }
   }
