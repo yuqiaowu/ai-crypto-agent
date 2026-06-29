@@ -1,6 +1,81 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体处于日线级别熊市，所有币种价格均低于SMA50，且BTC、ETH、BNB、DOGE的RSI处于超卖区域（<30），显示极度悲观。然而，新闻面出现一些积极信号（如Strategy保留BTC敞口、Sharplink买入ETH），但价格反应平淡，属于‘利好兑现’（Priced In）。恐惧指数12（极度恐惧）和大量多头清算后，市场可能存在短期反弹机会，但趋势依然偏空。我选择【微观结构挤压】剧本，关注DOGE和ETH的潜在反弹，但需严格控制风险。当前持仓DOGE和ETH均处于浮亏状态，但未触及止损，继续持有。",
+      "en": "The market is in a daily bearish trend, with all coins below SMA50 and BTC, ETH, BNB, DOGE RSI in oversold territory (<30), indicating extreme pessimism. However, some positive news (Strategy retaining BTC exposure, Sharplink buying ETH) is being ignored, suggesting 'priced in'. With Fear & Greed at 12 (Extreme Fear) and significant long liquidations, a short-term bounce is possible, but the trend remains bearish. I choose the [Microstructure Squeeze] scenario, focusing on potential bounces in DOGE and ETH, but with strict risk control. Current positions in DOGE and ETH are underwater but not stopped out; hold."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分DOGE最高（0.57），但日线RSI仅20.1，极度超卖；ETH评分0.212，RSI 25.9。所有币种日线趋势看跌。",
+        "en": "DOGE has highest Qlib score (0.57) but daily RSI at 20.1, extremely oversold; ETH score 0.212, RSI 25.9. All coins daily trend bearish."
+      },
+      "macro_onchain": {
+        "zh": "恐惧指数12（极度恐惧），多头清算1.23亿，空头清算0.6亿，可能预示短期底部。新闻面中性偏多，但市场未反应。",
+        "en": "Fear index 12 (Extreme Fear), long liquidations $123M, short liquidations $60M, may signal short-term bottom. News neutral-bullish but not reflected."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓DOGE和ETH，总敞口约5597美元，占NAV的50.7%，接近熊市最大敞口50%上限。浮亏约72美元。",
+        "en": "Current positions DOGE and ETH, total exposure ~$5597, 50.7% of NAV, near bear market max 50% limit. Unrealized loss ~$72."
+      },
+      "reflection": {
+        "zh": "历史反思显示近期交易胜率0%，但模式有效，需继续验证信号。当前持仓基于之前信号，未触发止损，故持有。",
+        "en": "Historical reflection shows 0% win rate recently, but patterns are working; continue to verify signals. Current positions based on prior signals, not stopped out, so hold."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1648.82,
+        "entry_reason": {
+          "zh": "继续持有，等待反弹。日线RSI 20.1极度超卖，且Qlib评分最高，存在反弹潜力。止损0.069未触发。",
+          "en": "Hold for bounce. Daily RSI 20.1 extremely oversold, highest Qlib score, potential bounce. Stop loss 0.069 not triggered."
+        },
+        "exit_plan": {
+          "take_profit": 0.082,
+          "stop_loss": 0.069,
+          "invalidation": {
+            "zh": "价格跌破0.069或日线收盘低于SMA50。",
+            "en": "Price breaks below 0.069 or daily close below SMA50."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 3948.26,
+        "entry_reason": {
+          "zh": "继续持有，等待反弹。日线RSI 25.9超卖，且Sharplink买入ETH提供支撑。止损1535未触发。",
+          "en": "Hold for bounce. Daily RSI 25.9 oversold, Sharplink buying ETH provides support. Stop loss 1535 not triggered."
+        },
+        "exit_plan": {
+          "take_profit": 1650,
+          "stop_loss": 1535,
+          "invalidation": {
+            "zh": "价格跌破1535或日线收盘低于SMA50。",
+            "en": "Price breaks below 1535 or daily close below SMA50."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-06-30 00:01:10",
+    "market_indicators_at_time": {
+      "trend": "bearish",
+      "volatility": "low",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": -0.0172,
+        "avg_bb_width": 0.0445,
+        "avg_funding_rate": "0.0057%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体处于极度恐慌状态（恐慌指数12），日线趋势全部看跌，BTC低于SMA50。尽管有Grayscale建议Strategy卖出BTC等负面新闻，但价格并未大幅下跌，显示可能已部分定价。DOGE的Qlib评分最高（0.8078），但日线RSI仅17.4，处于超卖区域，且资金费率中性，存在短期反弹机会。当前持仓DOGE和ETH均处于浮亏状态，但未触及止损，继续持有。考虑到市场情绪极度悲观，且无新的强劲催化剂，暂不开新仓，等待现有持仓反弹或止损。",
       "en": "The market is in extreme fear (Fear & Greed Index 12), all daily trends are bearish, BTC below SMA50. Despite negative news like Grayscale suggesting Strategy sell BTC, prices haven't dropped significantly, suggesting partial pricing. DOGE has the highest Qlib score (0.8078) but daily RSI at 17.4 (oversold) with neutral funding, offering a potential short-term bounce. Current DOGE and ETH positions are in unrealized loss but not hitting stop-loss, so hold. Given extreme sentiment and lack of new catalysts, no new positions, wait for bounce or stop-loss."
     },
@@ -4124,100 +4199,6 @@
         "avg_momentum_12": 0.0299,
         "avg_bb_width": 0.0499,
         "avg_funding_rate": "0.0019%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "尽管有比特币ETF资金流出和期权到期等负面新闻，但市场已部分消化，且恐慌指数处于极端恐惧水平（23），暗示可能接近底部。日线趋势整体偏空，但BTC和ETH的RSI处于中性区域，未超卖。资金费率方面，BTC和DOGE为负，显示空头拥挤，存在轧空风险。Qlib模型推荐ETH、BTC、DOGE，但考虑到日线空头趋势，我选择谨慎做多BTC，利用负资金费率和价格韧性，执行微观结构挤压剧本。",
-      "en": "Despite negative news like Bitcoin ETF outflows and options expiry, the market has partially priced it in, and the Fear & Greed Index at 23 (Extreme Fear) suggests a potential bottom. Daily trends are bearish, but BTC and ETH RSI are neutral, not oversold. Funding rates for BTC and DOGE are negative, indicating crowded shorts and short squeeze risk. Qlib model recommends ETH, BTC, DOGE, but given the bearish daily trend, I choose to cautiously go long BTC, leveraging negative funding and price resilience, executing the microstructure squeeze scenario."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：ETH 0.4773（最高），BTC 0.4106，DOGE 0.3688。日线趋势：所有币种均低于SMA50，呈空头排列。RSI：BTC 55.9，ETH 58.3，中性。",
-        "en": "Qlib scores: ETH 0.4773 (highest), BTC 0.4106, DOGE 0.3688. Daily trend: all coins below SMA50, bearish. RSI: BTC 55.9, ETH 58.3, neutral."
-      },
-      "macro_onchain": {
-        "zh": "新闻：比特币ETF流出64亿美元，期权到期13亿美元，但市场未大幅下跌，显示韧性。恐慌指数23（极度恐惧），历史上往往对应阶段性底部。资金费率：BTC -0.0009%（负），DOGE -0.0040%（负），空头拥挤。",
-        "en": "News: Bitcoin ETF outflows $6.4B, options expiry $13B, but market not crashing, showing resilience. Fear index 23 (Extreme Fear), historically a bottom signal. Funding: BTC -0.0009% (negative), DOGE -0.0040% (negative), crowded shorts."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：BNB多单（浮盈+34.44），DOGE空单（浮亏-4.8），BTC多单（浮盈+5.2）。总敞口约5716美元，占NAV 50%，符合熊市限制。现金充足。",
-        "en": "Current positions: BNB long (unrealized +34.44), DOGE short (unrealized -4.8), BTC long (unrealized +5.2). Total exposure ~$5716, 50% of NAV, within bear market limit. Cash ample."
-      },
-      "reflection": {
-        "zh": "历史交易无亏损，但需警惕。当前策略有效，继续验证信号，但注意风险。",
-        "en": "No losses historically, but stay cautious. Current strategy working, continue to verify signals but watch risk."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "持仓仍在盈利，未触及止损或止盈，继续持有。",
-          "en": "Position still in profit, not hitting stop loss or take profit, hold."
-        },
-        "exit_plan": {
-          "take_profit": 595,
-          "stop_loss": 580.7,
-          "invalidation": {
-            "zh": "价格跌破580.7或资金费率持续上升且价格下跌。",
-            "en": "Price breaks below 580.7 or funding rate continues rising with price decline."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "空单小幅浮亏，但止损未触发，且资金费率极负，可能面临轧空，但暂时持有观察。",
-          "en": "Short position slightly underwater, but stop loss not triggered. Extremely negative funding may lead to squeeze, but hold for now."
-        },
-        "exit_plan": {
-          "take_profit": 0.08,
-          "stop_loss": 0.085,
-          "invalidation": {
-            "zh": "价格突破0.085或日线收盘高于SMA50。",
-            "en": "Price breaks above 0.085 or daily close above SMA50."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2716.9,
-        "entry_reason": {
-          "zh": "BTC多单小幅浮盈，负资金费率支持，继续持有。",
-          "en": "BTC long slightly profitable, negative funding supports, hold."
-        },
-        "exit_plan": {
-          "take_profit": 66000,
-          "stop_loss": 63000,
-          "invalidation": {
-            "zh": "价格跌破63000或资金费率转正且价格下跌。",
-            "en": "Price breaks below 63000 or funding rate turns positive with price decline."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-06-21 16:00:44",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0319,
-        "avg_bb_width": 0.0514,
-        "avg_funding_rate": "0.0003%"
       }
     }
   }
