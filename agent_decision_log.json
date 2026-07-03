@@ -1,6 +1,81 @@
 [
   {
     "analysis_summary": {
+      "zh": "尽管市场整体看涨（平均动量0.046），但BTC日线仍低于SMA50，呈熊市结构，且恐惧指数21（极度恐惧）显示市场情绪悲观。ETH和SOL的Qlib评分最高，但ETH日线趋势偏弱，SOL日线RSI 68.7接近超买。SOL的融资利率为负且Z-score极低（-43%），存在轧空机会，符合【微观结构挤压】剧本。DOGE持仓已浮亏，但日线RSI 32.3接近超卖，可能反弹。整体风险敞口需控制在50% NAV以内。",
+      "en": "Despite the overall bullish market (avg momentum 0.046), BTC daily is still below SMA50, indicating a bearish structure, and the Fear & Greed Index at 21 (Extreme Fear) shows pessimistic sentiment. ETH and SOL have the highest Qlib scores, but ETH's daily trend is weak, and SOL's daily RSI at 68.7 is near overbought. SOL's funding rate is negative with an extremely low Z-score (-43%), presenting a short squeeze opportunity, fitting the [Microstructure Squeeze] scenario. The DOGE position is at a slight loss, but its daily RSI at 32.3 is near oversold, suggesting a potential bounce. Overall risk exposure should be kept within 50% of NAV."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分：ETH(0.47) > SOL(0.44) > DOGE(0.41)。日线趋势：SOL看涨（价格>SMA50），其余看跌。SOL RSI 68.7接近超买，但融资利率负值提供支撑。",
+        "en": "Qlib scores: ETH(0.47) > SOL(0.44) > DOGE(0.41). Daily trend: SOL bullish (price > SMA50), others bearish. SOL RSI 68.7 near overbought, but negative funding rate provides support."
+      },
+      "macro_onchain": {
+        "zh": "新闻：BTC因疲弱就业数据触及62K新高，但恐惧指数21显示极度恐惧。链上：稳定币流入为正，但ETH ETF流出3.45亿美元。宏观：美联储利率预期稳定。",
+        "en": "News: BTC hit new July high above $62K on weak US jobs data, but Fear Index at 21 shows extreme fear. On-chain: stablecoin inflow positive, but ETH ETF outflows of $345M. Macro: Fed rate expectations stable."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓：DOGE多头（浮亏$13.23，止损0.069），SOL多头（浮盈$0，止损75）。总敞口约$3,649，占NAV的32.4%，低于50%上限。现金$9,444。",
+        "en": "Current positions: DOGE long (unrealized PnL -$13.23, SL 0.069), SOL long (unrealized PnL $0, SL 75). Total exposure ~$3,649, 32.4% of NAV, below 50% limit. Cash $9,444."
+      },
+      "reflection": {
+        "zh": "历史交易连续亏损，需更谨慎。本次SOL开仓基于Qlib高分和负融资利率，符合挤压剧本，但需严格止损。DOGE持仓已有一周，浮亏较小，可继续持有等待反弹。",
+        "en": "Historical trades have been losing consecutively, requiring more caution. The current SOL position is based on high Qlib score and negative funding rate, fitting the squeeze scenario, but strict stop-loss is needed. The DOGE position has been held for a week with a small loss, can be held for a bounce."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 1648.82,
+        "entry_reason": {
+          "zh": "日线RSI 32.3接近超卖，可能反弹，且浮亏较小，继续持有。",
+          "en": "Daily RSI 32.3 near oversold, potential bounce, and small unrealized loss, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 0.082,
+          "stop_loss": 0.069,
+          "invalidation": {
+            "zh": "价格跌破0.069或日线收盘低于SMA50。",
+            "en": "Price breaks below 0.069 or daily close below SMA50."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "SOL",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": {
+          "zh": "Qlib评分高，日线趋势看涨，融资利率负值提供轧空机会，继续持有。",
+          "en": "High Qlib score, bullish daily trend, negative funding rate provides short squeeze opportunity, continue to hold."
+        },
+        "exit_plan": {
+          "take_profit": 88.0,
+          "stop_loss": 75.0,
+          "invalidation": {
+            "zh": "日线收盘低于SMA50（75.68）或跌破75美元。",
+            "en": "Daily close below SMA50 (75.68) or break below $75."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-07-03 12:01:20",
+    "market_indicators_at_time": {
+      "trend": "bullish",
+      "volatility": "medium",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": 0.0463,
+        "avg_bb_width": 0.089,
+        "avg_funding_rate": "0.0045%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "尽管BTC因弱就业数据短暂突破62K，但日线仍低于SMA50，宏观趋势偏空。SOL是唯一日线多头币种，Qlib评分最高，但RSI接近超买且资金费率中性，短期可能回调。DOGE日线RSI极低（31.1），处于极端恐惧区域，但资金费率偏高（0.008%），存在轧空风险。整体市场杠杆情绪中性，波动率中等，适合谨慎做多强势币或等待回调。",
       "en": "Despite BTC briefly breaking 62K on weak jobs data, daily trend remains bearish below SMA50. SOL is the only bullish coin on daily, with highest Qlib score, but RSI near overbought and funding neutral, may pull back. DOGE daily RSI is extremely low (31.1) in extreme fear, but funding rate is high (0.008%), posing short squeeze risk. Overall market leverage sentiment neutral, volatility medium, suitable for cautious long on strong coins or wait for pullback."
     },
@@ -3859,81 +3934,6 @@
         "avg_momentum_12": -0.0557,
         "avg_bb_width": 0.1114,
         "avg_funding_rate": "-0.0028%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体处于极度恐慌状态（Fear & Greed指数17），BTC跌破6万美元创2024年10月以来新低，日线趋势全面看空。新闻显示BTC下跌后出现530M美元的需求区，且多头清算量巨大（2.65亿美元），暗示短期可能存在空头回补反弹。DOGE资金费率极端负值（-0.0026%，Z-score -105%），符合【微观结构挤压】剧本，但日线RSI仅32.3，尚未超卖，需谨慎。当前持仓SOL和DOGE均处于浮亏或盈亏平衡，SOL已接近止损位66.5，DOGE止损0.071。鉴于市场波动性中等，但趋势偏空，总敞口应控制在50% NAV以内。现有持仓SOL止损位过近，建议调整止损至65.5以容忍更多波动；DOGE持仓刚开，暂持。不新增仓位。",
-      "en": "The market is in extreme fear (Fear & Greed 17), with BTC falling below $60K to its lowest since Oct 2024, and daily trends bearish across all coins. News indicates a $530M demand zone after BTC drop and massive long liquidations ($265M), suggesting potential short-covering bounce. DOGE funding rate is extremely negative (-0.0026%, Z-score -105%), fitting the [Microstructure Squeeze] scenario, but daily RSI at 32.3 is not yet oversold, requiring caution. Current positions in SOL and DOGE are at a loss or breakeven; SOL is near its stop loss of 66.5, DOGE stop at 0.071. Given medium volatility but bearish trend, total exposure should be within 50% NAV. I recommend adjusting SOL stop loss to 65.5 to allow more room, and hold DOGE. No new positions."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分排序：DOGE(0.7148) > ETH(0.5646) > SOL(0.4611) > BTC(0.3196) > BNB(0.1905)。所有币种日线均低于SMA50，趋势看空。RSI普遍在20-30区间，接近超卖但未极端。",
-        "en": "Qlib scores: DOGE(0.7148) > ETH(0.5646) > SOL(0.4611) > BTC(0.3196) > BNB(0.1905). All coins are below SMA50 on daily, bearish trend. RSI mostly 20-30, near oversold but not extreme."
-      },
-      "macro_onchain": {
-        "zh": "新闻：BTC跌破6万，但分析师预期15%反弹，且出现530M美元需求区。多头清算2.65亿美元，空头仅0.76亿，短期反弹概率增加。恐慌指数17（极度恐惧），通常为反向指标。",
-        "en": "News: BTC below $60K, but analysts expect 15% bounce and $530M demand zone. Long liquidations $265M vs shorts $76M, increasing bounce probability. Fear & Greed 17 (Extreme Fear), often a contrarian indicator."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：SOL多头（浮亏-42.36美元，止损66.5），DOGE多头（盈亏平衡，止损0.071）。总敞口约3648美元，占NAV的32.6%，低于50%上限。现金9420美元。",
-        "en": "Current positions: SOL long (unrealized PnL -$42.36, stop 66.5), DOGE long (breakeven, stop 0.071). Total exposure ~$3648, 32.6% of NAV, below 50% limit. Cash $9420."
-      },
-      "reflection": {
-        "zh": "历史反思：近期交易胜率0%，但模式识别有效。DOGE的微观结构挤压剧本仍在验证中，需耐心持有。SOL止损过紧，需调整以避免被噪音扫出。",
-        "en": "Historical reflection: Recent win rate 0%, but pattern recognition is working. DOGE microstructure squeeze scenario is still being validated; need patience. SOL stop loss too tight, need adjustment to avoid noise."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "SOL",
-        "action": "adjust_sl",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "调整止损至65.5，原止损66.5过近，容易因波动被扫出。当前价格67.47，日线RSI 50.8，仍有反弹空间。",
-          "en": "Adjust stop loss to 65.5 from 66.5, as original stop was too tight and prone to being hit by volatility. Current price 67.47, daily RSI 50.8, still room for bounce."
-        },
-        "exit_plan": {
-          "take_profit": 72.0,
-          "stop_loss": 65.5,
-          "invalidation": {
-            "zh": "价格跌破65.5或日线收盘低于SMA50（78.4）。",
-            "en": "Price breaks below 65.5 or daily close below SMA50 (78.4)."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1648.82,
-        "entry_reason": {
-          "zh": "维持现有DOGE多头，止损0.071，目标0.082。资金费率极端负值，空头拥挤，等待反弹。",
-          "en": "Hold existing DOGE long, stop 0.071, target 0.082. Funding rate extremely negative, shorts crowded, waiting for bounce."
-        },
-        "exit_plan": {
-          "take_profit": 0.082,
-          "stop_loss": 0.071,
-          "invalidation": {
-            "zh": "价格跌破0.071或日线收盘低于SMA50（0.10）。",
-            "en": "Price breaks below 0.071 or daily close below SMA50 (0.10)."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-06-25 04:00:46",
-    "market_indicators_at_time": {
-      "trend": "bearish",
-      "volatility": "medium",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0836,
-        "avg_bb_width": 0.1082,
-        "avg_funding_rate": "-0.0001%"
       }
     }
   }
