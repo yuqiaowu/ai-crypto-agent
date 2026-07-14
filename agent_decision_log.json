@@ -1,6 +1,81 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体偏空，BTC日线跌破SMA50，但ETH和SOL日线仍偏多。新闻方面，美国政府转移BTC/ETH至Coinbase Prime可能引发抛压，但市场已部分消化。恐惧指数22（极度恐惧），短期挤压风险较低。Qlib模型推荐SOL、DOGE、ETH，但SOL和DOGE日线趋势偏空，需谨慎。现有持仓ETH和SOL，ETH浮盈，SOL浮亏接近止损。考虑到SOL日线仍偏多且未破止损，继续持有；ETH日线RSI超买但趋势完好，持有。不新开仓位，等待更明确信号。",
+      "en": "The overall market is bearish, with BTC below its SMA50, but ETH and SOL remain bullish on the daily. News of US government moving BTC/ETH to Coinbase Prime may cause selling pressure, but it's partially priced in. Fear & Greed at 22 (Extreme Fear), low risk of squeezes. Qlib model recommends SOL, DOGE, ETH, but SOL and DOGE daily trends are bearish, caution needed. Existing positions in ETH and SOL: ETH in profit, SOL near stop-loss. Since SOL daily still bullish and stop not hit, hold; ETH daily RSI overbought but trend intact, hold. No new positions, wait for clearer signals."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "Qlib评分：SOL最高0.74，但日线RSI 54中性，动量负值；ETH评分0.42，日线RSI 72超买；DOGE评分0.58，日线偏空。整体技术面偏弱。",
+        "en": "Qlib scores: SOL highest 0.74, but daily RSI 54 neutral, momentum negative; ETH score 0.42, daily RSI 72 overbought; DOGE score 0.58, daily bearish. Technicals weak overall."
+      },
+      "macro_onchain": {
+        "zh": "美国政府转移BTC/ETH至交易所，可能增加卖压。恐惧指数22极度恐惧，资金费率中性，无挤压风险。中国出口数据强劲，但宏观影响有限。",
+        "en": "US government moved BTC/ETH to exchange, may increase selling pressure. Fear index 22 extreme fear, funding rates neutral, no squeeze risk. China export data strong but macro impact limited."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓ETH和SOL，总敞口约5550美元，占NAV 50.4%，接近上限。ETH浮盈21美元，SOL浮亏75美元，SOL止损74.5接近当前价75.18。",
+        "en": "Current positions ETH and SOL, total exposure ~$5550, 50.4% of NAV, near limit. ETH unrealized PnL +$21, SOL -$75, SOL stop-loss 74.5 close to current 75.18."
+      },
+      "reflection": {
+        "zh": "历史反思显示近期交易未产生盈亏，但模式有效。继续验证信号，但需注意风险水平。当前SOL接近止损，需密切关注。",
+        "en": "Historical reflection shows recent trades no PnL, but patterns working. Continue to verify signals but don't ignore risk. SOL near stop-loss, monitor closely."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "ETH",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 3550.14,
+        "entry_reason": {
+          "zh": "日线趋势多头，价格高于SMA50，RSI超买但未反转，继续持有。",
+          "en": "Daily trend bullish, price above SMA50, RSI overbought but no reversal, hold."
+        },
+        "exit_plan": {
+          "take_profit": 1900,
+          "stop_loss": 1720,
+          "invalidation": {
+            "zh": "价格跌破1720或资金费率转正且价格下跌。",
+            "en": "Price breaks below 1720 or funding rate turns positive with price decline."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "SOL",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": {
+          "zh": "日线趋势多头，价格高于SMA50，Qlib评分最高，但接近止损，继续持有观察。",
+          "en": "Daily trend bullish, price above SMA50, highest Qlib score, but near stop-loss, hold and monitor."
+        },
+        "exit_plan": {
+          "take_profit": 85,
+          "stop_loss": 74.5,
+          "invalidation": {
+            "zh": "价格跌破74.5或日线转为空头。",
+            "en": "Price breaks below 74.5 or daily trend turns bearish."
+          }
+        },
+        "status": "executed"
+      }
+    ],
+    "timestamp": "2026-07-14 16:01:26",
+    "market_indicators_at_time": {
+      "trend": "bearish",
+      "volatility": "low",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": -0.0131,
+        "avg_bb_width": 0.0466,
+        "avg_funding_rate": "0.0030%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体偏空，BTC日线跌破SMA50，趋势转熊。尽管有中国出口利好等宏观新闻，但BTC价格承压，显示利好已部分定价。恐惧指数22（极度恐惧），但资金费率中性，未出现极端拥挤。SOL日线仍偏多，但价格接近止损位，需警惕。ETH日线偏多但RSI超买，存在回调风险。我选择持有现有仓位，等待更明确信号。",
       "en": "The market is generally bearish, with BTC daily price below SMA50, trend turning bearish. Despite positive macro news like China exports, BTC price is under pressure, indicating the news is partially priced in. Fear & Greed Index at 22 (Extreme Fear), but funding rates are neutral, no extreme crowding. SOL daily trend is still bullish but price is near stop loss, caution needed. ETH daily trend is bullish but RSI overbought, risk of pullback. I choose to hold existing positions and wait for clearer signals."
     },
@@ -4056,100 +4131,6 @@
       "metrics": {
         "avg_momentum_12": 0.0049,
         "avg_bb_width": 0.0498,
-        "avg_funding_rate": "0.0082%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈多头趋势，但日线结构显示BTC、ETH、DOGE、BNB均处于SMA50下方，仅SOL保持多头。新闻方面，特朗普买入科技股和比特币接近63.5K的消息可能已被部分定价，但恐惧指数24（极度恐惧）暗示市场情绪悲观，存在潜在反弹机会。当前持仓中DOGE、SOL、ETH均为多头，且SOL是唯一日线多头币种，趋势跟随策略有效。无新增高确信信号，选择持有现有仓位。",
-      "en": "The market shows an overall bullish trend, but the daily structure indicates BTC, ETH, DOGE, and BNB are below SMA50, with only SOL remaining bullish. News of Trump buying tech stocks and Bitcoin nearing $63.5K may be partially priced in, but the Fear & Greed Index at 24 (Extreme Fear) suggests pessimistic sentiment and potential rebound opportunity. Current positions are all long (DOGE, SOL, ETH), with SOL being the only daily bullish coin, making trend-following strategy valid. No new high-conviction signals, so hold existing positions."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：DOGE最高（0.6251），其次ETH（0.577），SOL（0.2927）。日线趋势：仅SOL多头，其余空头。RSI：BNB超买（71.47），其余中性。",
-        "en": "Qlib scores: DOGE highest (0.6251), then ETH (0.577), SOL (0.2927). Daily trend: only SOL bullish, others bearish. RSI: BNB overbought (71.47), others neutral."
-      },
-      "macro_onchain": {
-        "zh": "恐惧指数24（极度恐惧），资金费率中性（平均0.0082%），未平仓量变化为0。新闻：特朗普买入科技股、比特币接近63.5K，可能支撑市场。",
-        "en": "Fear & Greed Index 24 (Extreme Fear), funding rates neutral (avg 0.0082%), OI change 0. News: Trump buying tech stocks, Bitcoin near $63.5K, may support market."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓3个（DOGE、SOL、ETH），均为多头，总敞口约5700美元（占NAV 50%），符合熊市敞口限制。未实现盈亏：DOGE +55美元，SOL +2美元，ETH +0.22美元。",
-        "en": "Current positions: 3 longs (DOGE, SOL, ETH), total exposure ~$5700 (50% of NAV), within bear market limit. Unrealized PnL: DOGE +$55, SOL +$2, ETH +$0.22."
-      },
-      "reflection": {
-        "zh": "历史反思显示趋势跟随策略有效，但需注意日线趋势偏空。当前持仓均未触发止损，继续持有。",
-        "en": "Historical reflection shows trend-following strategy works, but daily trend is bearish. Current positions haven't hit stop-loss, so hold."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "DOGE",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1648.82,
-        "entry_reason": {
-          "zh": "Qlib评分最高，但日线趋势偏空。当前持仓盈利，止损未触发，继续持有。",
-          "en": "Highest Qlib score, but daily trend bearish. Position in profit, stop-loss not triggered, hold."
-        },
-        "exit_plan": {
-          "take_profit": 0.082,
-          "stop_loss": 0.069,
-          "invalidation": {
-            "zh": "价格跌破0.069或日线收盘低于SMA50。",
-            "en": "Price breaks below 0.069 or daily close below SMA50."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 3984.8,
-        "entry_reason": {
-          "zh": "唯一日线多头币种，Qlib评分第三但动量强劲，趋势跟随策略。",
-          "en": "Only daily bullish coin, Qlib score third but strong momentum, trend-following strategy."
-        },
-        "exit_plan": {
-          "take_profit": 88.0,
-          "stop_loss": 75.0,
-          "invalidation": {
-            "zh": "日线收盘低于SMA50（75.68）或跌破75美元。",
-            "en": "Daily close below SMA50 (75.68) or break below $75."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 66.92,
-        "entry_reason": {
-          "zh": "Qlib评分第二，但日线趋势偏空。仓位极小，持有等待反弹。",
-          "en": "Second highest Qlib score, but daily trend bearish. Very small position, hold for rebound."
-        },
-        "exit_plan": {
-          "take_profit": 1850,
-          "stop_loss": 1680,
-          "invalidation": {
-            "zh": "价格跌破1680或日线RSI跌破40。",
-            "en": "Price breaks below 1680 or daily RSI below 40."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-07-06 08:01:07",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0111,
-        "avg_bb_width": 0.0528,
         "avg_funding_rate": "0.0082%"
       }
     }
