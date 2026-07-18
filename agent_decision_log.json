@@ -1,6 +1,101 @@
 [
   {
     "analysis_summary": {
+      "zh": "市场整体趋势中性，波动率低，杠杆情绪中性。日线趋势显示BTC和ETH偏多，但BNB和DOGE偏空。新闻方面，比特币ETF连续三天净流入，但价格未能突破，显示利好可能已被定价。恐惧指数25（极度恐惧），短期清算量远大于多头，存在轧空风险。Qlib评分推荐ETH、DOGE、BNB，但DOGE和BNB日线偏空，需谨慎。当前持仓SOL和DOGE，SOL已接近止损，DOGE小幅盈利。历史反思显示近期交易亏损，需严格风控。选择【趋势跟随】剧本，对ETH开多，因其日线多头、Qlib评分最高、费率正常。",
+      "en": "The overall market trend is neutral with low volatility and neutral leverage sentiment. Daily trends show BTC and ETH bullish, but BNB and DOGE bearish. News shows Bitcoin ETF inflows for three consecutive days, but price failed to break out, suggesting the news may be priced in. Fear & Greed Index at 25 (Extreme Fear). Short liquidations far exceed longs, indicating short squeeze risk. Qlib scores recommend ETH, DOGE, BNB, but DOGE and BNB are bearish on daily, so caution is needed. Current positions: SOL (near stop loss) and DOGE (small profit). Historical reflection shows recent losses, so strict risk management is required. Choosing [Trend Following] scenario: open long on ETH due to bullish daily, highest Qlib score, and normal funding rate."
+    },
+    "context_analysis": {
+      "technical_signal": {
+        "zh": "ETH日线多头（价格高于SMA50），RSI 58，Qlib评分最高0.6263，MACD负但动量改善。",
+        "en": "ETH daily bullish (price above SMA50), RSI 58, highest Qlib score 0.6263, MACD negative but momentum improving."
+      },
+      "macro_onchain": {
+        "zh": "恐惧指数25（极度恐惧），短期清算量远大于多头，ETF持续流入，但价格未突破，显示市场犹豫。",
+        "en": "Fear Index 25 (Extreme Fear), short liquidations far exceed longs, ETF inflows continue but price not breaking out, showing market hesitation."
+      },
+      "portfolio_status": {
+        "zh": "当前持仓SOL（亏损82.7美元，接近止损74.5）和DOGE（盈利15.8美元）。总敞口约5582美元，占NAV 50%。可用现金8418美元。",
+        "en": "Current positions: SOL (loss $82.7, near stop loss 74.5) and DOGE (profit $15.8). Total exposure ~$5582, 50% of NAV. Available cash $8418."
+      },
+      "reflection": {
+        "zh": "近期交易连续亏损，需避免追高和逆势。本次选择Qlib评分最高且日线趋势向好的ETH，严格设置止损。",
+        "en": "Recent consecutive losses require avoiding chasing highs and trading against trend. This time choose ETH with highest Qlib score and bullish daily trend, with strict stop loss."
+      }
+    },
+    "actions": [
+      {
+        "symbol": "SOL",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 2080.32,
+        "entry_reason": {
+          "zh": "持有现有SOL多头，止损74.5未触发，日线仍偏多（价格高于SMA50），等待反弹。",
+          "en": "Hold existing SOL long, stop loss 74.5 not triggered, daily still bullish (price above SMA50), waiting for bounce."
+        },
+        "exit_plan": {
+          "take_profit": 85,
+          "stop_loss": 74.5,
+          "invalidation": {
+            "zh": "价格跌破74.5或日线转为空头。",
+            "en": "Price breaks below 74.5 or daily trend turns bearish."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "DOGE",
+        "action": "hold",
+        "leverage": 2,
+        "position_size_usd": 3501.54,
+        "entry_reason": {
+          "zh": "持有现有DOGE多头，小幅盈利，止损0.068未触发，等待反弹至目标。",
+          "en": "Hold existing DOGE long, small profit, stop loss 0.068 not triggered, waiting for bounce to target."
+        },
+        "exit_plan": {
+          "take_profit": 0.075,
+          "stop_loss": 0.068,
+          "invalidation": {
+            "zh": "价格跌破0.068或日线继续走弱。",
+            "en": "Price breaks below 0.068 or daily trend weakens further."
+          }
+        },
+        "status": "executed"
+      },
+      {
+        "symbol": "ETH",
+        "action": "open_long",
+        "leverage": 2,
+        "position_size_usd": 2000,
+        "entry_reason": {
+          "zh": "ETH日线多头，Qlib评分最高，费率正常（0.0009%），无拥挤交易风险。选择趋势跟随，目标前高。",
+          "en": "ETH daily bullish, highest Qlib score, normal funding rate (0.0009%), no crowded trade risk. Trend following, target previous high."
+        },
+        "exit_plan": {
+          "take_profit": 1950,
+          "stop_loss": 1820,
+          "invalidation": {
+            "zh": "价格跌破1820或日线转为空头。",
+            "en": "Price breaks below 1820 or daily trend turns bearish."
+          }
+        },
+        "status": "rejected",
+        "rejection_reason": "Max Exposure Limit Reached (BEAR/DEFENSIVE (Max 50%))"
+      }
+    ],
+    "timestamp": "2026-07-19 04:01:04",
+    "market_indicators_at_time": {
+      "trend": "neutral",
+      "volatility": "low",
+      "leverage_sentiment": "neutral",
+      "metrics": {
+        "avg_momentum_12": -0.0057,
+        "avg_bb_width": 0.0495,
+        "avg_funding_rate": "0.0049%"
+      }
+    }
+  },
+  {
+    "analysis_summary": {
       "zh": "市场整体偏空，但BTC日线仍处于多头趋势，且恐慌指数处于极度恐惧区域，可能酝酿反弹。DOGE和SOL的Qlib评分较高，但日线偏弱，需谨慎。ETH日线多头，但MACD负值，动量不足。BNB日线空头，Qlib评分低，回避。当前持仓SOL和DOGE，SOL已接近止损，DOGE小幅浮盈。考虑到市场情绪极度恐惧，且BTC未破位，选择持有现有仓位，等待反弹。",
       "en": "The market is generally bearish, but BTC daily trend remains bullish, and the Fear & Greed Index is in Extreme Fear, which may signal a potential bounce. DOGE and SOL have high Qlib scores but weak daily trends, requiring caution. ETH has a bullish daily trend but negative MACD, lacking momentum. BNB is bearish daily with low Qlib score, avoid. Current positions are SOL and DOGE; SOL is near stop loss, DOGE has a small unrealized profit. Given extreme fear sentiment and BTC not breaking down, choose to hold existing positions and wait for a rebound."
     },
@@ -3834,62 +3929,6 @@
         "avg_momentum_12": 0.0289,
         "avg_bb_width": 0.0537,
         "avg_funding_rate": "0.0019%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "尽管有日本银行比特币贷款等利好，但BTC日线趋势偏空（价格低于SMA50），且RSI 64.8未超卖，显示利好可能已部分定价。ETH日线RSI 72.9超买，但Qlib评分高且资金费率正常，存在轧空风险。DOGE日线趋势偏空，RSI 48.7中性，资金费率偏高（0.01%），可能面临轧多风险。整体市场情绪为极度恐惧，但杠杆情绪中性，选择趋势跟随剧本，优先考虑ETH多头。",
-      "en": "Despite positive news like Japanese bank Bitcoin loans, BTC daily trend is bearish (price below SMA50) and RSI 64.8 not oversold, suggesting news may be partially priced in. ETH daily RSI 72.9 overbought but high Qlib score and normal funding rate, with short squeeze risk. DOGE daily trend bearish, RSI 48.7 neutral, high funding rate (0.01%) may lead to long squeeze. Overall market sentiment is extreme fear but leverage neutral, choose trend following scenario, prioritize ETH long."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "ETH Qlib评分0.5297排名第2，日线RSI 72.9超买但MACD正值，动量强劲。BTC Qlib评分0.2081排名第4，日线偏空。DOGE Qlib评分0.5311排名第1，但日线趋势偏空。",
-        "en": "ETH Qlib score 0.5297 rank 2, daily RSI 72.9 overbought but MACD positive, momentum strong. BTC Qlib score 0.2081 rank 4, daily bearish. DOGE Qlib score 0.5311 rank 1 but daily trend bearish."
-      },
-      "macro_onchain": {
-        "zh": "新闻面中性偏多（日本银行比特币贷款），但美联储加息概率50%构成压力。恐慌指数23（极度恐惧），资金费率中性，链上无显著异动。",
-        "en": "News neutral to positive (Japanese bank Bitcoin loans), but Fed rate hike odds 50% create pressure. Fear index 23 (extreme fear), funding rates neutral, no significant on-chain activity."
-      },
-      "portfolio_status": {
-        "zh": "当前持有ETH多头仓位，未实现盈利25.13美元，风险敞口约14% NAV，低于50%上限。现金充足。",
-        "en": "Currently holding ETH long position with unrealized PnL $25.13, exposure ~14% NAV, below 50% limit. Ample cash."
-      },
-      "reflection": {
-        "zh": "历史反思显示趋势跟随策略有效，但需注意日线趋势过滤。ETH日线多头趋势确认，继续持有。",
-        "en": "Historical reflection shows trend following strategy works, but need daily trend filter. ETH daily uptrend confirmed, continue holding."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1550.14,
-        "entry_reason": {
-          "zh": "ETH日线多头趋势，Qlib评分高，资金费率正常，继续持有等待目标。",
-          "en": "ETH daily uptrend, high Qlib score, normal funding rate, hold for target."
-        },
-        "exit_plan": {
-          "take_profit": 1850,
-          "stop_loss": 1680,
-          "invalidation": {
-            "zh": "价格跌破1680或资金费率转正且价格下跌。",
-            "en": "Price breaks below 1680 or funding rate turns positive with price decline."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-07-10 20:01:34",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.028,
-        "avg_bb_width": 0.0547,
-        "avg_funding_rate": "0.0072%"
       }
     }
   }
