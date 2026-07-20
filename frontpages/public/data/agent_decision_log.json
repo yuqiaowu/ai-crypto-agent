@@ -1,5 +1,10 @@
 [
   {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
+    "timestamp": "2026-07-20 16:02:09"
+  },
+  {
     "analysis_summary": {
       "zh": "市场整体看涨，但资金费率普遍为负，显示空头拥挤，存在轧空机会。ETH和SOL的Qlib评分最高，且日线趋势看涨，符合【微观结构挤压】剧本。DOGE日线偏空，但持仓浮亏较小，继续持有等待反弹。当前持仓未超过3个，风险可控。",
       "en": "The market is generally bullish, but funding rates are mostly negative, indicating crowded shorts and potential short squeezes. ETH and SOL have the highest Qlib scores and bullish daily trends, fitting the [Microstructure Squeeze] scenario. DOGE's daily trend is bearish, but the position loss is small; hold for a rebound. Current positions are under the 3-position limit with manageable risk."
@@ -3896,81 +3901,6 @@
       "metrics": {
         "avg_momentum_12": -0.0088,
         "avg_bb_width": 0.0383,
-        "avg_funding_rate": "-0.0013%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈中性趋势，低波动性，资金费率偏空，显示市场情绪谨慎。ETH日线多头趋势但RSI超买，存在回调风险；SOL日线多头但动量偏弱；DOGE、BNB、BTC日线空头。新闻方面，比特币相关消息偏空，但ETH有机构买入利好。当前持仓ETH和SOL多头，ETH浮盈但RSI超买需警惕，SOL浮亏但未破止损。历史反思显示需坚持趋势跟随，但需注意风险。选择【趋势跟随】剧本，维持现有持仓，不新增仓位。",
-      "en": "The market is neutral with low volatility and bearish funding rates, indicating cautious sentiment. ETH has a bullish daily trend but overbought RSI, posing a pullback risk; SOL is bullish but with weak momentum; DOGE, BNB, and BTC are bearish. News is mixed with bearish BTC headlines but bullish ETH institutional buying. Current positions are long ETH and SOL; ETH is in profit but overbought, SOL is in loss but stop-loss intact. Historical reflection suggests sticking with trend following but with caution. Choosing [Trend Following] scenario, hold existing positions, no new trades."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "ETH Qlib分最高(0.84)，日线多头但RSI 73.6超买；SOL Qlib分0.47，日线多头但RSI 60中性；DOGE Qlib分0.53，日线空头RSI 41.6；BNB Qlib分0.37，日线空头；BTC Qlib分0.22，日线空头RSI 66。",
-        "en": "ETH has highest Qlib score (0.84), bullish daily but RSI 73.6 overbought; SOL Qlib 0.47, bullish daily but RSI 60 neutral; DOGE Qlib 0.53, bearish daily RSI 41.6; BNB Qlib 0.37, bearish daily; BTC Qlib 0.22, bearish daily RSI 66."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数26（恐惧），资金费率多数为负，显示空头拥挤。新闻中ETH有机构买入利好，但BTC相关消息偏空。链上稳定币流入为正，但未显著。",
-        "en": "Fear & Greed Index 26 (Fear), funding rates mostly negative, indicating crowded shorts. News: ETH institutional buying positive, BTC headlines bearish. On-chain stablecoin inflow positive but not significant."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓ETH和SOL多头，总敞口约5550美元，占NAV 50%，未超限。ETH浮盈74.55美元，SOL浮亏28.43美元。现金充足。",
-        "en": "Current positions: long ETH and SOL, total exposure ~$5550, 50% of NAV, within limit. ETH unrealized PnL +$74.55, SOL -$28.43. Ample cash."
-      },
-      "reflection": {
-        "zh": "历史反思显示趋势跟随策略有效，但需注意超买回调风险。本次决策维持现有持仓，不因短期波动改变。",
-        "en": "Historical reflection shows trend following works, but beware of overbought pullback. Decision to hold existing positions, not swayed by short-term fluctuations."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 3550.14,
-        "entry_reason": {
-          "zh": "维持现有ETH多头，日线多头趋势未破，但RSI超买，需警惕回调。止损1720未触发，继续持有。",
-          "en": "Hold existing ETH long, daily bullish trend intact, but RSI overbought, be cautious of pullback. Stop-loss 1720 not triggered, continue holding."
-        },
-        "exit_plan": {
-          "take_profit": 1900,
-          "stop_loss": 1720,
-          "invalidation": {
-            "zh": "价格跌破1720或资金费率转正且价格下跌。",
-            "en": "Price breaks below 1720 or funding rate turns positive with price decline."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "维持现有SOL多头，日线多头趋势，但动量偏弱。止损74.5未触发，等待反弹。",
-          "en": "Hold existing SOL long, daily bullish trend, but momentum weak. Stop-loss 74.5 not triggered, waiting for bounce."
-        },
-        "exit_plan": {
-          "take_profit": 85,
-          "stop_loss": 74.5,
-          "invalidation": {
-            "zh": "价格跌破74.5或日线转为空头。",
-            "en": "Price breaks below 74.5 or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-07-12 16:01:41",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "low",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0063,
-        "avg_bb_width": 0.0415,
         "avg_funding_rate": "-0.0013%"
       }
     }
