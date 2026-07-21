@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-21 08:01:54"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-21 04:02:44"
   },
   {
@@ -3616,81 +3621,6 @@
       "metrics": {
         "avg_momentum_12": -0.0195,
         "avg_bb_width": 0.0353,
-        "avg_funding_rate": "-0.0005%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体处于低波动、中性趋势状态，但资金费率普遍为负，显示空头拥挤。ETH日线RSI超买（74.1），但Qlib评分最高且资金费率极负（-0.0019%，Z-score -70.96%），存在轧空机会。SOL日线多头趋势完好，资金费率负值加深（Z-score -155.26%），短期挤压概率高。BTC日线空头趋势，资金费率转正（0.0067%），多头拥挤风险。我选择【微观结构挤压】剧本，做多ETH和SOL，利用空头回补推动上涨。",
-      "en": "The market is in low volatility, neutral trend, but funding rates are mostly negative, indicating crowded shorts. ETH daily RSI is overbought (74.1), but Qlib score is highest and funding rate is extremely negative (-0.0019%, Z-score -70.96%), suggesting a short squeeze opportunity. SOL daily trend is bullish, funding rate deeply negative (Z-score -155.26%), high squeeze probability. BTC daily trend is bearish, funding rate positive (0.0067%), crowded longs risk. I choose [Microstructure Squeeze] scenario, going long ETH and SOL to capitalize on short covering."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "ETH Qlib评分0.7773（排名1），日线多头，RSI 55.08中性，MACD正。SOL Qlib评分0.4706（排名2），日线多头，RSI 41.42中性偏低。BTC Qlib评分0.3724（排名3），日线空头，RSI 50.01中性。",
-        "en": "ETH Qlib score 0.7773 (rank 1), daily bullish, RSI 55.08 neutral, MACD positive. SOL Qlib score 0.4706 (rank 2), daily bullish, RSI 41.42 neutral-low. BTC Qlib score 0.3724 (rank 3), daily bearish, RSI 50.01 neutral."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数28（恐惧），资金费率普遍为负，空头拥挤。新闻方面，Robinhood L2和Bitmine买入ETH提供利好，但宏观事件清淡。",
-        "en": "Fear & Greed Index 28 (Fear), funding rates mostly negative, crowded shorts. News: Robinhood L2 and Bitmine buying ETH provide positive catalysts, macro events light."
-      },
-      "portfolio_status": {
-        "zh": "当前持有ETH和SOL多头，总敞口约5550美元（约50% NAV），未实现盈亏+85.31美元。风险可控，止损位合理。",
-        "en": "Currently holding ETH and SOL longs, total exposure ~$5550 (~50% NAV), unrealized PnL +$85.31. Risk controlled, stop-losses reasonable."
-      },
-      "reflection": {
-        "zh": "历史反思显示趋势跟随策略有效，但需注意止损。本次决策延续对ETH和SOL的看多观点，利用负资金费率挤压机会。",
-        "en": "Historical reflection shows trend-following strategy works, but stop-losses are crucial. This decision continues bullish view on ETH and SOL, leveraging negative funding squeeze opportunity."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 3550.14,
-        "entry_reason": {
-          "zh": "现有持仓，趋势完好，资金费率极负提供挤压动力，继续持有。",
-          "en": "Existing position, trend intact, extremely negative funding rate provides squeeze momentum, continue holding."
-        },
-        "exit_plan": {
-          "take_profit": 1900,
-          "stop_loss": 1720,
-          "invalidation": {
-            "zh": "价格跌破1720或资金费率转正且价格下跌。",
-            "en": "Price breaks below 1720 or funding rate turns positive with price decline."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "现有持仓，日线多头趋势，资金费率深度负值，挤压潜力大，继续持有。",
-          "en": "Existing position, daily bullish trend, deeply negative funding rate, high squeeze potential, continue holding."
-        },
-        "exit_plan": {
-          "take_profit": 85,
-          "stop_loss": 74.5,
-          "invalidation": {
-            "zh": "价格跌破74.5或日线转为空头。",
-            "en": "Price breaks below 74.5 or daily trend turns bearish."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-07-13 08:01:36",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "low",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0081,
-        "avg_bb_width": 0.0333,
         "avg_funding_rate": "-0.0005%"
       }
     }
