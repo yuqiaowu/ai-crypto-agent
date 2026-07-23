@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-23 20:02:20"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-23 16:02:03"
   },
   {
@@ -2881,100 +2886,6 @@
         "avg_momentum_12": 0.0155,
         "avg_bb_width": 0.0502,
         "avg_funding_rate": "0.0013%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈中性趋势，波动率中等，杠杆情绪中性。BTC日线虽站上SMA50呈多头趋势，但RSI仅34.7，显示动能不足；ETH、SOL日线仍为空头趋势。新闻方面，BTC利空消息（跌至70K预期、持有者亏损卖出）与价格下跌相符，属于Impulse而非Priced In，市场情绪偏悲观。恐慌指数27（Fear），表明市场处于恐惧状态。痛苦交易方面，DOGE融资费率Z-score高达103.9%，存在多头拥挤风险；而ETH融资费率Z-score为-75.1%，极低负值，存在空头挤压机会。结合Qlib评分，SOL（0.7171）和ETH（0.6379）排名靠前，但ETH日线空头趋势与微观结构挤压信号矛盾，需谨慎。我选择【微观结构挤压】剧本，做多ETH，利用极低融资费率和超卖RSI，但需严格止损。",
-      "en": "The market is in a neutral trend with medium volatility and neutral leverage sentiment. BTC's daily trend is bullish above SMA50, but RSI at 34.7 shows weak momentum; ETH and SOL are bearish on the daily. News about BTC is bearish (expectations of drop to 70K, holders selling at loss), aligning with price decline, indicating impulse rather than priced in. Fear & Greed Index at 27 (Fear) suggests fearful sentiment. For pain trades, DOGE's funding Z-score at 103.9% signals crowded longs, while ETH's funding Z-score at -75.1% is extremely negative, presenting a short squeeze opportunity. Qlib scores favor SOL (0.7171) and ETH (0.6379), but ETH's daily bearish trend conflicts with the microstructure squeeze signal. I choose the [Microstructure Squeeze] scenario, going long on ETH, leveraging extremely low funding and oversold RSI, but with strict stop loss."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：SOL第一（0.7171），ETH第二（0.6379）。日线趋势：BTC多头，ETH/BNB/DOGE空头。RSI：ETH 27.5（超卖），SOL 42.1，BTC 34.7。MACD：ETH MACD柱为正，动量改善。",
-        "en": "Qlib scores: SOL 0.7171 (1st), ETH 0.6379 (2nd). Daily trend: BTC bullish, ETH/BNB/DOGE bearish. RSI: ETH 27.5 (oversold), SOL 42.1, BTC 34.7. MACD: ETH histogram positive, momentum improving."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数27（Fear），市场恐惧。新闻：BTC利空（跌至70K预期、持有者亏损卖出），ETH基金会高管离职。链上：稳定币流入未提及，但恐惧情绪可能预示底部。",
-        "en": "Fear & Greed Index 27 (Fear). News: BTC bearish (expectations of 70K, holders selling at loss), ETH Foundation departures. On-chain: stablecoin inflow not mentioned, but fear may indicate bottom."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓3个（ETH、BTC、BNB），已达最大持仓限制。总敞口约$4000，占NAV 36.3%，低于50%上限。ETH和BTC小幅盈利，BNB小幅亏损。需先处理现有持仓，无法开新仓。",
-        "en": "Currently holding 3 positions (ETH, BTC, BNB), at max position limit. Total exposure ~$4000, 36.3% of NAV, below 50% cap. ETH and BTC slightly profitable, BNB slightly loss. Must handle existing positions first; cannot open new ones."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易亏损，但模式有效。需继续验证信号，同时注意风险。当前持仓中ETH和BTC的止损未触发，BNB接近止损，需密切关注。",
-        "en": "Historical reflection shows recent losses but patterns are working. Continue to verify signals while managing risk. Current positions' stop losses not triggered, BNB close to stop, need close monitoring."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "现有持仓，基于微观结构挤压信号开仓。当前价格2129.49，高于入场价2118.41，小幅盈利。止损2100未触发，融资费率Z-score仍为负值，信号未失效。继续持有。",
-          "en": "Existing position opened on microstructure squeeze signal. Current price 2129.49, above entry 2118.41, slight profit. Stop loss 2100 not triggered, funding Z-score still negative, signal not invalidated. Hold."
-        },
-        "exit_plan": {
-          "take_profit": 2250,
-          "stop_loss": 2100,
-          "invalidation": {
-            "zh": "价格跌破2100或融资费率Z-score升至正值。",
-            "en": "Price breaks below 2100 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "现有持仓，基于日线多头趋势开仓。当前价格77280.9，高于入场价76925，小幅盈利。止损75000未触发，日线仍为多头趋势，但RSI偏低，需警惕。继续持有。",
-          "en": "Existing position opened on daily bullish trend. Current price 77280.9, above entry 76925, slight profit. Stop loss 75000 not triggered, daily trend still bullish, but RSI low, caution. Hold."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000或融资费率Z-score升至正值。",
-            "en": "Price breaks below 75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "现有持仓，基于日线多头趋势开仓。当前价格643.4，低于入场价645，小幅亏损。止损635未触发，日线仍为多头趋势，但价格接近止损，需密切关注。继续持有。",
-          "en": "Existing position opened on daily bullish trend. Current price 643.4, below entry 645, slight loss. Stop loss 635 not triggered, daily trend still bullish, but price near stop, monitor closely. Hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-20 20:00:58",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": -0.004,
-        "avg_bb_width": 0.0539,
-        "avg_funding_rate": "0.0025%"
       }
     }
   }
