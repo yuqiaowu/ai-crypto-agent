@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-24 16:02:42"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-24 12:02:23"
   },
   {
@@ -2438,99 +2443,5 @@
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
     "timestamp": "2026-05-21 12:02:07"
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体处于低波动、中性趋势状态，BTC日线多头但RSI中性，ETH日线空头且RSI接近超卖。新闻方面，BTC ETF流出但价格反弹，显示利好可能已部分消化（Priced In），但BTC价格仍高于SMA50，趋势偏多。ETH融资费率Z-score极高（84.7%），但价格弱势，存在轧多风险。我选择【趋势跟随】剧本，继续持有现有BTC、ETH、BNB多头，ETH因日线空头且费率过高需警惕，但Qlib评分最高且RSI接近超卖，可能反弹。",
-      "en": "The market is in low volatility, neutral trend. BTC daily bullish but RSI neutral; ETH daily bearish with RSI near oversold. News shows BTC ETF outflows but price rallied, suggesting some priced in. ETH funding Z-score is high (84.7%) but price weak, posing long squeeze risk. I choose [Trend Following] scenario, holding existing BTC, ETH, BNB longs. ETH is risky due to daily bearish and high funding, but highest Qlib score and near oversold RSI may trigger a bounce."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：ETH第一（0.3832），BTC第二（0.3426），DOGE第三（0.2872）。日线趋势：BTC、SOL、BNB、DOGE多头，ETH空头。RSI：ETH 32.7接近超卖，BTC 42.3中性。",
-        "en": "Qlib scores: ETH 1st (0.3832), BTC 2nd (0.3426), DOGE 3rd (0.2872). Daily trends: BTC, SOL, BNB, DOGE bullish; ETH bearish. RSI: ETH 32.7 near oversold, BTC 42.3 neutral."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数29（恐惧），BTC ETF流出但价格反弹，显示买盘支撑。链上稳定币流入为正，提供买盘力量。",
-        "en": "Fear & Greed Index 29 (Fear). BTC ETF outflows but price bounced, indicating buying support. On-chain stablecoin inflow positive, providing buying power."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓3个（ETH、BTC、BNB），均为多头，总敞口约$4000，占NAV 36%。未实现盈利约$59。风险可控。",
-        "en": "Current positions: 3 longs (ETH, BTC, BNB). Total exposure ~$4000, 36% of NAV. Unrealized PnL ~$59. Risk manageable."
-      },
-      "reflection": {
-        "zh": "历史反思显示模式有效，但需注意风险。ETH持仓因日线空头需谨慎，但Qlib评分高且RSI低，继续持有等待反弹。",
-        "en": "Historical reflection shows patterns working, but risk must be managed. ETH position is cautious due to daily bearish, but high Qlib score and low RSI justify holding for a bounce."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "Qlib评分最高，RSI接近超卖，可能反弹。但日线空头，需警惕。",
-          "en": "Highest Qlib score, RSI near oversold, potential bounce. But daily bearish, caution needed."
-        },
-        "exit_plan": {
-          "take_profit": 2250,
-          "stop_loss": 2100,
-          "invalidation": {
-            "zh": "价格跌破2100或融资费率Z-score升至正值。",
-            "en": "Price breaks below 2100 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1000,
-        "entry_reason": {
-          "zh": "日线多头，Qlib评分第二，趋势跟随。",
-          "en": "Daily bullish, Qlib score 2nd, trend following."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000或融资费率Z-score升至正值。",
-            "en": "Price breaks below 75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 2000,
-        "entry_reason": {
-          "zh": "日线多头，Qlib评分第五但趋势良好，继续持有。",
-          "en": "Daily bullish, Qlib score 5th but trend good, hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-21 16:00:59",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "low",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0068,
-        "avg_bb_width": 0.03,
-        "avg_funding_rate": "0.0065%"
-      }
-    }
   }
 ]
