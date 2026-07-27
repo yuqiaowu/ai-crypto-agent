@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-27 04:02:23"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-27 00:03:08"
   },
   {
@@ -1885,102 +1890,6 @@
         "avg_momentum_12": -0.0119,
         "avg_bb_width": 0.064,
         "avg_funding_rate": "0.0063%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体呈熊市趋势，BTC和ETH均低于SMA50，日线RSI接近超卖区域。尽管有SEC批准比特币指数期权等利好新闻，但价格反应平淡，显示利好可能已被定价（Priced In）。同时，融资费率普遍为负且Z-score极低，表明空头拥挤，存在轧空风险。我选择【微观结构挤压】剧本，利用负融资费率和价格韧性做多ETH和SOL，但需严格控制风险。",
-      "en": "The market is in a bearish trend overall, with BTC and ETH below SMA50 and daily RSI near oversold. Despite positive news like SEC approval of Bitcoin index options, price reaction is muted, suggesting the news may be priced in. Negative funding rates and extremely low Z-scores indicate crowded shorts, posing short squeeze risk. I choose the [Microstructure Squeeze] scenario, going long ETH and SOL to capitalize on negative funding and price resilience, with strict risk management."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "ETH Qlib得分最高（0.5509），但日线趋势看跌，RSI 23处于超卖。SOL Qlib得分0.2402，日线RSI 31.9接近超卖。BNB日线趋势看涨，但Qlib得分较低。",
-        "en": "ETH has the highest Qlib score (0.5509) but daily trend is bearish with RSI 23 (oversold). SOL Qlib score 0.2402, daily RSI 31.9 near oversold. BNB daily trend is bullish but Qlib score is low."
-      },
-      "macro_onchain": {
-        "zh": "新闻面有SEC批准比特币指数期权等利好，但市场反应平淡。恐慌指数28（恐惧），稳定币流入可能提供支撑。ETF流出1.26B被Santiment视为反向买入信号。",
-        "en": "News includes SEC approval of Bitcoin index options, but market reaction is muted. Fear & Greed Index 28 (Fear), stablecoin inflows may provide support. ETF outflows of $1.26B seen as contrarian buy signal by Santiment."
-      },
-      "portfolio_status": {
-        "zh": "当前持有BNB多头（浮亏-2.64美元）和SOL多头（浮盈32.98美元）。总敞口约5451美元，占NAV的49.5%，未超过熊市50%限制。现金充足。",
-        "en": "Currently holding BNB long (unrealized PnL -$2.64) and SOL long (unrealized PnL $32.98). Total exposure ~$5451, 49.5% of NAV, within 50% bear market limit. Ample cash."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易亏损，但模式有效。需继续验证信号，同时注意风险水平。本次决策基于负融资费率和超卖RSI，符合挤压剧本。",
-        "en": "Historical reflection shows recent losses but patterns are working. Continue to verify signals while respecting risk levels. This decision is based on negative funding and oversold RSI, fitting squeeze scenario."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 4000,
-        "entry_reason": {
-          "zh": "BNB日线趋势偏多，价格高于SMA50，且融资费率负值，空头拥挤。继续持有，等待反弹。",
-          "en": "BNB daily trend is bullish, price above SMA50, and negative funding indicates crowded shorts. Hold for rebound."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "SOL",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1451.54,
-        "entry_reason": {
-          "zh": "SOL符合微观结构挤压剧本，融资费率极负，价格在支撑位附近。继续持有，目标85。",
-          "en": "SOL fits microstructure squeeze scenario with extremely negative funding and price near support. Hold for target 85."
-        },
-        "exit_plan": {
-          "take_profit": 85,
-          "stop_loss": 81.5,
-          "invalidation": {
-            "zh": "价格跌破81.5或融资费率转正。",
-            "en": "Price breaks below 81.5 or funding rate turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "open_long",
-        "leverage": 2,
-        "position_size_usd": 25.91,
-        "entry_reason": {
-          "zh": "ETH Qlib得分最高，日线RSI超卖（23），融资费率极负（Z-score -240%），空头拥挤。选择微观结构挤压剧本，做多ETH。",
-          "en": "ETH has highest Qlib score, daily RSI oversold (23), extremely negative funding (Z-score -240%), crowded shorts. Choose microstructure squeeze scenario, go long ETH."
-        },
-        "exit_plan": {
-          "take_profit": 2200,
-          "stop_loss": 2000,
-          "invalidation": {
-            "zh": "价格跌破2000美元或融资费率Z-score升至-100%以上。",
-            "en": "Price breaks below $2000 or funding Z-score rises above -100%."
-          }
-        },
-        "status": "executed",
-        "original_size_usd": 2000.0,
-        "rejection_reason": "Size Reduced due to Exposure Limit"
-      }
-    ],
-    "timestamp": "2026-05-24 04:01:07",
-    "market_indicators_at_time": {
-      "trend": "bearish",
-      "volatility": "medium",
-      "leverage_sentiment": "bearish",
-      "metrics": {
-        "avg_momentum_12": -0.0249,
-        "avg_bb_width": 0.0643,
-        "avg_funding_rate": "-0.0052%"
       }
     }
   }
