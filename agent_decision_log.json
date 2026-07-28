@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-28 04:02:45"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-28 00:02:32"
   },
   {
@@ -1349,100 +1354,6 @@
         "avg_momentum_12": 0.0123,
         "avg_bb_width": 0.0609,
         "avg_funding_rate": "0.0024%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体处于中性趋势，但日线结构显示BTC、ETH、SOL均处于SMA50下方，呈熊市格局。新闻方面，比特币因特朗普准备宣布伊朗协议而反弹，但分析师预测可能跌至6万美元，显示利好可能已被部分定价。恐惧指数25（极度恐惧），短期轧空后可能回调。Qlib模型推荐BTC、ETH、SOL，但日线RSI均低于50，动量偏弱。我选择【趋势跟随】剧本，但鉴于熊市背景，仅轻仓做多排名靠前的BTC和ETH，并严格止损。",
-      "en": "The market is in a neutral trend overall, but the daily structure shows BTC, ETH, and SOL are below SMA50, indicating a bearish pattern. News shows Bitcoin bounced on Trump's Iran deal announcement, but analysts forecast a drop to $60K, suggesting the good news may be partially priced in. Fear & Greed Index at 25 (Extreme Fear), and after a short squeeze, a correction is possible. Qlib model recommends BTC, ETH, SOL, but daily RSI is below 50 with weak momentum. I choose the [Trend Following] scenario, but given the bearish backdrop, only light long positions in top-ranked BTC and ETH with strict stop losses."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib评分：BTC 0.2961（第1），ETH 0.294（第2），SOL 0.2758（第3）。日线趋势：BTC、ETH、SOL熊市（价格低于SMA50），BNB、DOGE牛市。RSI：BTC 33.5，ETH 27.1，SOL 26.8，均处于超卖区域附近。",
-        "en": "Qlib scores: BTC 0.2961 (1st), ETH 0.294 (2nd), SOL 0.2758 (3rd). Daily trend: BTC, ETH, SOL bearish (price below SMA50), BNB, DOGE bullish. RSI: BTC 33.5, ETH 27.1, SOL 26.8, near oversold."
-      },
-      "macro_onchain": {
-        "zh": "新闻：比特币因伊朗协议反弹，但分析师预测跌至6万。恐惧指数25（极度恐惧）。短期轧空后可能回调。链上：稳定币流入为正，但未显示具体数据。",
-        "en": "News: Bitcoin bounced on Iran deal, but analysts forecast drop to $60K. Fear & Greed Index 25 (Extreme Fear). Short squeeze may lead to correction. On-chain: stablecoin inflow positive, but no specific data."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓：BNB多头（浮盈+41.75），ETH多头（浮盈+0.44），BTC多头（浮亏-8.06）。总敞口约5537美元，占NAV 50.1%，接近熊市上限50%。",
-        "en": "Current positions: BNB long (unrealized +41.75), ETH long (unrealized +0.44), BTC long (unrealized -8.06). Total exposure ~$5537, 50.1% of NAV, near bear market max 50%."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易亏损，但模式仍在工作。需继续验证信号，但注意风险。当前持仓已满3个，不应开新仓。",
-        "en": "Historical reflection shows recent losses, but patterns are working. Continue to verify signals but watch risk. Current positions already at max 3, no new positions."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 4000,
-        "entry_reason": {
-          "zh": "BNB日线趋势看涨，价格高于SMA50，RSI 47.9中性。持仓浮盈，止损635未触发，继续持有。",
-          "en": "BNB daily trend bullish, price above SMA50, RSI 47.9 neutral. Position in profit, stop loss 635 not triggered, hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 51.82,
-        "entry_reason": {
-          "zh": "ETH日线趋势看跌，但Qlib评分高，且RSI 27.1超卖，可能有反弹。持仓浮盈，止损2000未触发，继续持有。",
-          "en": "ETH daily trend bearish, but Qlib score high, RSI 27.1 oversold, possible bounce. Position in profit, stop loss 2000 not triggered, hold."
-        },
-        "exit_plan": {
-          "take_profit": 2200,
-          "stop_loss": 2000,
-          "invalidation": {
-            "zh": "价格跌破2000美元或融资费率Z-score升至-100%以上。",
-            "en": "Price breaks below $2000 or funding Z-score rises above -100%."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1486.04,
-        "entry_reason": {
-          "zh": "BTC日线趋势看跌，但Qlib评分最高，且RSI 33.5接近超卖，可能有反弹。持仓浮亏，止损75000未触发，继续持有。",
-          "en": "BTC daily trend bearish, but Qlib score highest, RSI 33.5 near oversold, possible bounce. Position in loss, stop loss 75000 not triggered, hold."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000美元或融资费率Z-score升至正值。",
-            "en": "Price breaks below $75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-25 04:00:59",
-    "market_indicators_at_time": {
-      "trend": "neutral",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0057,
-        "avg_bb_width": 0.0615,
-        "avg_funding_rate": "0.0059%"
       }
     }
   }
