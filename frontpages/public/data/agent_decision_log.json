@@ -2,6 +2,11 @@
   {
     "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
     "actions": [],
+    "timestamp": "2026-07-28 08:01:54"
+  },
+  {
+    "analysis_summary": "模型调用失败: Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+    "actions": [],
     "timestamp": "2026-07-28 04:02:45"
   },
   {
@@ -1259,100 +1264,6 @@
       "metrics": {
         "avg_momentum_12": 0.0089,
         "avg_bb_width": 0.0586,
-        "avg_funding_rate": "0.0024%"
-      }
-    }
-  },
-  {
-    "analysis_summary": {
-      "zh": "市场整体看涨，但ETH和SOL日线趋势偏空，RSI接近超卖。新闻方面，哈佛抛售ETH和Buterin回应批评可能已被消化，而比特币因伊朗谈判反弹，但Kevin Warsh成为美联储主席的消息未能提振价格，显示利好可能已定价。资金费率普遍为负或极低，尤其是DOGE的Z-score极低，存在轧空机会。我选择【微观结构挤压】剧本，做多DOGE，因其资金费率极低且价格有韧性。现有持仓中，BNB和ETH的止损未触发，继续持有；BTC的止损未触发，但价格接近止损，需警惕。",
-      "en": "The overall market is bullish, but ETH and SOL are bearish on the daily trend with RSI near oversold. News-wise, Harvard dumping ETH and Buterin's response may be priced in, while Bitcoin bounces on Iran talks but fails to rally on Kevin Warsh becoming Fed chair, suggesting priced-in. Funding rates are mostly negative or very low, especially DOGE with extremely low Z-score, presenting a short squeeze opportunity. I choose the [Microstructure Squeeze] scenario, going long DOGE. Existing positions in BNB and ETH are held as stops not triggered; BTC is near stop loss, requiring caution."
-    },
-    "context_analysis": {
-      "technical_signal": {
-        "zh": "Qlib排名：ETH第一，SOL第二，BNB第三，DOGE第四，BTC第五。日线趋势：BTC和BNB看涨，ETH和SOL看跌，DOGE看涨。RSI：ETH和SOL超卖，DOGE接近超卖。",
-        "en": "Qlib rank: ETH 1st, SOL 2nd, BNB 3rd, DOGE 4th, BTC 5th. Daily trend: BTC and BNB bullish, ETH and SOL bearish, DOGE bullish. RSI: ETH and SOL oversold, DOGE near oversold."
-      },
-      "macro_onchain": {
-        "zh": "恐慌指数30（恐惧），资金费率普遍为负，DOGE的Z-score极低（-91%），显示空头拥挤。新闻方面，哈佛抛售ETH和Buterin回应可能已消化，比特币因伊朗谈判反弹。",
-        "en": "Fear & Greed 30 (Fear), funding rates mostly negative, DOGE Z-score extremely low (-91%) indicating crowded shorts. News: Harvard dumping ETH and Buterin's response likely priced in, Bitcoin bounces on Iran talks."
-      },
-      "portfolio_status": {
-        "zh": "当前持仓3个（BNB、ETH、BTC），已达上限。BNB盈利，ETH微利，BTC微亏。总敞口约5537美元，占NAV 50%，符合牛市规则。",
-        "en": "Currently 3 positions (BNB, ETH, BTC), at limit. BNB profitable, ETH small profit, BTC small loss. Total exposure ~$5537, 50% of NAV, compliant with bull market rules."
-      },
-      "reflection": {
-        "zh": "历史反思显示近期交易无亏损，但需谨慎。当前持仓已达上限，无法开新仓，因此仅对现有持仓进行持有或调整操作。",
-        "en": "Historical reflection shows no recent losses, but caution needed. Portfolio at max positions, so only hold or adjust existing positions."
-      }
-    },
-    "actions": [
-      {
-        "symbol": "BNB",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 4000,
-        "entry_reason": {
-          "zh": "现有持仓，止损未触发，趋势看涨，继续持有。",
-          "en": "Existing position, stop not triggered, trend bullish, hold."
-        },
-        "exit_plan": {
-          "take_profit": 680,
-          "stop_loss": 635,
-          "invalidation": {
-            "zh": "价格跌破635或融资费率Z-score升至正值。",
-            "en": "Price breaks below 635 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "ETH",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 51.82,
-        "entry_reason": {
-          "zh": "现有持仓，止损未触发，但日线偏空，仓位很小，继续持有观察。",
-          "en": "Existing position, stop not triggered, but daily bearish, small size, hold and observe."
-        },
-        "exit_plan": {
-          "take_profit": 2200,
-          "stop_loss": 2000,
-          "invalidation": {
-            "zh": "价格跌破2000美元或融资费率Z-score升至-100%以上。",
-            "en": "Price breaks below $2000 or funding Z-score rises above -100%."
-          }
-        },
-        "status": "executed"
-      },
-      {
-        "symbol": "BTC",
-        "action": "hold",
-        "leverage": 2,
-        "position_size_usd": 1486.04,
-        "entry_reason": {
-          "zh": "现有持仓，止损未触发，但价格接近止损，需密切关注。",
-          "en": "Existing position, stop not triggered, but price near stop, monitor closely."
-        },
-        "exit_plan": {
-          "take_profit": 80000,
-          "stop_loss": 75000,
-          "invalidation": {
-            "zh": "价格跌破75000美元或融资费率Z-score升至正值。",
-            "en": "Price breaks below $75000 or funding Z-score turns positive."
-          }
-        },
-        "status": "executed"
-      }
-    ],
-    "timestamp": "2026-05-25 08:01:00",
-    "market_indicators_at_time": {
-      "trend": "bullish",
-      "volatility": "medium",
-      "leverage_sentiment": "neutral",
-      "metrics": {
-        "avg_momentum_12": 0.0123,
-        "avg_bb_width": 0.0609,
         "avg_funding_rate": "0.0024%"
       }
     }
